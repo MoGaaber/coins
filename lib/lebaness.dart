@@ -91,6 +91,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
         children: <Widget>[
           RaisedButton(
             onPressed: (){
+              Share.share('https://play.google.com/store/apps/details?id=com.king.candycrushsaga&hl=en', subject: 'شارك تطبيقنا مع اصاحبك !');
 
             },
             child: Text('مشاركه التطبيق', style: TextStyle(fontSize: 20)),
