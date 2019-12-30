@@ -6,30 +6,44 @@ class Changhmoney extends StatefulWidget {
 }
 
 class _ChanghmoneyState extends State<Changhmoney> {
-String drobval ='الدولار الامريكي';
-  void drobChange(String val){
-setState(() {
-  drobval= val;
-});
+  String drobval = 'الدولار الامريكي';
+  double syria = 10;
+  double lebanon = 20;
+  dynamic convertToSyria(double input) {
+    if (input <= 0) {
+      print('valid');
+      return false;
+    } else {
+      return (input / lebanon) * syria;
+    }
   }
 
-  TextEditingController _foo= TextEditingController();
-
-  String textval;
-  void plezclecme(){
+  void drobChange(String val) {
     setState(() {
-      textval =_foo.text;
+      drobval = val;
     });
   }
-  @override
 
+  TextEditingController _foo = TextEditingController();
+
+  String textval;
+  void plezclecme() {
+    setState(() {
+      textval = _foo.text;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print(convertToSyria(20));
     return Column(
       children: <Widget>[
         DropdownButton<String>(
-            items: <String>['الدولار الامريكي' , 'ليره لبنانيه (صرافين)','ليره التركيه (صرافين)']
-                .map<DropdownMenuItem<String>>((String value){
-
+            items: <String>[
+              'الدولار الامريكي',
+              'ليره لبنانيه (صرافين)',
+              'ليره التركيه (صرافين)'
+            ].map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 child: Text(value),
                 value: value,
@@ -38,9 +52,11 @@ setState(() {
             value: drobval,
             onChanged: drobChange),
         DropdownButton<String>(
-            items: <String>['الدولار الامريكي' , 'ليره لبنانيه (صرافين)','ليره التركيه (صرافين)']
-                .map<DropdownMenuItem<String>>((String value){
-
+            items: <String>[
+              'الدولار الامريكي',
+              'ليره لبنانيه (صرافين)',
+              'ليره التركيه (صرافين)'
+            ].map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 child: Text(value),
                 value: value,
@@ -48,7 +64,6 @@ setState(() {
             }).toList(),
             value: drobval,
             onChanged: drobChange),
-
         TextField(
           textInputAction: TextInputAction.done,
           textAlign: TextAlign.center,
@@ -56,11 +71,8 @@ setState(() {
           maxLines: 1,
         ),
         Text("عدد العملات = ${textval}"),
-FlatButton(onPressed: plezclecme,
-    
-    child: Text('click me'))
+        FlatButton(onPressed: plezclecme, child: Text('click me'))
       ],
-
     );
   }
 }
