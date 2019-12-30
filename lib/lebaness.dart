@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:share/share.dart';
 
 class Lebaness extends StatefulWidget {
   @override
@@ -89,8 +90,11 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           RaisedButton(
-            onPressed: null,
-            child: Text('Disabled Button', style: TextStyle(fontSize: 20)),
+            onPressed: (){
+              Share.share('https://play.google.com/store/apps/details?id=com.king.candycrushsaga&hl=en', subject: 'شارك تطبيقنا مع اصاحبك !');
+
+            },
+            child: Text('مشاركه التطبيق', style: TextStyle(fontSize: 20)),
           ),
           RaisedButton(
             color: Colors.green,
