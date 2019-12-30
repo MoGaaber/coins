@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "923296056211",
+    "firebase_url": "https://usatolebanese.firebaseio.com",
+    "project_id": "usatolebanese",
+    "storage_bucket": "usatolebanese.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923296056211:android:82d7ba9488d0b64559de66",
+        "android_client_info": {
+          "package_name": "com.usatolebanese"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923296056211-fmsh2kja265gps91op2an2jprtq0189h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5lnCWm7tAcYvwxlkQkDYltcbUqZ7O1Ek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "923296056211-fmsh2kja265gps91op2an2jprtq0189h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
