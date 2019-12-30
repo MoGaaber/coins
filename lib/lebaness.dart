@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:share/share.dart';
 
+import 'app_localizations.dart';
+
 class Lebaness extends StatefulWidget {
   @override
   _LebanessState createState() => _LebanessState();
@@ -45,7 +47,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                 document["Official_price"].toString(),
               ),
             ),
-            Text(': السعر الرسمي'),
+            Text(AppLocalizations.of(context).translate('first_string'),),
           ],
         ),
       ),
@@ -65,7 +67,8 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                 document["buy"].toString(),
               ),
             ),
-            Text(':الصرافين -شراء'),
+            Text(AppLocalizations.of(context).translate('second_string'),
+            ),
           ],
         ),
       ),
