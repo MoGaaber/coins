@@ -12,6 +12,7 @@ class _ChanghmoneyState extends State<Changhmoney> {
   dynamic convertToSyria(double input) {
     if (input <= 0) {
       print('valid');
+      return false; 
     } else {
       return (input / lebanon) * syria;
     }
