@@ -9,9 +9,12 @@ class _ChanghmoneyState extends State<Changhmoney> {
   String drobval = 'الدولار الامريكي';
   double syria = 10;
   double lebanon = 20;
-  double convertToSyria(int input) {
-    double result = (input / lebanon) * syria;
-    return result;
+  dynamic convertToSyria(double input) {
+    if (input <= 0) {
+      print('valid');
+    } else {
+      return (input / lebanon) * syria;
+    }
   }
 
   void drobChange(String val) {
