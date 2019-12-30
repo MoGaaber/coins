@@ -25,7 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   splashscreen: ^1.2.0
   cloud_firestore: ^0.13.0+1
-  country_icons: ^1.1.1
+  share: ^0.6.3+5
 
 dev_dependencies:
   flutter_test:
