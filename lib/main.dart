@@ -9,7 +9,9 @@ import 'package:fl_chart/fl_chart.dart';
 
 void main() {
   runApp(
-    MaterialApp(home: BarChartSample2()),
+    MaterialApp(
+        home: Directionality(
+            textDirection: TextDirection.rtl, child: BaseRoot())),
   );
 }
 

@@ -19,13 +19,17 @@ class BarChartSample2State extends State<BarChartSample2> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final barGroup1 = makeGroupData(0, 5, 12);
     final barGroup2 = makeGroupData(1, 16, 12);
     final barGroup3 = makeGroupData(2, 18, 5);
     final barGroup4 = makeGroupData(3, 20, 16);
     final barGroup5 = makeGroupData(4, 17, 6);
     final barGroup6 = makeGroupData(5, 19, 1.5);
-    final barGroup7 = makeGroupData(6, 10, 1.5);
+    final barGroup7 = makeGroupData(6, 20, 1.5);
 
     final items = [
       barGroup1,
@@ -40,10 +44,7 @@ class BarChartSample2State extends State<BarChartSample2> {
     rawBarGroups = items;
 
     showingBarGroups = rawBarGroups;
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1,
       child: Card(
