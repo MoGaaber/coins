@@ -32,7 +32,7 @@ dependencies:
   fl_chart: ^0.6.2
   equatable: ^1.0.1
   share: ^0.6.3+5
-  fancy_bottom_navigation: ^0.3.2
+  admob_flutter: ^0.3.4
 
 dev_dependencies:
   flutter_test:
@@ -54,7 +54,6 @@ flutter:
   assets:
     - lang/en.json
     - lang/ar.json
-    - assets/images/
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

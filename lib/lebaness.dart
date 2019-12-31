@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:share/share.dart';
-
+import 'package:admob_flutter/admob_flutter.dart';
 import 'app_localizations.dart';
 
 class Lebaness extends StatefulWidget {
@@ -10,7 +10,6 @@ class Lebaness extends StatefulWidget {
 }
 
 class _LebanessState extends State<Lebaness> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,9 +17,9 @@ class _LebanessState extends State<Lebaness> {
           stream: Firestore.instance.collection("lebaness").snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) return Text('loading data .. please Wait..');
-          var x =   Timestamp(1577663280,0);
-          print(x.toDate());
-          //  print(DateTime.fromMicrosecondsSinceEpoch(x.seconds));
+            var x = Timestamp(1577663280, 0);
+            print(x.toDate());
+            //  print(DateTime.fromMicrosecondsSinceEpoch(x.seconds));
 
             return ListView.builder(
               itemCount: snapshot.data.documents.length,
@@ -35,7 +34,6 @@ class _LebanessState extends State<Lebaness> {
 Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
   return Column(
     children: <Widget>[
-
       Padding(
         padding: const EdgeInsets.only(top: 25),
         child: Row(
@@ -47,15 +45,16 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                 document["Official_price"].toString(),
               ),
             ),
-            Text(AppLocalizations.of(context).translate('first_string'),),
+            Text(
+              AppLocalizations.of(context).translate('first_string'),
+            ),
           ],
         ),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text( ( document["Date"].toDate() ).toString()+'اخر تحديث : '),
+        child: Text((document["Date"].toDate()).toString() + 'اخر تحديث : '),
       ),
-
       Padding(
         padding: const EdgeInsets.only(top: 25),
         child: Row(
@@ -67,12 +66,12 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                 document["buy"].toString(),
               ),
             ),
-            Text(AppLocalizations.of(context).translate('second_string'),
+            Text(
+              AppLocalizations.of(context).translate('second_string'),
             ),
           ],
         ),
       ),
-
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -88,14 +87,14 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
           ],
         ),
       ),
-
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           RaisedButton(
-            onPressed: (){
-              Share.share('https://play.google.com/store/apps/details?id=com.king.candycrushsaga&hl=en', subject: 'شارك تطبيقنا مع اصاحبك !');
-
+            onPressed: () {
+              Share.share(
+                  'https://play.google.com/store/apps/details?id=com.king.candycrushsaga&hl=en',
+                  subject: 'شارك تطبيقنا مع اصاحبك !');
             },
             child: Text('مشاركه التطبيق', style: TextStyle(fontSize: 20)),
           ),
@@ -106,6 +105,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
           ),
         ],
       ),
+
     ],
   );
 }
