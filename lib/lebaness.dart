@@ -8,9 +8,7 @@ import 'package:usatolebanese/ads.dart';
 import 'package:usatolebanese/changhmoney.dart';
 import 'package:usatolebanese/globals/widgets/warning.dart';
 import 'package:usatolebanese/syriya.dart';
-import 'package:usatolebanese/widget/messaging_widget.dart';
 import 'app_localizations.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class Lebaness extends StatefulWidget {
   @override
@@ -20,10 +18,7 @@ class Lebaness extends StatefulWidget {
 class _LebanessState extends State<Lebaness> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
-
       body: StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance.collection("lebaness").snapshots(),
           builder: (context, snapshot) {
@@ -42,8 +37,6 @@ class _LebanessState extends State<Lebaness> {
   }
 }
 
-
-
 Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
   return Column(
     children: <Widget>[
@@ -59,7 +52,6 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
@@ -74,7 +66,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
               ),
             ),
             Text(
-              AppLocalizations.of(context).translate('first1_string'),
+              '!',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
           ],
@@ -83,18 +75,26 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Row(children: <Widget>[
-            Text('بيع',style: TextStyle(fontSize: 30),),
-            Icon(Icons.expand_less),
-          ],),
-          Row(children: <Widget>[
-            Text('شراء',style: TextStyle(fontSize: 30),),
-            Icon(Icons.expand_less),
-          ],)
+          Row(
+            children: <Widget>[
+              Text(
+                'بيع',
+                style: TextStyle(fontSize: 30),
+              ),
+              Icon(Icons.expand_less),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Text(
+                'شراء',
+                style: TextStyle(fontSize: 30),
+              ),
+              Icon(Icons.expand_less),
+            ],
+          )
         ],
       ),
-
-
       Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
@@ -113,7 +113,6 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
@@ -127,17 +126,14 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                 ),
               ),
             ),
-
           ],
         ),
       ),
-
       Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Card(
@@ -151,7 +147,6 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Card(
@@ -165,17 +160,11 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                 ),
               ),
             ),
-
-
-
           ],
         ),
       ),
-
       Warning(),
-
       Ads(),
     ],
   );
 }
-
