@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/globals/widgets/warning.dart';
-import 'package:usatolebanese/pages/pageview/change_currency/card.dart';
-import 'package:usatolebanese/pages/pageview/change_currency/logic.dart';
-import 'package:usatolebanese/pages/pageview/change_currency/notice.dart';
+import 'package:usatolebanese/pages/bnb/change_currency/card.dart';
+import 'package:usatolebanese/pages/bnb/change_currency/logic.dart';
+import 'package:usatolebanese/pages/bnb/change_currency/notice.dart';
 
 class ChangeRoot extends StatelessWidget {
   @override

@@ -3,24 +3,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class BaseLogic extends ChangeNotifier {
-  var xTranslate = 100.0;
-  var tabsTitles = [
-    {'selected': false, 'title': 'العمله اللبنانيه', 'idx': 0},
-    {'selected': false, 'title': 'العمله السوريه', 'idx': 1},
-    {'selected': false, 'title': 'محول العملات', 'idx': 2}
+  var bnbItems = [
+    {'icon': 'assets/images/lebanon.png', 'title': 'Lebanon'},
+    {'icon': 'assets/images/syria.png', 'title': 'Syria'},
+    {'icon': 'assets/images/exchange.png', 'title': 'Exchange'}
   ];
+  int index = 0;
   var controller = PageController();
-  BaseLogic() {
-    controller.addListener(() {
-      xTranslate = (controller.offset / 3.6);
-      print(xTranslate);
-      notifyListeners();
-    });
+
+  var xTranslate = 0.0;
+  onTap(int idx) {
+    this.index = idx;
+    controller.animateToPage(idx,
+        duration: Duration(milliseconds: 300), curve: Curves.easeInOutExpo);
   }
-
-  onPressed() {}
-
-  @override
-  // TODO: implement props
-  List<Object> get props => tabsTitles;
 }

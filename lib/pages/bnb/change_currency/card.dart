@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:usatolebanese/pages/pageview/change_currency/logic.dart';
+import 'package:usatolebanese/pages/bnb/change_currency/logic.dart';
 
 class TheCard extends StatelessWidget {
   @override

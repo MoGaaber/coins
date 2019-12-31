@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:usatolebanese/pages/pageview/currency_value/logic.dart';
+import 'package:usatolebanese/pages/bnb/currency_value/logic.dart';
 
 class ValueRoot extends StatelessWidget {
   @override
