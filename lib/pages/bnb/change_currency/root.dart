@@ -9,13 +9,18 @@ class ChangeRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      child: Column(
+      child: ListView(
         children: <Widget>[
-          Warning(),
-          TheText(),
-          TheCard(),
-          TheText(),
-          TheCard()
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+            child: Warning(),
+          ),
+          TheCard(
+            index: 0,
+          ),
+          TheCard(
+            index: 1,
+          )
         ],
       ),
       create: (BuildContext context) => ChangeLogic(),
