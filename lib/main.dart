@@ -9,7 +9,7 @@ import 'package:fl_chart/fl_chart.dart';
 
 void main() {
   runApp(
-    MaterialApp(home: LineChartSample1()),
+    MaterialApp(home: BarChartSample2()),
   );
 }
 
