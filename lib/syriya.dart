@@ -1,36 +1,24 @@
-import 'dart:io';
-
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:share/share.dart';
-import 'package:admob_flutter/admob_flutter.dart';
 import 'package:usatolebanese/ads.dart';
-import 'package:usatolebanese/changhmoney.dart';
+import 'package:usatolebanese/app_localizations.dart';
 import 'package:usatolebanese/globals/widgets/warning.dart';
-import 'package:usatolebanese/syriya.dart';
-import 'package:usatolebanese/widget/messaging_widget.dart';
-import 'app_localizations.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-class Lebaness extends StatefulWidget {
+
+class Syriya extends StatefulWidget {
   @override
-  _LebanessState createState() => _LebanessState();
+  _SyriyaState createState() => _SyriyaState();
 }
 
-class _LebanessState extends State<Lebaness> {
+class _SyriyaState extends State<Syriya> {
+
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
-
-
-      body: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection("lebaness").snapshots(),
+    return Scaffold(body: StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance.collection("turkesh").snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) return Text('loading data .. please Wait..');
-            var x = Timestamp(1577663280, 0);
-            print(x.toDate());
-            //  print(DateTime.fromMicrosecondsSinceEpoch(x.seconds));
 
             return ListView.builder(
               itemCount: snapshot.data.documents.length,
@@ -38,22 +26,16 @@ class _LebanessState extends State<Lebaness> {
                   _buildListItem(context, snapshot.data.documents[index]),
             );
           }),
+
+
     );
   }
 }
 
-
-
 Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
   return Column(
-    children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.only(top: 25),
-        child: Text(
-          (document["Date"].toDate()).toString() + 'اخر تحديث : ',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-      ),
+      children: <Widget>[
+
       Padding(
         padding: const EdgeInsets.only(top: 25),
         child: Row(
@@ -174,8 +156,15 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
 
       Warning(),
 
-      Ads(),
-    ],
+        Ads(),
+    ]
   );
 }
 
+Widget _drawLine() {
+  return Container(
+    height: 1,
+    color: Colors.grey.shade200,
+    margin: EdgeInsets.only(top: 8),
+  );
+}

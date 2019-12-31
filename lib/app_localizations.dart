@@ -34,7 +34,7 @@ class AppLocalizations {
     return _localizedStrings[key];
   }
 }
-class Local{
+class Local {
 
   // Static member to have a simple access to the delegate from the MaterialApp
   static const LocalizationsDelegate<AppLocalizations> delegate =
