@@ -16,5 +16,9 @@
   "the2_string": "US.dollar",
   "the3_string": "Lebanese lira",
   "the4_string": "Turkish lira",
-  "the5_string": "write here"
+  "the5_string": "write here",
+
+  "for1_string": "Dollars",
+  "for2_string": "US.dollar",
+  "for3_string": "Lebanese lira"
 }

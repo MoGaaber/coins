@@ -11,13 +11,13 @@ class Warning extends StatelessWidget {
             flex: 1,
             child: Icon(
               Icons.warning,
-              color: Colors.white,
+              color: Colors.red,
             )),
         Expanded(
           flex: 3,
           child: Text(
             'تنويه نحن مجرد ناقلين لسعر السوق والصرافين وليس لنا اى دور فى تحديد السعر  ',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.black),
           ),
         ),
       ],

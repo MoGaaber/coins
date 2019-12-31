@@ -4,6 +4,7 @@ import 'package:splashscreen/splashscreen.dart';
 import 'package:usatolebanese/app_localizations.dart';
 import 'package:usatolebanese/base/Base.dart';
 import 'package:usatolebanese/base/root.dart';
+import 'package:usatolebanese/widget/messaging_widget.dart';
 import 'pages/out/chart/root.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -52,22 +53,40 @@ class Usatolebaness extends StatefulWidget {
   @override
   _UsatolebanessState createState() => _UsatolebanessState();
 }
-
+var _themdata=ThemeData(primarySwatch: Colors.black54,textSelectionColor: Colors.white,brightness: Brightness.dark);
 class _UsatolebanessState extends State<Usatolebaness> {
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: SplashScreen(
-        seconds: 3,
-        backgroundColor: Colors.black,
-        navigateAfterSeconds: Base(),
-        title: Text(
-          'مرحبا بكم',
-          style: TextStyle(fontFamily: 'BalooBhaijaan'),
-        ),
+    return Theme(data: _themdata,
+      child: MaterialApp(
+
+        debugShowCheckedModeBanner: false,
+        home: Base(),
       ),
     );
   }
+}
+class MyApp extends StatelessWidget {
+  final String appTitle = 'Firebase messaging';
+  @override
+  Widget build(BuildContext context) => MaterialApp(
+    title: appTitle,
+    home: MainPage(appTitle: appTitle),
+  );
+}
+
+class MainPage extends StatelessWidget {
+  final String appTitle;
+
+  const MainPage({this.appTitle});
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(
+      title: Text(appTitle),
+    ),
+    body: MessagingWidget(),
+  );
 }

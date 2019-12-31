@@ -1,4 +1,6 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:usatolebanese/ads.dart';
 
 class Changhmoney extends StatefulWidget {
   @override
@@ -37,32 +39,38 @@ class _ChanghmoneyState extends State<Changhmoney> {
     print(convertToSyria(20));
     return Column(
       children: <Widget>[
-        DropdownButton<String>(
-            items: <String>[
-              'الدولار الامريكي',
-              'ليره لبنانيه (صرافين)',
-              'ليره التركيه (صرافين)'
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                child: Text(value),
-                value: value,
-              );
-            }).toList(),
-            value: drobval,
-            onChanged: drobChange),
-        DropdownButton<String>(
-            items: <String>[
-              'الدولار الامريكي',
-              'ليره لبنانيه (صرافين)',
-              'ليره التركيه (صرافين)'
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                child: Text(value),
-                value: value,
-              );
-            }).toList(),
-            value: drobval,
-            onChanged: drobChange),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: DropdownButton<String>(
+              items: <String>[
+                'الدولار الامريكي',
+                'ليره لبنانيه (صرافين)',
+                'ليره السورية (صرافين)'
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  child: Text(value),
+                  value: value,
+                );
+              }).toList(),
+              value: drobval,
+              onChanged: drobChange),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: DropdownButton<String>(
+              items: <String>[
+                'الدولار الامريكي',
+                'ليره لبنانيه (صرافين)',
+                'ليره السورية (صرافين)'
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  child: Text(value),
+                  value: value,
+                );
+              }).toList(),
+              value: drobval,
+              onChanged: drobChange),
+        ),
         TextField(
           textInputAction: TextInputAction.done,
           textAlign: TextAlign.center,
@@ -70,8 +78,12 @@ class _ChanghmoneyState extends State<Changhmoney> {
           maxLines: 1,
         ),
         Text("عدد العملات = ${textval}"),
-        FlatButton(onPressed: plezclecme, child: Text('click me'))
+        FlatButton(onPressed: plezclecme, child: Text('click me')),
+
+       Ads(),
       ],
+
+
     );
   }
 }
