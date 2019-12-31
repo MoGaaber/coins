@@ -10,7 +10,14 @@
 
   "second1_string": ":Official_price.",
   "second2_string": ":Price to buy .",
-  "second3_string": "price for sale"
+  "second3_string": "price for sale",
+
+
+  "the1_string": "Dollars",
+  "the2_string": "US.dollar",
+  "the3_string": "Lebanese lira",
+  "the4_string": "Turkish lira",
+  "the5_string": "write here"
 
 
 }

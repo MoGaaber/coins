@@ -13,6 +13,7 @@ class Base extends StatelessWidget {
     var logic = Provider.of<BaseLogic>(context);
     //print(MediaQuery.of(context).size.width);
     return SafeArea(
+
         child: Scaffold(
       body: PageView(
         controller: logic.controller,

@@ -17,6 +17,7 @@ class _LebanessState extends State<Lebaness> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
@@ -39,7 +40,7 @@ class _LebanessState extends State<Lebaness> {
                     MaterialPageRoute<Null>(builder: (BuildContext context) {
                       return WebviewScaffold(
                         url:
-                        "https://play.google.com/store/apps/details?id=quotesmix.com.quotes_mix",
+                        "https://play.google.com/store/apps/details?id=com.usatolebanese",
                       );
                     }));
               },
@@ -72,7 +73,7 @@ class _LebanessState extends State<Lebaness> {
                     'https://play.google.com/store/apps/details?id=com.usatolebanese',
                     subject: 'شارك تطبيقنا مع اصاحبك !');
               },
-              trailing: Icon(Icons.alternate_email),
+              trailing: Icon(Icons.share),
             )
           ],
         ),
@@ -118,10 +119,17 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                document["Official_price"].toString(),
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              child: Card(
+                color: Colors.black26,
 
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    document["Official_price"].toString(),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+
+                  ),
+                ),
               ),
             ),
             Text(
@@ -146,10 +154,16 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                document["buy"].toString(),
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              child: Card(
+                color: Colors.black26,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    document["buy"].toString(),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
 
+                  ),
+                ),
               ),
             ),
             Text(
@@ -167,11 +181,17 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                document["Sale"].toString(),
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              child: Card(
+                color: Colors.black26,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    document["Sale"].toString(),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
 
 
+                  ),
+                ),
               ),
             ),
             Text(

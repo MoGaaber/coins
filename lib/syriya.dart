@@ -107,10 +107,18 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                document["buy"].toString(),
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              padding: const EdgeInsets.all(12.0),
+              child: Card(
+                margin: EdgeInsets.all(10),
+                color: Colors.black12,
+
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    document["buy"].toString(),
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
             ),
             Text(AppLocalizations.of(context).translate('second2_string'),
