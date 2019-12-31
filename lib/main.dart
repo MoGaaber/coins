@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:usatolebanese/base/root.dart';
+import 'package:usatolebanese/pages/pageview/currency_value/root.dart';
 
 import 'home.dart';
+import 'pages/out/chart/root.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 void main() {
   runApp(
-    BaseRoot(),
+    MaterialApp(home: LineChartSample1()),
   );
 }
 

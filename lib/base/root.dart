@@ -9,7 +9,7 @@ class BaseRoot extends StatefulWidget {
 
 class _BaseRootState extends State<BaseRoot> {
   var xTranslate = 1.0;
-  List<Map> tabsTitles = [
+  var tabsTitles = [
     {'selected': false, 'title': 'العمله اللبنانيه', 'idx': 0},
     {'selected': false, 'title': 'العمله السوريه', 'idx': 1},
     {'selected': false, 'title': 'محول العملات', 'idx': 2}
