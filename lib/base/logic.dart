@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class BaseLogic extends ChangeNotifier {
   var bnbItems = [
     {'icon': 'assets/images/lebanon.png', 'title': 'Lebanon'},
-    {'icon': 'assets/images/syria.png', 'title': 'Syria'},
+    {'icon': 'assets/images/turkey-flag.png', 'title': 'syria'},
     {'icon': 'assets/images/exchange.png', 'title': 'Exchange'}
   ];
   int index = 0;

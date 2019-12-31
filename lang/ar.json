@@ -1,12 +1,17 @@
 {
-  "first1_string": ":Official price.",
-  "first2_string": ":الصرافين-شراء",
-  "first3_string": ":الصرافين-بيع",
-  "first4_string": ":السعر الرسمي .",
-  "first5_string": ":السعر الرسمي .",
-  "first6_string": ":السعر الرسمي .",
-  "first7_string": ":السعر الرسمي .",
-  "first8_string": ":السعر الرسمي .",
-  "first9_string": ":السعر الرسمي .",
-  "first10_string": ":السعر الرسمي ."
+  "first1_string": ":Official_price.",
+  "first2_string": ":Price to buy .",
+  "first3_string": "home",
+  "first4_string": "Evaluation",
+  "first5_string": "Connect with us",
+  "first6_string": "Share our app",
+  "first7_string": ":price for sale .",
+
+
+  "second1_string": ":Official_price.",
+  "second2_string": ":Price to buy .",
+  "second3_string": "price for sale"
+
+
+
 }

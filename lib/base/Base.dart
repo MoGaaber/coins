@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/bnb.dart';
 import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/junk/tabby.dart';
+import 'package:usatolebanese/lebaness.dart';
 import 'package:usatolebanese/pages/bnb/change_currency/root.dart';
+import 'package:usatolebanese/syriya.dart';
 
 class Base extends StatelessWidget {
   @override
@@ -15,12 +17,8 @@ class Base extends StatelessWidget {
       body: PageView(
         controller: logic.controller,
         children: <Widget>[
-          Container(
-            color: Colors.red,
-          ),
-          Container(
-            color: Colors.orange,
-          ),
+          Lebaness(),
+          Syriya(),
           ChangeRoot()
         ],
       ),
