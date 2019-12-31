@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="usatolebanese"
+        android:label="USA to Lebanese Pound-سعر الدولار والليره اللبنانيه"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
