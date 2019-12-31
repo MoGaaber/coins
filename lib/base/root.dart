@@ -8,13 +8,14 @@ class BaseRoot extends StatefulWidget {
 }
 
 class _BaseRootState extends State<BaseRoot> {
-  var xTranslate = 0.0;
+  var xTranslate = 1.0;
   List<Map> tabsTitles = [
     {'selected': false, 'title': 'العمله اللبنانيه', 'idx': 0},
     {'selected': false, 'title': 'العمله السوريه', 'idx': 1},
     {'selected': false, 'title': 'محول العملات', 'idx': 2}
   ];
   var coins = ['الدولار الامريكى', 'الليره اللبنانى', 'الليره السوري'];
+  var controller = PageController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,69 +30,90 @@ class _BaseRootState extends State<BaseRoot> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: tabsTitles.map<ButtonTheme>((x) {
-                        print(x);
-                        return ButtonTheme(
-                          buttonColor: Colors.red,
-                          shape: x['title'] == 'العمله السوريه'
-                              ? Border(
-                                  right: BorderSide(color: Colors.white),
-                                  left: BorderSide(color: Colors.white))
-                              : null,
-                          materialTapTargetSize: MaterialTapTargetSize.padded,
-                          height: 50,
-                          child: FlatButton(
-                            color: x['selected'] ? Colors.white : Colors.black,
-                            onPressed: () {
-                              for (var x in tabsTitles) {
-                                x['selected'] = false;
-                              }
-                              if (x['idx'] == 0) {
-                                xTranslate = 100;
-                              } else if (x['idx'] == 1) {
-                                xTranslate = 0;
-                              } else {
-                                xTranslate = -100;
-                              }
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: tabsTitles.map<ButtonTheme>((x) {
+                          print(x);
+                          return ButtonTheme(
+                            buttonColor: Colors.red,
+                            shape: x['title'] == 'العمله السوريه'
+                                ? Border(
+                                    right: BorderSide(color: Colors.white),
+                                    left: BorderSide(color: Colors.white))
+                                : null,
+                            materialTapTargetSize: MaterialTapTargetSize.padded,
+                            height: 50,
+                            child: FlatButton(
+                              color:
+                                  x['selected'] ? Colors.white : Colors.black,
+                              onPressed: () {
+                                for (var x in tabsTitles) {
+                                  x['selected'] = false;
+                                }
+                                if (x['idx'] == 2) {
+                                  controller.animateToPage(0,
+                                      duration: Duration(milliseconds: 200),
+                                      curve: Curves.easeInOutExpo);
+                                  xTranslate = -100;
+                                } else if (x['idx'] == 1) {
+                                  controller.animateToPage(1,
+                                      duration: Duration(milliseconds: 200),
+                                      curve: Curves.easeInOutExpo);
 
-                              x['selected'] = true;
+                                  xTranslate = 0;
+                                } else {
+                                  controller.animateToPage(2,
+                                      duration: Duration(milliseconds: 200),
+                                      curve: Curves.easeInOutExpo);
 
-                              setState(() {});
-                            },
-                            child: Text(
-                              x['title'].toString(),
-                              style: TextStyle(
-                                  color: x['selected']
-                                      ? Colors.black
-                                      : Colors.white),
+                                  xTranslate = 100;
+                                }
+
+                                x['selected'] = true;
+
+                                setState(() {});
+                              },
+                              child: Text(
+                                x['title'].toString(),
+                                style: TextStyle(
+                                    color: x['selected']
+                                        ? Colors.black
+                                        : Colors.white),
+                              ),
                             ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: AnimatedContainer(
-                        transform: Matrix4.translationValues(xTranslate, 0, 0),
-                        width: 10,
-                        height: 10,
-                        decoration: BoxDecoration(
-                            color: Colors.yellow, shape: BoxShape.circle),
-                        duration: Duration(milliseconds: 200),
+                          );
+                        }).toList(),
                       ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: AnimatedContainer(
+                          transform:
+                              Matrix4.translationValues(xTranslate, 0, 0),
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                              color: Colors.yellow, shape: BoxShape.circle),
+                          duration: Duration(milliseconds: 200),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: PageView(
-                    
+                    controller: controller,
                     children: <Widget>[
-                      Container(),
+                      Container(
+                        color: Colors.red,
+                      ),
+                      Container(
+                        color: Colors.white,
+                      ),
                       Column(
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
