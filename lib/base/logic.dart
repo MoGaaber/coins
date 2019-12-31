@@ -12,8 +12,7 @@ class BaseLogic extends ChangeNotifier {
   var controller = PageController();
   BaseLogic() {
     controller.addListener(() {
-      print(controller.offset / 360);
-      xTranslate = (controller.offset * 4 / 360);
+      xTranslate = (controller.offset / 3.6);
       print(xTranslate);
       notifyListeners();
     });
