@@ -8,57 +8,57 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class _HomeState extends State<Home>
+
+  with SingleTickerProviderStateMixin {
   TabController _tabController;
 
   @override
   void initState() {
-    super.initState();
-    _tabController = TabController(initialIndex: 0, length: 3, vsync: this);
+  super.initState();
+  _tabController = TabController(initialIndex: 0, length: 3, vsync: this);
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  _tabController.dispose();
+  super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            bottom: TabBar(
-              isScrollable: true,
+    return DefaultTabController(
+
+length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            isScrollable: true,
               tabs: <Widget>[
-                Container(
-                  width: 50,
-                  height: 50,
-                  color: Colors.red,
-                ),
-                Container(
-                  color: Colors.red,
-                  child: AbsorbPointer(
-                    child: Tab(
-                      child: Text('العمله التركيه'),
-                    ),
-                  ),
+                Tab(
+                  child: Text('العمله اللبنانيه'),
+                  icon: Icon(Icons.ac_unit),
                 ),
                 Tab(
-                  text: ('محول العملات'),
+                  child: Text('العمله التركيه'),
+                  icon: Icon(Icons.ac_unit),
                 ),
+                Tab(
+                  child: Text('محول العملات'),
+                  icon: Icon(Icons.ac_unit),
+                ),
+                
               ],
-              controller: _tabController,
-            ),
-          ),
-          body: TabBarView(
-            children: [Lebaness(), Turkesh(), Changhmoney()],
+
             controller: _tabController,
           ),
         ),
+        body: TabBarView(
+
+          children: [Lebaness(), Turkesh(), Changhmoney()],
+
+
+
+          controller: _tabController,),
       ),
     );
   }
