@@ -38,9 +38,9 @@ class Draw extends StatelessWidget {
                     ),
                     leading: Icon(logic.icons[i], color: Colors.white),
                     onTap: () {
-//                      logic.controller.animateToPage(i,
-//                          duration: Duration(milliseconds: 300),
-//                          curve: Curves.bounceInOut);
+                      logic.controller.animateToPage(i,
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.bounceInOut);
                       logic.index = i;
                       logic.notifyListeners();
                       Navigator.pop(context);

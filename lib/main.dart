@@ -19,8 +19,12 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
-      darkTheme: ThemeData(iconTheme: IconThemeData(color: Colors.white)),
+      darkTheme: ThemeData(
+          scaffoldBackgroundColor: Color(0xff1B191A),
+          primaryColor: Color(0xff242527),
+          iconTheme: IconThemeData(color: Colors.white)),
       localizationsDelegates: [
         const LocalizationDelegate(),
         GlobalMaterialLocalizations.delegate,

@@ -29,7 +29,7 @@ class Localization {
         'To',
         'Previous days'
       ],
-      'pages': ['Currencies converter', 'Lebanon currency', 'Syrian currency'],
+      'pages': ['Currencies Converter', 'Lebanon Currency', 'Syrian Currency'],
     },
     'ar': {
       'drawer': [

@@ -47,7 +47,7 @@ class BaseLogic extends ChangeNotifier {
   }
 
   BaseLogic() {
-    //fetchData();
+    fetchData();
   }
   var listTiles = <Map>[];
   var icons = [

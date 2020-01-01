@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:usatolebanese/base/drawer.dart';
 import 'package:usatolebanese/base/logic.dart';
+import 'package:usatolebanese/pages/drawer/change_currency/root.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
@@ -15,13 +16,20 @@ class Base extends StatelessWidget {
             backgroundColor: Colors.black,
             drawer: Draw(),
             appBar: AppBar(
+              textTheme: TextTheme(
+                  title: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              )),
               title: Selector<BaseLogic, int>(
                 selector: (BuildContext, BaseLogic logic) => logic.index,
                 builder: (BuildContext context, int value, Widget child) {
-                  return Text(Localization.of(context).drawer[value]);
+                  return Text(
+                    Localization.of(context).drawer[value],
+                  );
                 },
               ),
-              centerTitle: true,
+              centerTitle: false,
               backgroundColor: Colors.black,
               leading: Builder(
                 builder: (context) => IconButton(
@@ -47,6 +55,27 @@ class Base extends StatelessWidget {
                 ),
               ],
             ),
-            body: ValueRoot()));
+            body: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  // Where the linear gradient begins and ends
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  // Add one stop for each color. Stops should increase from 0 to 1
+                  stops: [0.1, 0.5],
+                  colors: [
+                    // Colors are easy thanks to Flutter's Colors class.
+                    Colors.black,
+                    Color(0xff1E1E2E)
+                  ],
+                ),
+              ),
+              child: DefaultTextStyle(
+                style: TextStyle(color: Colors.white),
+                child: PageView(
+                    controller: logic.controller,
+                    children: <Widget>[ChangeRoot(), ValueRoot(), ValueRoot()]),
+              ),
+            )));
   }
 }

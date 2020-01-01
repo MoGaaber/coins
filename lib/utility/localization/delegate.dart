@@ -6,15 +6,17 @@ class LocalizationDelegate extends LocalizationsDelegate<Localization> {
   const LocalizationDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en', 'ar'].contains(locale.languageCode);
+  bool isSupported(Locale locale) {
+    return ['en', 'ar'].contains(locale.languageCode);
+  }
 
   @override
   Future<Localization> load(Locale locale) {
-    // Returning a SynchronousFuture here because an async "load" operation
-    // isn't needed to produce an instance of DemoLocalizations.
     return SynchronousFuture<Localization>(Localization(locale));
   }
 
   @override
-  bool shouldReload(LocalizationDelegate old) => false;
+  bool shouldReload(LocalizationDelegate old) {
+    return false;
+  }
 }
