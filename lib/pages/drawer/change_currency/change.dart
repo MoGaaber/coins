@@ -93,26 +93,26 @@ class Change extends StatelessWidget {
 //            color: Colors.white38,
 //            child: Padding(
 //              padding: const EdgeInsets.all(8.0),
-//              child: Row(
+//             child: Row(
 //                mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //                children: <Widget>[
-//                  Text(
-//                    'To ${changeLogic.toT} ',
+//                 Text(
+//                   'To ${changeLogic.toT} ',
 //                    style: TextStyle(
 //                        fontSize: 20,
 //                        fontWeight: FontWeight.bold,
-//                        color: Colors.white),
+//                       color: Colors.white),
 //                  ),
 //                  PopupMenuButton(
-//                    onSelected: (x) {
-//                      changeLogic.to = x['value'];
-//                      changeLogic.toT = x['name'];
+//                   onSelected: (x) {
+//                     changeLogic.to = x['value'];
+//                     changeLogic.toT = x['name'];
 //                      changeLogic.notifyListeners();
 //                    },
 //                    itemBuilder: (BuildContext context) =>
-//                        logic.currencyTypes.map((x) {
-//                      return PopupMenuItem(value: x, child: Text(x['name']));
-//                    }).toList(),
+//                       logic.currencyTypes.map((x) {
+//                     return PopupMenuItem(value: x, child: Text(x['name']));
+//                   }).toList(),
 //                  )
 //                ],
 //              ),
@@ -123,5 +123,5 @@ class Change extends StatelessWidget {
 //        // Ads(),
 //      ],
 //    );
-  }
+ }
 }

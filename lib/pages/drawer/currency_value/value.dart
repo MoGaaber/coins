@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/logic.dart';
+import 'package:usatolebanese/globals/widgets/ad.dart';
 import 'package:usatolebanese/globals/widgets/warning.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/table.dart';
 import 'package:usatolebanese/pages/out/chart/root.dart';
@@ -104,7 +105,7 @@ class Value extends StatelessWidget {
               label: Text('Previous days'),
             ),
           ),
-        )
+        ),
       ],
     );
   }
