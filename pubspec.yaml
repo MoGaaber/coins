@@ -38,6 +38,8 @@ dependencies:
   bezier_chart: ^1.0.15
   intl: ^0.16.0
   date_format: ^1.0.8
+  tuple: ^1.0.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

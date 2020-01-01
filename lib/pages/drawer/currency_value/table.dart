@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/logic.dart';
+import 'package:usatolebanese/utility/localization/localization.dart';
 
 class Tabl extends StatelessWidget {
+  bool isLebanon;
+  Tabl(this.isLebanon);
   @override
   Widget build(BuildContext context) {
+    var localization = Localization.of(context).globals;
+
     var logic = Provider.of<BaseLogic>(context);
     return SizedBox.fromSize(
-        size: Size.fromHeight(150),
+        size: Size.fromHeight(140),
         child: Row(
           children: <Widget>[
             Spacer(
@@ -18,11 +23,11 @@ class Tabl extends StatelessWidget {
               children: <Widget>[
                 Text(''),
                 Text(
-                  'From',
+                  localization[0],
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
                 ),
                 Text(
-                  'To',
+                  localization[1],
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
                 ),
               ],
@@ -36,7 +41,7 @@ class Tabl extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Text(
-                      'Buy',
+                      localization[2],
                       style:
                           TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
                     ),
@@ -44,13 +49,19 @@ class Tabl extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  logic.model.lebanonQuery.documents.last.data['buy']
-                      .toString(),
+                  isLebanon
+                      ? logic.model.lebanonQuery.documents.last.data['buy']
+                          .toString()
+                      : logic.model.syrianQuery.documents.last.data['buy']
+                          .toString(),
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  logic.model.lebanonQuery.documents.first.data['buy']
-                      .toString(),
+                  isLebanon
+                      ? logic.model.lebanonQuery.documents.first.data['buy']
+                          .toString()
+                      : logic.model.syrianQuery.documents.first.data['buy']
+                          .toString(),
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
                 )
               ],
@@ -64,7 +75,7 @@ class Tabl extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Text(
-                      'Sell',
+                      localization[3],
                       style:
                           TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
                     ),
@@ -72,13 +83,19 @@ class Tabl extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  logic.model.lebanonQuery.documents.last.data['Sale']
-                      .toString(),
+                  this.isLebanon
+                      ? logic.model.lebanonQuery.documents.last.data['Sale']
+                          .toString()
+                      : logic.model.syrianQuery.documents.last.data['Sale']
+                          .toString(),
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  logic.model.lebanonQuery.documents.first.data['Sale']
-                      .toString(),
+                  this.isLebanon
+                      ? logic.model.lebanonQuery.documents.first.data['Sale']
+                          .toString()
+                      : logic.model.syrianQuery.documents.first.data['Sale']
+                          .toString(),
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
                 )
               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:usatolebanese/utility/localization/localization.dart';
 
 class Warning extends StatelessWidget {
   @override
@@ -19,7 +20,7 @@ class Warning extends StatelessWidget {
           Expanded(
             flex: 4,
             child: Text(
-              'Warning ! .. We are only copiers of the price',
+              Localization.of(context).warning,
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 15,

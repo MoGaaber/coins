@@ -13,7 +13,7 @@ class Base extends StatelessWidget {
     var logic = Provider.of<BaseLogic>(context, listen: false);
     return SafeArea(
         child: Scaffold(
-            backgroundColor: Colors.black,
+            backgroundColor: Color(0xff1B191A),
             drawer: Draw(),
             appBar: AppBar(
               textTheme: TextTheme(
@@ -30,7 +30,7 @@ class Base extends StatelessWidget {
                 },
               ),
               centerTitle: false,
-              backgroundColor: Colors.black,
+              backgroundColor: Color(0xff242527),
               leading: Builder(
                 builder: (context) => IconButton(
                   icon: Icon(Icons.apps),
@@ -40,20 +40,20 @@ class Base extends StatelessWidget {
                   },
                 ),
               ),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.refresh),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: Icon(Icons.share),
-                  onPressed: () {
-                    Share.share(
-                        'https://play.google.com/store/apps/details?id=com.usatolebanese',
-                        subject: 'شارك تطبيقنا مع اصاحبك !');
-                  },
-                ),
-              ],
+//              actions: <Widget>[
+//                IconButton(
+//                  icon: Icon(Icons.refresh),
+//                  onPressed: () {},
+//                ),
+//                IconButton(
+//                  icon: Icon(Icons.share),
+//                  onPressed: () {
+//                    Share.share(
+//                        'https://play.google.com/store/apps/details?id=com.usatolebanese',
+//                        subject: 'شارك تطبيقنا مع اصاحبك !');
+//                  },
+//                ),
+//              ],
             ),
             body: Container(
               decoration: BoxDecoration(
@@ -73,8 +73,20 @@ class Base extends StatelessWidget {
               child: DefaultTextStyle(
                 style: TextStyle(color: Colors.white),
                 child: PageView(
+                    onPageChanged: (x) {
+                      logic.index = x;
+                      logic.notifyListeners();
+                    },
                     controller: logic.controller,
-                    children: <Widget>[ChangeRoot(), ValueRoot(), ValueRoot()]),
+                    children: <Widget>[
+                      ChangeRoot(),
+                      ValueRoot(
+                        isLebanon: false,
+                      ),
+                      ValueRoot(
+                        isLebanon: true,
+                      )
+                    ]),
               ),
             )));
   }

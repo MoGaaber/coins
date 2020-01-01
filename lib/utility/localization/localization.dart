@@ -15,42 +15,34 @@ class Localization {
         'Currency exchanger',
         'Syrian currecny',
         'Lebanon currecny',
+        'Share App',
         'Rate App',
-        'Share App'
       ],
       'warning':
           "Warning : We are only copiers of cashiers & market price's , we haven't any role in Determine the price ",
-      'coin': [
-        'Last update in',
-        'Official price is',
-        'Buy',
-        'Sell',
-        'From',
-        'To',
-        'Previous days'
-      ],
+      'coin': ['Last update in', 'Official price is', 'Previous days'],
       'pages': ['Currencies Converter', 'Lebanon Currency', 'Syrian Currency'],
+      'currencyTypes': ['USA Dollar', 'Lebanon Lera', 'Syrian Lera'],
+      'globals': ['From', 'To', 'Buy', 'Sell']
     },
     'ar': {
       'drawer': [
         'محول العملات',
         'العملة السورية',
         'العملة اللبنانية',
-        'تقييم التطبيق',
         'مشاركه التطبيق'
+            'تقييم التطبيق',
       ],
       'warning':
           'تنويه : نحن مجرد ناقلين لسعر السوق والصرافيين وليس لنا أى دور فى تحديد السعر',
-      'coin': [
-        'اخر تحديث فى',
-        'السعر الرسمى هو',
-        'بيع',
-        'شراء',
-        'من',
-        'إلى',
-        'الأيام السابقة'
-      ],
+      'coin': ['اخر تحديث فى', 'السعر الرسمى هو', 'الأيام السابقة'],
+      'globals': ['من', 'الى', 'بيع', 'شراء'],
       'pages': ['العملة السورية', 'العملة اللبنانية', 'محول العملات'],
+      'currencyTypes': [
+        'الدولار الأمريكى',
+        'الليرة اللبنانية',
+        'الليرة السورية'
+      ]
     },
   };
 
@@ -68,5 +60,13 @@ class Localization {
 
   List get coin {
     return _localizedValues[locale.languageCode]['coin'];
+  }
+
+  List get globals {
+    return _localizedValues[locale.languageCode]['globals'];
+  }
+
+  List get currencyTypes {
+    return _localizedValues[locale.languageCode]['currencyTypes'];
   }
 }

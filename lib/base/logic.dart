@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:usatolebanese/main.dart';
 import 'package:usatolebanese/model/model.dart';
+import 'package:usatolebanese/utility/localization/localization.dart';
 
 class BaseLogic extends ChangeNotifier {
   List<Map> currencyTypes;
@@ -13,6 +14,7 @@ class BaseLogic extends ChangeNotifier {
   Future<DocumentSnapshot> lebanonOfficial, syrianOfficial;
   bool isLoading = true;
   Model model;
+
   void fetchData() {
     Future.wait([
       Firestore.instance
@@ -36,7 +38,7 @@ class BaseLogic extends ChangeNotifier {
           lebanonOfficial: x[2],
           syrianOfficial: x[3]);
       currencyTypes = [
-        {'value': 1.0, 'name': 'Usa Dollar'},
+        {'value': 1.0, 'name': 'USA Dollar'},
         {'value': model.buyLebanon, 'name': 'Lebanon Lera'},
         {'value': model.buySyrian, 'name': 'Syrian Lera'},
       ];
@@ -45,6 +47,8 @@ class BaseLogic extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  var localization;
 
   BaseLogic() {
     fetchData();

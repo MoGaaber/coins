@@ -3,10 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ChartRoot extends StatelessWidget {
+  String collection;
+  ChartRoot(this.collection);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color(0xff1B191A),
         appBar: AppBar(
           centerTitle: true,
           title: Text(
@@ -18,7 +21,7 @@ class ChartRoot extends StatelessWidget {
               .collection('lebaness')
               .reference()
               .orderBy('Date', descending: true)
-              .limit(2)
+              .limit(30)
               .getDocuments(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -64,7 +67,7 @@ class ChartRoot extends StatelessWidget {
                   verticalIndicatorColor: Colors.black26,
                   showVerticalIndicator: true,
                   verticalIndicatorFixedPosition: false,
-                  backgroundColor: Colors.black38,
+                  backgroundColor: Color(0xff1B191A),
                   footerHeight: 30.0,
                 ),
               );

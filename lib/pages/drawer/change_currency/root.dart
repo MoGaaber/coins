@@ -9,10 +9,10 @@ import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
 
 class ChangeRoot extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext cx) {
     return ChangeNotifierProvider(
       child: Change(),
-      create: (BuildContext context) => ChangeLogic(),
+      create: (BuildContext context) => ChangeLogic(cx),
     );
   }
 }
