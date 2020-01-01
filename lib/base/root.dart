@@ -1,3 +1,5 @@
+import 'package:bezier_chart/bezier_chart.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -5,8 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/Base.dart';
 import 'package:usatolebanese/base/bnb.dart';
 import 'package:usatolebanese/base/logic.dart';
-import 'package:usatolebanese/junk/tabby.dart';
-import 'package:usatolebanese/pages/bnb/change_currency/root.dart';
 
 class BaseRoot extends StatefulWidget {
   @override

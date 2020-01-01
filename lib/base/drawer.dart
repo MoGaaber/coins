@@ -3,15 +3,14 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import 'package:usatolebanese/app_localizations.dart';
 import 'package:usatolebanese/base/logic.dart';
-import 'package:usatolebanese/changhmoney.dart';
 import 'package:usatolebanese/main.dart';
+import 'package:usatolebanese/utility/localization/localization.dart';
 
 class Draw extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var logic = Provider.of<BaseLogic>(context);
+    var logic = Provider.of<BaseLogic>(context, listen: false);
 
     return Drawer(
       child: Container(
@@ -20,9 +19,9 @@ class Draw extends StatelessWidget {
           children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
-//                image:DecorationImage(
-//                  image: NetworkImage(''),
-//                ),
+//                image: DecorationImage(
+//                    image: AssetImage('assets/images/logo.png'),
+//                    fit: BoxFit.contain),
                 color: Color(0xff6F0702),
               ),
             ),
@@ -31,7 +30,7 @@ class Draw extends StatelessWidget {
                 children: <Widget>[
                   ListTile(
                     title: Text(
-                      DemoLocalizations.of(context).drawer[i],
+                      Localization.of(context).drawer[i],
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -39,7 +38,12 @@ class Draw extends StatelessWidget {
                     ),
                     leading: Icon(logic.icons[i], color: Colors.white),
                     onTap: () {
-                      Scaffold.of(context).openDrawer();
+//                      logic.controller.animateToPage(i,
+//                          duration: Duration(milliseconds: 300),
+//                          curve: Curves.bounceInOut);
+                      logic.index = i;
+                      logic.notifyListeners();
+                      Navigator.pop(context);
                     },
                   ),
                   i == 2

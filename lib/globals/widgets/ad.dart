@@ -1,14 +1,13 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 
-class Ads extends StatelessWidget {
+class Ad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
-      child:   Padding(
+      child: Padding(
         padding:
-        const EdgeInsets.only(top: 20, bottom: 10, right: 10, left: 10),
+            const EdgeInsets.only(top: 20, bottom: 10, right: 10, left: 10),
         child: Container(
           margin: EdgeInsets.only(top: 1),
           child: AdmobBanner(
@@ -33,22 +32,22 @@ class Ads extends StatelessWidget {
                       'Admob banner failed to load. Error code: ${args['errorCode']}');
                   break;
                 case AdmobAdEvent.clicked:
-                // TODO: Handle this case.
+                  // TODO: Handle this case.
                   break;
                 case AdmobAdEvent.impression:
-                // TODO: Handle this case.
+                  // TODO: Handle this case.
                   break;
                 case AdmobAdEvent.leftApplication:
-                // TODO: Handle this case.
+                  // TODO: Handle this case.
                   break;
                 case AdmobAdEvent.completed:
-                // TODO: Handle this case.
+                  // TODO: Handle this case.
                   break;
                 case AdmobAdEvent.rewarded:
-                // TODO: Handle this case.
+                  // TODO: Handle this case.
                   break;
                 case AdmobAdEvent.started:
-                // TODO: Handle this case.
+                  // TODO: Handle this case.
                   break;
               }
             },
