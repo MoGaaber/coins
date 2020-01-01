@@ -11,7 +11,7 @@ class Ad extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.only(top: 1),
           child: AdmobBanner(
-            adUnitId: "ca-app-pub-3940256099942544/6300978111",
+            adUnitId: "ca-app-pub-6888438639218821/6981282452",
             adSize: AdmobBannerSize.LARGE_BANNER,
             listener: (AdmobAdEvent event, Map<String, dynamic> args) {
               switch (event) {
