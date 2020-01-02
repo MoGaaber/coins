@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
@@ -11,7 +14,6 @@ class Draw extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var logic = Provider.of<BaseLogic>(context, listen: false);
-
     return SizedBox.fromSize(
       size: Size.fromWidth(240),
       child: Drawer(
@@ -38,17 +40,13 @@ class Draw extends StatelessWidget {
                       title: Text(
                         Localization.of(context).drawer[i],
                         style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),
                       leading: Icon(logic.icons[i], color: Colors.white),
                       onTap: () {
                         Navigator.pop(context);
-
-                        logic.controller.animateToPage(i,
-                            duration: Duration(milliseconds: 400),
-                            curve: Curves.easeInOutExpo);
                         logic.index = i;
                         logic.notifyListeners();
                       },
@@ -63,7 +61,7 @@ class Draw extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Support us',
+                                  Localization.of(context).drawer[i + 1],
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,

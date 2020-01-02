@@ -15,6 +15,7 @@ class Localization {
         'Lebanese Pound',
         'Syrian Pound',
         'Currency Calculator',
+        'Support Us',
         'Share App',
         'Rate App',
       ],
@@ -23,20 +24,21 @@ class Localization {
       'coin': ['Last update', 'Official Price ', 'Previous Days'],
       'pages': ['Currencies Converter', 'Lebanon Currency', 'Syrian Currency'],
       'currencyTypes': ['USA Dollar', 'LB Pound', 'SY Pound'],
-      'globals': ['From', 'To', 'Buy', 'Sell']
+      'globals': ['From', 'To', 'Buy', 'Sell', 'Type Here']
     },
     'ar': {
       'drawer': [
         'العملة اللبنانية',
         'العملة السورية',
         'محول العملات',
-        'مشاركه التطبيق'
-            'تقييم التطبيق',
+        'ادعمنا',
+        'مشاركه التطبيق',
+        'تقييم التطبيق',
       ],
       'warning':
           'تنويه : نحن مجرد ناقلين لسعر السوق والصرافيين وليس لنا أى دور فى تحديد السعر',
       'coin': ['اخر تحديث', 'السعر الرسمى', 'الأيام السابقة'],
-      'globals': ['من', 'الى', 'بيع', 'شراء'],
+      'globals': ['من', 'الى', 'بيع', 'شراء', 'اكتب هنا'],
       'pages': ['العملة السورية', 'العملة اللبنانية', 'محول العملات'],
       'currencyTypes': [
         'الدولار الأمريكى',

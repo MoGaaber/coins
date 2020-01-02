@@ -1,12 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity/connectivity.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:usatolebanese/main.dart';
 import 'package:usatolebanese/model/model.dart';
+import 'package:usatolebanese/pages/drawer/change_currency/root.dart';
+import 'package:usatolebanese/pages/drawer/currency_value/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class BaseLogic extends ChangeNotifier {
+  int syriaLastPrice, lebanonLastPrice;
+  var lastPrices = {};
+  var pages = [
+    ValueRoot(
+      isLebanon: true,
+    ),
+    ValueRoot(
+      isLebanon: false,
+    ),
+    ChangeRoot()
+  ];
   List<Map> currencyTypes;
   int index = 0;
   int syrianPrice, lebanonPrice;
@@ -43,20 +58,20 @@ class BaseLogic extends ChangeNotifier {
           lebanonOfficial: x[2],
           syrianOfficial: x[3]);
       currencyTypes = [
-        {'value': 1.0, 'name': 'USA Dollar'},
-        {'value': model.buyLebanon, 'name': 'Lebanon Lera'},
-        {'value': model.buySyrian, 'name': 'Syrian Lera'},
+        {'value': 1.0, 'name': localization[0]},
+        {'value': model.buyLebanon, 'name': localization[1]},
+        {'value': model.buySyrian, 'name': localization[2]},
       ];
 
       isLoading = false;
+
       notifyListeners();
     });
   }
 
   var localization;
-  Widget icon(String x) {
-    if (model.lebanonQuery.documents.first.data[x] >
-        model.lebanonQuery.documents.last.data[x]) {
+  Widget icon(String x, DocumentSnapshot snapshot) {
+    if (snapshot.data[x]['to'] > snapshot.data[x]['from']) {
       return Icon(
         Icons.keyboard_arrow_up,
         color: Colors.green,
@@ -69,10 +84,39 @@ class BaseLogic extends ChangeNotifier {
     }
   }
 
-  BaseLogic() {
-    fetchData();
+  void removeAd() {
+    bannerAd.dispose();
+    bannerAd = null;
   }
-  var listTiles = <Map>[];
+
+  BannerAd bannerAd;
+  BannerAd createBannerAd(AdSize size) {
+    return BannerAd(
+      adUnitId: BannerAd.testAdUnitId,
+      size: size,
+      listener: (MobileAdEvent event) {
+        print("BannerAd event $event");
+      },
+    );
+  }
+
+  bool isConnectedToInternet = false;
+  BaseLogic(BuildContext context) {
+    Connectivity().checkConnectivity().then((x) {
+      if (x == ConnectivityResult.none) {
+        this.isConnectedToInternet = false;
+      } else {
+        isConnectedToInternet = true;
+      }
+    });
+
+    FirebaseAdMob.instance
+        .initialize(appId: 'ca-app-pub-3118554882781656~3307182209')
+        .then((x) {
+      print(x);
+    });
+    localization = Localization.of(context).currencyTypes;
+  }
   var icons = [
     FontAwesomeIcons.exchangeAlt,
     FontAwesomeIcons.coins,
@@ -80,20 +124,6 @@ class BaseLogic extends ChangeNotifier {
     FontAwesomeIcons.star,
     FontAwesomeIcons.share
   ];
-
-  var bnbItems = [
-    {'icon': 'assets/images/lebanon.png', 'title': 'Lebanon'},
-    {'icon': 'assets/images/turkey-flag.png', 'title': 'syria'},
-    {'icon': 'assets/images/exchange.png', 'title': 'Exchange'}
-  ];
-  var controller = PageController();
-
-  var xTranslate = 0.0;
-  onTap(int idx) {
-    this.index = idx;
-    controller.animateToPage(idx,
-        duration: Duration(milliseconds: 300), curve: Curves.easeInOutExpo);
-  }
 
   void openDrawer(BuildContext context) {
     Scaffold.of(context).openDrawer();

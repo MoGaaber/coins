@@ -11,10 +11,14 @@ class Cardd extends StatelessWidget {
   Cardd({this.isFirst});
   @override
   Widget build(BuildContext context) {
-    var changeLogic = Provider.of<ChangeLogic>(context);
-    var localization = Localization.of(context);
+    String x = 'mohamed';
+    x = x.substring(0, x.length - 1);
+    print(x);
+    var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
+    var localization = Localization.of(
+      context,
+    );
     var logic = Provider.of<BaseLogic>(context, listen: false);
-
     return Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height / 5,
@@ -59,7 +63,16 @@ class Cardd extends StatelessWidget {
                   },
                   itemBuilder: (BuildContext context) =>
                       logic.currencyTypes.map((x) {
-                    return PopupMenuItem(value: x, child: Text(x['name']));
+                    return PopupMenuItem(
+                        value: x,
+                        child: Center(
+                          child: Text(
+                            x['name'],
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
+                          ),
+                        ));
                   }).toList(),
                 ),
                 Spacer(
@@ -74,51 +87,77 @@ class Cardd extends StatelessWidget {
               child: !isFirst
                   ? Padding(
                       padding: const EdgeInsets.only(top: 20),
-                      child: Text(
-                        '${changeLogic.result}',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold),
+                      child: Selector<ChangeLogic, double>(
+                        builder:
+                            (BuildContext context, double value, Widget child) {
+                          return Text(
+                            '${value}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold),
+                          );
+                        },
+                        selector: (BuildContext, ChangeLogic changeLogic) {
+                          return changeLogic.result;
+                        },
                       ),
                     )
                   : SizedBox(
                       width: 130,
                       height: 50,
-                      child: TextField(
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                        controller: changeLogic.controller,
-//                        onChanged: (x) {
-//                          print(x);
-//                          changeLogic.result = (changeLogic.convert(
-//                              double.parse(x),
-//                              changeLogic.from,
-//                              changeLogic.to));
-//                          changeLogic.notifyListeners();
-//                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Colors.white.withOpacity(0.5),
-                              width: 1,
-                            )),
-                            border: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Colors.white,
-                              width: 1,
-                            )),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.white, width: 1)),
-                            labelStyle: TextStyle(color: Colors.white),
-                            hintText: 'Type here',
-                            hintStyle:
-                                TextStyle(color: Colors.white, fontSize: 12)),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () {},
+                          child: TextField(
+                            focusNode: changeLogic.focus,
+
+                            onTap: () {
+                              changeLogic.adVisibility = false;
+                              changeLogic.notifyListeners();
+                              print('1!!');
+                            },
+                            controller: changeLogic.controller,
+                            showCursor: false,
+
+                            enableInteractiveSelection: false,
+                            readOnly: true,
+                            //    focusNode: AlwaysDisabledFocusNode(),
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            onChanged: (x) {},
+                            keyboardType: TextInputType.numberWithOptions(),
+                            decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.white.withOpacity(1),
+                                  width: 1,
+                                )),
+                                border: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 1,
+                                )),
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white.withOpacity(0.5),
+                                        width: 1)),
+                                labelStyle: TextStyle(color: Colors.white),
+                                hintText: localization
+                                    .globals[localization.globals.length - 1],
+                                hintStyle: TextStyle(
+                                    color: Colors.white, fontSize: 12)),
+                          ),
+                        ),
                       ),
                     ),
             ),
           ],
         ));
   }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }

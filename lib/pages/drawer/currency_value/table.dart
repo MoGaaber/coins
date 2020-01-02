@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/logic.dart';
@@ -5,7 +6,8 @@ import 'package:usatolebanese/utility/localization/localization.dart';
 
 class Tabl extends StatelessWidget {
   bool isLebanon;
-  Tabl(this.isLebanon);
+  DocumentSnapshot snapshot;
+  Tabl(this.isLebanon, this.snapshot);
   @override
   Widget build(BuildContext context) {
     var localization = Localization.of(context).globals;
@@ -45,23 +47,15 @@ class Tabl extends StatelessWidget {
                       style:
                           TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
                     ),
-                    logic.icon('buy')
+                    logic.icon('buy', snapshot)
                   ],
                 ),
                 Text(
-                  isLebanon
-                      ? logic.model.lebanonQuery.documents.last.data['buy']
-                          .toString()
-                      : logic.model.syrianQuery.documents.last.data['buy']
-                          .toString(),
+                  snapshot.data['buy']['from'].toString(),
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  isLebanon
-                      ? logic.model.lebanonQuery.documents.first.data['buy']
-                          .toString()
-                      : logic.model.syrianQuery.documents.first.data['buy']
-                          .toString(),
+                  snapshot.data['buy']['to'].toString(),
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 )
               ],
@@ -79,23 +73,15 @@ class Tabl extends StatelessWidget {
                       style:
                           TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
                     ),
-                    logic.icon('Sale')
+                    logic.icon('sell', this.snapshot)
                   ],
                 ),
                 Text(
-                  this.isLebanon
-                      ? logic.model.lebanonQuery.documents.last.data['Sale']
-                          .toString()
-                      : logic.model.syrianQuery.documents.last.data['Sale']
-                          .toString(),
+                  snapshot.data['sell']['from'].toString(),
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  this.isLebanon
-                      ? logic.model.lebanonQuery.documents.first.data['Sale']
-                          .toString()
-                      : logic.model.syrianQuery.documents.first.data['Sale']
-                          .toString(),
+                  snapshot.data['sell']['to'].toString(),
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 )
               ],

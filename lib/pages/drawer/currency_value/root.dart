@@ -9,8 +9,11 @@ class ValueRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      child: Value(
-        isLebanon: this.isLebanon,
+      child: DefaultTextStyle(
+        style: TextStyle(color: Colors.white),
+        child: Value(
+          isLebanon: this.isLebanon,
+        ),
       ),
       create: (BuildContext context) => ValueLogic(),
     );
