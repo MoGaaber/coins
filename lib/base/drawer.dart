@@ -13,18 +13,22 @@ class Draw extends StatelessWidget {
     var logic = Provider.of<BaseLogic>(context, listen: false);
 
     return SizedBox.fromSize(
-      size: Size.fromWidth(230),
+      size: Size.fromWidth(240),
       child: Drawer(
         child: Container(
           color: Colors.black,
           child: Column(
             children: <Widget>[
               DrawerHeader(
+                child: Center(
+                    child: Image.asset(
+                  'assets/images/logo.png',
+                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 100,
+                )),
                 decoration: BoxDecoration(
-//                image: DecorationImage(
-//                    image: AssetImage('assets/images/logo.png'),
-//                    fit: BoxFit.contain),
-                  color: Color(0xff6F0702),
+                  color: Color(0xff49000E),
                 ),
               ),
               for (int i = 0; i < logic.icons.length; i++)
@@ -34,8 +38,8 @@ class Draw extends StatelessWidget {
                       title: Text(
                         Localization.of(context).drawer[i],
                         style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
                             color: Colors.white),
                       ),
                       leading: Icon(logic.icons[i], color: Colors.white),

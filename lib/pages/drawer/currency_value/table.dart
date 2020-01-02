@@ -24,11 +24,11 @@ class Tabl extends StatelessWidget {
                 Text(''),
                 Text(
                   localization[0],
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
                 ),
                 Text(
                   localization[1],
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
                 ),
               ],
             ),
@@ -43,9 +43,9 @@ class Tabl extends StatelessWidget {
                     Text(
                       localization[2],
                       style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
                     ),
-                    Icon(Icons.keyboard_arrow_up),
+                    logic.icon('buy')
                   ],
                 ),
                 Text(
@@ -54,7 +54,7 @@ class Tabl extends StatelessWidget {
                           .toString()
                       : logic.model.syrianQuery.documents.last.data['buy']
                           .toString(),
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 Text(
                   isLebanon
@@ -62,7 +62,7 @@ class Tabl extends StatelessWidget {
                           .toString()
                       : logic.model.syrianQuery.documents.first.data['buy']
                           .toString(),
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 )
               ],
             ),
@@ -77,9 +77,9 @@ class Tabl extends StatelessWidget {
                     Text(
                       localization[3],
                       style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
                     ),
-                    Icon(Icons.keyboard_arrow_down),
+                    logic.icon('Sale')
                   ],
                 ),
                 Text(
@@ -88,7 +88,7 @@ class Tabl extends StatelessWidget {
                           .toString()
                       : logic.model.syrianQuery.documents.last.data['Sale']
                           .toString(),
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 Text(
                   this.isLebanon
@@ -96,7 +96,7 @@ class Tabl extends StatelessWidget {
                           .toString()
                       : logic.model.syrianQuery.documents.first.data['Sale']
                           .toString(),
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 )
               ],
             ),

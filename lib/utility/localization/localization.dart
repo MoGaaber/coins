@@ -12,30 +12,30 @@ class Localization {
   static Map<String, Map> _localizedValues = {
     'en': {
       'drawer': [
-        'Currency exchanger',
-        'Syrian currecny',
-        'Lebanon currecny',
+        'Lebanese Pound',
+        'Syrian Pound',
+        'Currency Calculator',
         'Share App',
         'Rate App',
       ],
       'warning':
-          "Warning : We are only copiers of cashiers & market price's , we haven't any role in Determine the price ",
-      'coin': ['Last update in', 'Official price is', 'Previous days'],
+          "Disclaimer: We are just a publisher of the market price and exchangers, nd we have no role in determining the price ",
+      'coin': ['Last update', 'Official Price ', 'Previous Days'],
       'pages': ['Currencies Converter', 'Lebanon Currency', 'Syrian Currency'],
-      'currencyTypes': ['USA Dollar', 'Lebanon Lera', 'Syrian Lera'],
+      'currencyTypes': ['USA Dollar', 'LB Pound', 'SY Pound'],
       'globals': ['From', 'To', 'Buy', 'Sell']
     },
     'ar': {
       'drawer': [
-        'محول العملات',
-        'العملة السورية',
         'العملة اللبنانية',
+        'العملة السورية',
+        'محول العملات',
         'مشاركه التطبيق'
             'تقييم التطبيق',
       ],
       'warning':
           'تنويه : نحن مجرد ناقلين لسعر السوق والصرافيين وليس لنا أى دور فى تحديد السعر',
-      'coin': ['اخر تحديث فى', 'السعر الرسمى هو', 'الأيام السابقة'],
+      'coin': ['اخر تحديث', 'السعر الرسمى', 'الأيام السابقة'],
       'globals': ['من', 'الى', 'بيع', 'شراء'],
       'pages': ['العملة السورية', 'العملة اللبنانية', 'محول العملات'],
       'currencyTypes': [

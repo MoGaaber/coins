@@ -16,6 +16,11 @@ class BaseLogic extends ChangeNotifier {
   Model model;
 
   void fetchData() {
+    print('!!');
+    if (!isLoading) {
+      isLoading = true;
+      notifyListeners();
+    }
     Future.wait([
       Firestore.instance
           .collection('lebaness')
@@ -49,6 +54,20 @@ class BaseLogic extends ChangeNotifier {
   }
 
   var localization;
+  Widget icon(String x) {
+    if (model.lebanonQuery.documents.first.data[x] >
+        model.lebanonQuery.documents.last.data[x]) {
+      return Icon(
+        Icons.keyboard_arrow_up,
+        color: Colors.green,
+      );
+    } else {
+      return Icon(
+        Icons.keyboard_arrow_down,
+        color: Colors.red,
+      );
+    }
+  }
 
   BaseLogic() {
     fetchData();

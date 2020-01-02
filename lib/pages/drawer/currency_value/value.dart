@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/logic.dart';
+import 'package:usatolebanese/globals/widgets/ad.dart';
 import 'package:usatolebanese/globals/widgets/warning.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/table.dart';
 import 'package:usatolebanese/pages/out/chart/root.dart';
@@ -35,7 +36,7 @@ class Value extends StatelessWidget {
                     '${localization[0]} : ',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w300),
                   ),
                   Text(
@@ -50,7 +51,7 @@ class Value extends StatelessWidget {
                       ':',
                       mm
                     ])}',
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
                   )
                 ],
               ),
@@ -69,40 +70,34 @@ class Value extends StatelessWidget {
                         fontWeight: FontWeight.w300)),
                 Text(
                   '${isLebanon ? logic.model.lebanonOfficial.data['official'] : logic.model.syrianOfficial.data['official']}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
                 )
               ],
             ),
           ),
           Divider(
-            height: 5,
-            indent: 80,
-            color: Colors.white,
+            height: 10,
+            color: Color(0xff3E3E3E),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Tabl(this.isLebanon),
-          ),
+          Tabl(this.isLebanon),
           Divider(
-            height: 5,
-            endIndent: 80,
-            color: Colors.white,
+            height: 10,
+            color: Color(0xff3E3E3E),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 30),
             child: Warning(),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 20),
             child: ButtonTheme(
               textTheme: ButtonTextTheme.primary,
-              height: 50,
-              minWidth: 180,
+              height: 40,
+              minWidth: 100,
               child: FlatButton.icon(
+                color: Color(0xff1B191A),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
                     side: BorderSide(color: Colors.white, width: 1)),
-                color: Colors.black,
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -110,11 +105,15 @@ class Value extends StatelessWidget {
                           builder: (BuildContext context) => ChartRoot(
                               this.isLebanon ? 'lebaness' : 'turkesh')));
                 },
-                icon: Icon(FontAwesomeIcons.coins),
+                icon: Icon(
+                  FontAwesomeIcons.calendarAlt,
+                  size: 17,
+                ),
                 label: Text(localization.last),
               ),
             ),
-          )
+          ),
+          Ad()
         ],
       ),
     );

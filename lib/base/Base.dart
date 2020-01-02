@@ -40,11 +40,13 @@ class Base extends StatelessWidget {
                   },
                 ),
               ),
-//              actions: <Widget>[
-//                IconButton(
-//                  icon: Icon(Icons.refresh),
-//                  onPressed: () {},
-//                ),
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.refresh),
+                  onPressed: () {
+                    logic.fetchData();
+                  },
+                ),
 //                IconButton(
 //                  icon: Icon(Icons.share),
 //                  onPressed: () {
@@ -53,40 +55,31 @@ class Base extends StatelessWidget {
 //                        subject: 'شارك تطبيقنا مع اصاحبك !');
 //                  },
 //                ),
-//              ],
+              ],
             ),
-            body: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  // Where the linear gradient begins and ends
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  // Add one stop for each color. Stops should increase from 0 to 1
-                  stops: [0.1, 0.5],
-                  colors: [
-                    // Colors are easy thanks to Flutter's Colors class.
-                    Colors.black,
-                    Color(0xff1E1E2E)
-                  ],
-                ),
-              ),
-              child: DefaultTextStyle(
-                style: TextStyle(color: Colors.white),
-                child: PageView(
-                    onPageChanged: (x) {
-                      logic.index = x;
-                      logic.notifyListeners();
-                    },
-                    controller: logic.controller,
-                    children: <Widget>[
-                      ChangeRoot(),
-                      ValueRoot(
-                        isLebanon: false,
-                      ),
-                      ValueRoot(
-                        isLebanon: true,
-                      )
-                    ]),
+            body: DefaultTextStyle(
+              style: TextStyle(color: Colors.white),
+              child: Selector<BaseLogic, bool>(
+                builder: (BuildContext context, bool value, Widget child) =>
+                    logic.isLoading
+                        ? Center(child: Text('is still loading'))
+                        : PageView(
+                            onPageChanged: (x) {
+                              logic.index = x;
+                              logic.notifyListeners();
+                            },
+                            controller: logic.controller,
+                            children: <Widget>[
+                                ValueRoot(
+                                  isLebanon: true,
+                                ),
+                                ValueRoot(
+                                  isLebanon: false,
+                                ),
+                                ChangeRoot(),
+                              ]),
+                selector: (BuildContext, BaseLogic baseLogic) =>
+                    baseLogic.isLoading,
               ),
             )));
   }
