@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/globals/widgets/ad.dart';
 import 'package:usatolebanese/globals/widgets/warning.dart';
+import 'package:usatolebanese/model/lebanon.dart';
+import 'package:usatolebanese/model/syria.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/table.dart';
 import 'package:usatolebanese/pages/out/chart/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
@@ -41,13 +43,12 @@ class Value extends StatelessWidget {
     var localization = Localization.of(context).coin;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    var streamLogic = Provider.of<DocumentSnapshot>(context, listen: true);
-
+    var syrianStream = Provider.of<Syria>(context, listen: false);
+    var lebanonStream = Provider.of<Lebanon>(context, listen: false);
     return StreamBuilder<DocumentSnapshot>(
-      stream: Firestore.instance
-          .collection('Pounds')
-          .document(isLebanon ? 'Lebanese' : 'Syrian')
-          .snapshots(),
+      stream: this.isLebanon
+          ? lebanonStream.documentSnapshot
+          : syrianStream.documentSnapshot,
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasData) {
@@ -150,7 +151,7 @@ class Value extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER))
+              //  Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER))
             ],
           );
         } else

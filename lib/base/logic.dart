@@ -4,6 +4,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:usatolebanese/base/root.dart';
 import 'package:usatolebanese/main.dart';
 import 'package:usatolebanese/model/model.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/root.dart';
@@ -20,7 +21,7 @@ class BaseLogic extends ChangeNotifier {
     ValueRoot(
       isLebanon: false,
     ),
-    ChangeRoot()
+    Hello()
   ];
   List<Map> currencyTypes;
   int index = 0;

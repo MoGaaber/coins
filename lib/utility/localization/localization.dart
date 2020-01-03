@@ -48,11 +48,7 @@ class Localization {
     },
   };
 
-  String get title {
-    return _localizedValues[locale.languageCode]['drawer']['title'];
-  }
-
-  List get drawer {
+  List<String> get drawer {
     return _localizedValues[locale.languageCode]['drawer'];
   }
 
@@ -60,15 +56,15 @@ class Localization {
     return _localizedValues[locale.languageCode]['warning'];
   }
 
-  List get coin {
+  List<String> get coin {
     return _localizedValues[locale.languageCode]['coin'];
   }
 
-  List get globals {
+  List<String> get globals {
     return _localizedValues[locale.languageCode]['globals'];
   }
 
-  List get currencyTypes {
+  List<String> get currencyTypes {
     return _localizedValues[locale.languageCode]['currencyTypes'];
   }
 }

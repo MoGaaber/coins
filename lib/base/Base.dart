@@ -35,7 +35,7 @@ class Base extends StatelessWidget {
                   );
                 },
               ),
-              centerTitle: false,
+              centerTitle: true,
               backgroundColor: Color(0xff242527),
               leading: Builder(
                 builder: (context) => IconButton(
@@ -45,28 +45,6 @@ class Base extends StatelessWidget {
                   },
                 ),
               ),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.refresh),
-                  onPressed: () {
-                    Connectivity().checkConnectivity().then((x) {
-                      if (x == ConnectivityResult.none) {
-                      } else {
-                        logic.fetchData();
-                        logic.notifyListeners();
-                      }
-                    });
-                  },
-                ),
-//                IconButton(
-//                  icon: Icon(Icons.share),
-//                  onPressed: () {
-//                    Share.share(
-//                        'https://play.google.com/store/apps/details?id=com.usatolebanese',
-//                        subject: 'شارك تطبيقنا مع اصاحبك !');
-//                  },
-//                ),
-              ],
             ),
             body: Selector<BaseLogic, Tuple2<bool, int>>(
               builder: (BuildContext context, Tuple2 value, Widget child) =>

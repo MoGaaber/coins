@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:usatolebanese/base/logic.dart';
+import 'package:usatolebanese/base/notifier.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
@@ -11,10 +12,11 @@ class Cardd extends StatelessWidget {
   Cardd({this.isFirst});
   @override
   Widget build(BuildContext context) {
-    var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
     var localization = Localization.of(
       context,
     );
+    Notifier notifier = Provider.of<Notifier>(context, listen: false);
+
     return Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height / 5,
@@ -28,47 +30,14 @@ class Cardd extends StatelessWidget {
                 Spacer(
                   flex: 1,
                 ),
-                Selector<ChangeLogic, Tuple2<String, String>>(
-                  selector: (BuildContext, ChangeLogic changeLogic) =>
-                      Tuple2(changeLogic.fromT, changeLogic.toT),
-                  builder: (BuildContext context, Tuple2 value, Widget child) {
-                    return Text(
-                      this.isFirst
-                          ? '${localization.globals[0]} ${value.item1}'
-                          : '${localization.globals[1]} ${value.item2}',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                    );
-                  },
+                Text(
+                  this.isFirst
+                      ? '${localization.globals[0]} ${notifier.textValues['from']}'
+                      : '${localization.globals[1]} ',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 Spacer(
                   flex: 1,
-                ),
-                PopupMenuButton(
-                  icon: Icon(Icons.arrow_drop_down),
-                  onSelected: (x) {
-                    if (this.isFirst) {
-                      changeLogic.from = x['value'];
-                      changeLogic.fromT = x['name'];
-                    } else {
-                      changeLogic.to = x['value'];
-                      changeLogic.toT = x['name'];
-                    }
-                    changeLogic.b();
-                  },
-                  itemBuilder: (BuildContext context) =>
-                      changeLogic.currencyTypes.map((x) {
-                    return PopupMenuItem(
-                        value: x,
-                        child: Center(
-                          child: Text(
-                            x['name'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black),
-                          ),
-                        ));
-                  }).toList(),
                 ),
                 Spacer(
                   flex: 7,
@@ -82,20 +51,12 @@ class Cardd extends StatelessWidget {
               child: !isFirst
                   ? Padding(
                       padding: const EdgeInsets.only(top: 20),
-                      child: Selector<ChangeLogic, double>(
-                        builder:
-                            (BuildContext context, double value, Widget child) {
-                          return Text(
-                            '${value}',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
-                          );
-                        },
-                        selector: (BuildContext, ChangeLogic changeLogic) {
-                          return changeLogic.result;
-                        },
+                      child: Text(
+                        '}',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
                       ),
                     )
                   : SizedBox(
@@ -106,12 +67,7 @@ class Cardd extends StatelessWidget {
                         child: InkWell(
                           onTap: () {},
                           child: TextField(
-                            onTap: () {
-                              changeLogic.adVisibility = false;
-                              changeLogic.notifyListeners();
-                              print('1!!');
-                            },
-                            controller: changeLogic.controller,
+                            onTap: () {},
                             showCursor: false,
 
                             enableInteractiveSelection: false,
@@ -148,9 +104,4 @@ class Cardd extends StatelessWidget {
           ],
         ));
   }
-}
-
-class AlwaysDisabledFocusNode extends FocusNode {
-  @override
-  bool get hasFocus => false;
 }
