@@ -28,13 +28,14 @@ class Carddy extends StatelessWidget {
                 Spacer(
                   flex: 1,
                 ),
-                Selector<ChangeLogic, List<Map>>(
-                  selector: (BuildContext, ChangeLogic changeLogic) =>
-                      changeLogic.selectedValues,
-                  builder:
-                      (BuildContext context, List<Map> value, Widget child) {
+                Selector<ChangeLogic, Tuple2<Map, Map>>(
+                  selector: (BuildContext build, ChangeLogic changeLogic) =>
+                      Tuple2(changeLogic.selectedValues[0],
+                          changeLogic.selectedValues[1]),
+                  builder: (BuildContext context, Tuple2<Map, Map> value,
+                      Widget child) {
                     return Text(
-                      '${localization.globals[index]} ${value[index]['name']}',
+                      '${localization.globals[index]}  ${this.index == 0 ? value.item1['name'] : value.item2['name']}',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     );
@@ -46,6 +47,7 @@ class Carddy extends StatelessWidget {
                 PopupMenuButton(
                   icon: Icon(Icons.arrow_drop_down),
                   onSelected: (x) {
+                    print(x);
                     changeLogic.selectedValues[this.index] = x;
                     changeLogic.notifyListeners();
                   },

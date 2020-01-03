@@ -13,15 +13,10 @@ import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 import 'package:async/async.dart';
 
-class Change extends StatefulWidget {
-  @override
-  _ChangeState createState() => _ChangeState();
-}
-
-class _ChangeState extends State<Change> {
+class Change extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var changeLogic = Provider.of<ChangeLogic>(context, listen: true);
+    var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
     var localization = Localization.of(
       context,
     );
@@ -35,7 +30,7 @@ class _ChangeState extends State<Change> {
           builder: (BuildContext context,
               AsyncSnapshot<DocumentSnapshot> lebanonSnapshot) {
             if (!lebanonSnapshot.hasData) {
-              return Text('!');
+              return Text('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
             } else {
               return StreamBuilder<DocumentSnapshot>(
                 stream: Firestore.instance
@@ -54,7 +49,7 @@ class _ChangeState extends State<Change> {
                         'name': changeLogic.localization[1]
                       },
                       {
-                        'value': syrianSnapshot.data.data['sell']['to'],
+                        'value': syrianSnapshot.data.data['buy']['to'],
                         'name': changeLogic.localization[2]
                       },
                     ];

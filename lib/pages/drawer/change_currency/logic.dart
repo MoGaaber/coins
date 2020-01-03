@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 
-class ChangeLogic extends ChangeNotifier {
+class ChangeLogic extends ChangeNotifier with EquatableMixin {
   double convert(double input, double from, double to) {
     if (input <= 0) {
       return 0.0;
@@ -36,4 +37,8 @@ class ChangeLogic extends ChangeNotifier {
   List<Map> currencyTypes;
 
   var result = 0.0;
+
+  @override
+  // TODO: implement props
+  List<Object> get props => selectedValues;
 }

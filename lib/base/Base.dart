@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:tuple/tuple.dart';
@@ -14,7 +15,9 @@ class Base extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var logic = Provider.of<BaseLogic>(context, listen: false);
-
+    print(logic.aspectRatio.toString());
+    print(logic.size.width);
+    print(logic.size.height);
     return SafeArea(
         child: Scaffold(
             backgroundColor: Color(0xff1B191A),
@@ -22,7 +25,7 @@ class Base extends StatelessWidget {
             appBar: AppBar(
               textTheme: TextTheme(
                   title: TextStyle(
-                fontSize: 18,
+                fontSize: logic.aspectRatio * 30,
                 fontWeight: FontWeight.bold,
               )),
               title: Selector<BaseLogic, int>(
@@ -36,8 +39,11 @@ class Base extends StatelessWidget {
               centerTitle: true,
               backgroundColor: Color(0xff242527),
               leading: Builder(
-                builder: (context) => IconButton(
-                  icon: Icon(Icons.menu),
+                builder: (BuildContext context) => IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                    size: logic.aspectRatio * 42.7555555556,
+                  ),
                   onPressed: () {
                     logic.openDrawer(context); ////
                   },

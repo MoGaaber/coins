@@ -41,6 +41,8 @@ dependencies:
   tuple: ^1.0.3
   firebase_admob: ^0.9.0+10
   keyboard_visibility: any
+  equatable: ^1.0.1
+
 
 dev_dependencies:
   flutter_test:

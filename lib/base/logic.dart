@@ -3,6 +3,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:usatolebanese/base/root.dart';
 import 'package:usatolebanese/main.dart';
@@ -11,9 +12,8 @@ import 'package:usatolebanese/pages/drawer/currency_value/value.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class BaseLogic extends ChangeNotifier {
-  int syriaLastPrice, lebanonLastPrice;
-  var lastPrices = {};
-  AnimationController animationController;
+  int index = 0;
+
   var pages = [
     Value(
       isLebanon: true,
@@ -23,9 +23,11 @@ class BaseLogic extends ChangeNotifier {
     ),
     Change()
   ];
+
   List<Map> currencyTypes;
-  int index = 0;
   int syrianPrice, lebanonPrice;
+  var lastPrices = {};
+  AnimationController animationController;
 
   var localization;
   Widget icon(String x, DocumentSnapshot snapshot) {
@@ -42,7 +44,14 @@ class BaseLogic extends ChangeNotifier {
     }
   }
 
+  double screenWidth, screenHeight, aspectRatio;
+  Size size;
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
+    size = MediaQuery.of(context).size;
+    screenHeight = size.height;
+    screenWidth = size.width;
+    aspectRatio = size.aspectRatio;
+
     animationController = AnimationController(
       lowerBound: 0,
       upperBound: 1,
@@ -67,5 +76,13 @@ class BaseLogic extends ChangeNotifier {
 
   void openDrawer(BuildContext context) {
     Scaffold.of(context).openDrawer();
+  }
+
+  void navigateToPage(BuildContext context, int i) {
+    Navigator.of(
+      context,
+    ).pop();
+    index = i;
+    notifyListeners();
   }
 }

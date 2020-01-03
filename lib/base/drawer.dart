@@ -15,9 +15,9 @@ class Draw extends StatelessWidget {
   Widget build(BuildContext context) {
     var logic = Provider.of<BaseLogic>(context, listen: false);
     return FractionallySizedBox(
-      widthFactor: 0.5,
+      widthFactor: 0.65,
       child: Drawer(
-        child: Container(
+        child: Material(
           color: Colors.black,
           child: Column(
             children: <Widget>[
@@ -26,8 +26,8 @@ class Draw extends StatelessWidget {
                     child: Image.asset(
                   'assets/images/logo.png',
                   fit: BoxFit.cover,
-                  width: 100,
-                  height: 100,
+                  width: logic.aspectRatio * 164.444444444,
+                  height: logic.aspectRatio * 164.444444444,
                 )),
                 decoration: BoxDecoration(
                   color: Color(0xff49000E),
@@ -37,43 +37,40 @@ class Draw extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     ListTile(
-                      title: Text(
-                        Localization.of(context).drawer[i],
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
-                      ),
-                      leading: Icon(logic.icons[i], color: Colors.white),
-                      onTap: () {
-                        Navigator.of(
-                          context,
-                        ).pop(() {
-                          logic.index = i;
-                          logic.notifyListeners();
-                        });
-                      },
-                    ),
-                    i == 2
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Divider(
-                                color: Colors.white,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  Localization.of(context).drawer[i + 1],
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              )
-                            ],
-                          )
-                        : Container()
+                        title: Text(
+                          Localization.of(context).drawer[i],
+                          style: TextStyle(
+                              fontSize: logic.aspectRatio * 31.2444444444,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
+                        leading: Icon(logic.icons[i],
+                            size: logic.aspectRatio * 44, color: Colors.white),
+                        onTap: () {
+                          logic.navigateToPage(context, i);
+                        }),
+                    Divider()
+
+//                    i == 2
+//                        ? Column(
+//                            crossAxisAlignment: CrossAxisAlignment.start,
+//                            children: <Widget>[
+//                              Divider(
+//                                color: Colors.white,
+//                              ),
+//                              Padding(
+//                                padding: const EdgeInsets.all(8.0),
+//                                child: Text(
+//                                  Localization.of(context).drawer[i + 1],
+//                                  style: TextStyle(
+//                                      fontSize: 20,
+//                                      fontWeight: FontWeight.bold,
+//                                      color: Colors.white),
+//                                ),
+//                              )
+//                            ],
+//                          )
+//                        : Container()
                   ],
                 ),
             ],
