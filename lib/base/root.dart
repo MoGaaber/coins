@@ -34,11 +34,10 @@ class Hello extends StatelessWidget {
     ];
 
     return StreamBuilder<DocumentSnapshot>(
-      stream:
-           Firestore.instance
-              .collection('Pounds')
-              .document('Lebanese')
-              .snapshots(),
+      stream: Firestore.instance
+          .collection('Pounds')
+          .document('Lebanese')
+          .snapshots(),
       builder: (BuildContext context,
           AsyncSnapshot<DocumentSnapshot> lebanonSnapshot) {
         if (!lebanonSnapshot.hasData) {
@@ -46,28 +45,16 @@ class Hello extends StatelessWidget {
         }
 
         return StreamBuilder<DocumentSnapshot>(
-          stream:  Firestore.instance
-                  .collection('Pounds')
-                  .document('Syrian')
-                  .snapshots(),
+          stream: Firestore.instance
+              .collection('Pounds')
+              .document('Syrian')
+              .snapshots(),
           builder: (BuildContext context,
               AsyncSnapshot<DocumentSnapshot> syrianSnapshot) {
             if (!lebanonSnapshot.hasData) {
               print('hello');
               return Text('!!!');
             } else {
-              notifier.data = [
-                lebanonSnapshot.data.data,
-                syrianSnapshot.data.data
-              ];
-              for (int i = 0; i < localization.currencyTypes.length; i++) {
-                print(i);
-                notifier.dropDownElements.add({
-                  'name': localization.currencyTypes[i],
-                  'value': i == 0 ? 0 : notifier.data[i - 1]['buy']['to']
-                });
-              }
-
               return Column(
                 children: <Widget>[
                   Stack(
@@ -150,6 +137,8 @@ class _BaseRootState extends State<BaseRoot> {
       child: Base(),
       providers: [
         ChangeNotifierProvider(create: (BuildContext context) => BaseLogic(cx)),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ChangeLogic(cx)),
         Provider(
           create: (BuildContext context) {
             return Syria(Firestore.instance

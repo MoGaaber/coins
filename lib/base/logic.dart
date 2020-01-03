@@ -21,7 +21,7 @@ class BaseLogic extends ChangeNotifier {
     ValueRoot(
       isLebanon: false,
     ),
-    Hello()
+    ChangeRoot()
   ];
   List<Map> currencyTypes;
   int index = 0;

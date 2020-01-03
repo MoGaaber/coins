@@ -44,9 +44,8 @@ class ChangeLogic extends ChangeNotifier {
   bool adVisibility = true;
   double syrianPrice, lebanonPrice;
   bool isLoading = true;
-  Stream<DocumentSnapshot> stream1, stream2;
 
-  ChangeLogic(BuildContext context, [this.stream1, this.stream2]) {
+  ChangeLogic(BuildContext context) {
     localization = Localization.of(context).currencyTypes;
     fromT = localization[0];
     toT = localization[0];
