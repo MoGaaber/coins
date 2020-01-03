@@ -14,8 +14,8 @@ class Draw extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var logic = Provider.of<BaseLogic>(context, listen: false);
-    return SizedBox.fromSize(
-      size: Size.fromWidth(240),
+    return FractionallySizedBox(
+      widthFactor: 0.5,
       child: Drawer(
         child: Container(
           color: Colors.black,
@@ -46,9 +46,12 @@ class Draw extends StatelessWidget {
                       ),
                       leading: Icon(logic.icons[i], color: Colors.white),
                       onTap: () {
-                        Navigator.pop(context);
-                        logic.index = i;
-                        logic.notifyListeners();
+                        Navigator.of(
+                          context,
+                        ).pop(() {
+                          logic.index = i;
+                          logic.notifyListeners();
+                        });
                       },
                     ),
                     i == 2

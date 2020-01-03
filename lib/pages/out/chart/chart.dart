@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:usatolebanese/globals/widgets/ad.dart';
 
-class ChartRoot extends StatelessWidget {
+class Chart extends StatelessWidget {
   String collection, title;
 
-  ChartRoot(this.collection, this.title);
+  Chart(this.collection, this.title);
   @override
   Widget build(BuildContext context) {
     return SafeArea(

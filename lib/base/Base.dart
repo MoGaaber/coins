@@ -7,8 +7,6 @@ import 'package:share/share.dart';
 import 'package:tuple/tuple.dart';
 import 'package:usatolebanese/base/drawer.dart';
 import 'package:usatolebanese/base/logic.dart';
-import 'package:usatolebanese/pages/drawer/change_currency/root.dart';
-import 'package:usatolebanese/pages/drawer/currency_value/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
@@ -39,24 +37,20 @@ class Base extends StatelessWidget {
               backgroundColor: Color(0xff242527),
               leading: Builder(
                 builder: (context) => IconButton(
-                  icon: Icon(Icons.apps),
+                  icon: Icon(Icons.menu),
                   onPressed: () {
                     logic.openDrawer(context); ////
                   },
                 ),
               ),
             ),
-            body: Selector<BaseLogic, Tuple2<bool, int>>(
-              builder: (BuildContext context, Tuple2 value, Widget child) =>
-                  !value.item1
-                      ? Center(child: Text('!!'))
-                      : DefaultTextStyle(
-                          style: TextStyle(color: Colors.white),
-                          child: logic.pages[value.item2]),
-              selector: (BuildContext, BaseLogic baseLogic) => Tuple2(
-                logic.isLoading,
-                logic.index,
-              ),
+            body: Selector<BaseLogic, int>(
+              selector: (BuildContext, BaseLogic baseLogic) {
+                return baseLogic.index;
+              },
+              builder: (BuildContext context, int value, Widget child) {
+                return logic.pages[value];
+              },
             )));
   }
 }

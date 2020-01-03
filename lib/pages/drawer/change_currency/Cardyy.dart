@@ -3,24 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:usatolebanese/base/logic.dart';
-import 'package:usatolebanese/base/notifier.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
-class Cardd extends StatelessWidget {
-  bool isFirst;
-  Cardd({this.isFirst});
+class Carddy extends StatelessWidget {
+  int index;
+  Carddy({this.index});
   @override
   Widget build(BuildContext context) {
+    var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
     var localization = Localization.of(
       context,
     );
-    Notifier notifier = Provider.of<Notifier>(context, listen: false);
-
     return Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height / 5,
-        color: !isFirst ? Color(0xff403E3F) : Color(0xff1B191A),
+        color: index == 1 ? Color(0xff403E3F) : Color(0xff1B191A),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -30,14 +28,40 @@ class Cardd extends StatelessWidget {
                 Spacer(
                   flex: 1,
                 ),
-                Text(
-                  this.isFirst
-                      ? '${localization.globals[0]} ${notifier.textValues['from']}'
-                      : '${localization.globals[1]} ',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                Selector<ChangeLogic, List<Map>>(
+                  selector: (BuildContext, ChangeLogic changeLogic) =>
+                      changeLogic.selectedValues,
+                  builder:
+                      (BuildContext context, List<Map> value, Widget child) {
+                    return Text(
+                      '${localization.globals[index]} ${value[index]['name']}',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                    );
+                  },
                 ),
                 Spacer(
                   flex: 1,
+                ),
+                PopupMenuButton(
+                  icon: Icon(Icons.arrow_drop_down),
+                  onSelected: (x) {
+                    changeLogic.selectedValues[this.index] = x;
+                    changeLogic.notifyListeners();
+                  },
+                  itemBuilder: (BuildContext context) =>
+                      changeLogic.currencyTypes.map((x) {
+                    return PopupMenuItem(
+                        value: x,
+                        child: Center(
+                          child: Text(
+                            x['name'],
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
+                          ),
+                        ));
+                  }).toList(),
                 ),
                 Spacer(
                   flex: 7,
@@ -48,15 +72,23 @@ class Cardd extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 vertical: 0,
               ),
-              child: !isFirst
+              child: index == 1
                   ? Padding(
                       padding: const EdgeInsets.only(top: 20),
-                      child: Text(
-                        '}',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold),
+                      child: Selector<ChangeLogic, double>(
+                        builder:
+                            (BuildContext context, double value, Widget child) {
+                          return Text(
+                            '${value}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold),
+                          );
+                        },
+                        selector: (BuildContext, ChangeLogic changeLogic) {
+                          return changeLogic.result;
+                        },
                       ),
                     )
                   : SizedBox(
@@ -67,14 +99,18 @@ class Cardd extends StatelessWidget {
                         child: InkWell(
                           onTap: () {},
                           child: TextField(
-                            onTap: () {},
+                            onTap: () {
+                              changeLogic.adVisibility = false;
+                              changeLogic.notifyListeners();
+                              print('1!!');
+                            },
+                            controller: changeLogic.controller,
                             showCursor: false,
 
                             enableInteractiveSelection: false,
                             readOnly: true,
                             //    focusNode: AlwaysDisabledFocusNode(),
                             style: TextStyle(color: Colors.white, fontSize: 20),
-                            onChanged: (x) {},
                             keyboardType: TextInputType.numberWithOptions(),
                             decoration: InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
@@ -89,7 +125,7 @@ class Cardd extends StatelessWidget {
                                 )),
                                 enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Colors.white.withOpacity(0.5),
+                                        color: Colors.white.withOpacity(1),
                                         width: 1)),
                                 labelStyle: TextStyle(color: Colors.white),
                                 hintText: localization
@@ -104,4 +140,9 @@ class Cardd extends StatelessWidget {
           ],
         ));
   }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }

@@ -6,70 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:usatolebanese/base/root.dart';
 import 'package:usatolebanese/main.dart';
-import 'package:usatolebanese/model/model.dart';
-import 'package:usatolebanese/pages/drawer/change_currency/root.dart';
-import 'package:usatolebanese/pages/drawer/currency_value/root.dart';
+import 'package:usatolebanese/pages/drawer/change_currency/change.dart';
+import 'package:usatolebanese/pages/drawer/currency_value/value.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class BaseLogic extends ChangeNotifier {
   int syriaLastPrice, lebanonLastPrice;
   var lastPrices = {};
-
+  AnimationController animationController;
   var pages = [
-    ValueRoot(
+    Value(
       isLebanon: true,
     ),
-    ValueRoot(
+    Value(
       isLebanon: false,
     ),
-    ChangeRoot()
+    Change()
   ];
   List<Map> currencyTypes;
   int index = 0;
   int syrianPrice, lebanonPrice;
-  Future<QuerySnapshot> lebanonQuery, syrianQuery;
-  Future<DocumentSnapshot> lebanonOfficial, syrianOfficial;
-  bool isLoading = true;
-  Model model;
-
-  void fetchData() {
-    print('!!');
-    if (!isLoading) {
-      isLoading = true;
-      notifyListeners();
-    }
-    Future.wait([
-      Firestore.instance
-          .collection('lebaness')
-          .reference()
-          .orderBy('Date', descending: true)
-          .limit(2)
-          .getDocuments(),
-      Firestore.instance
-          .collection('turkesh')
-          .reference()
-          .orderBy('Date', descending: true)
-          .limit(2)
-          .getDocuments(),
-      Firestore.instance.collection('coin').document('lebanon').get(),
-      Firestore.instance.collection('coin').document('turkey').get()
-    ]).then((x) {
-      this.model = Model(
-          lebanonQuery: x[0],
-          syrianQuery: x[1],
-          lebanonOfficial: x[2],
-          syrianOfficial: x[3]);
-      currencyTypes = [
-        {'value': 1.0, 'name': localization[0]},
-        {'value': model.buyLebanon, 'name': localization[1]},
-        {'value': model.buySyrian, 'name': localization[2]},
-      ];
-
-      isLoading = false;
-
-      notifyListeners();
-    });
-  }
 
   var localization;
   Widget icon(String x, DocumentSnapshot snapshot) {
@@ -86,31 +42,13 @@ class BaseLogic extends ChangeNotifier {
     }
   }
 
-  void removeAd() {
-    bannerAd.dispose();
-    bannerAd = null;
-  }
-
-  BannerAd bannerAd;
-  BannerAd createBannerAd(AdSize size) {
-    return BannerAd(
-      adUnitId: BannerAd.testAdUnitId,
-      size: size,
-      listener: (MobileAdEvent event) {
-        print("BannerAd event $event");
-      },
+  BaseLogic(BuildContext context, TickerProvider tickerProvider) {
+    animationController = AnimationController(
+      lowerBound: 0,
+      upperBound: 1,
+      vsync: tickerProvider,
+      duration: Duration(milliseconds: 300),
     );
-  }
-
-  bool isConnectedToInternet = false;
-  BaseLogic(BuildContext context) {
-    Connectivity().checkConnectivity().then((x) {
-      if (x == ConnectivityResult.none) {
-        this.isConnectedToInternet = false;
-      } else {
-        isConnectedToInternet = true;
-      }
-    });
 
     FirebaseAdMob.instance
         .initialize(appId: 'ca-app-pub-3118554882781656~3307182209')
