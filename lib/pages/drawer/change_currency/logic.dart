@@ -44,38 +44,28 @@ class ChangeLogic extends ChangeNotifier {
   bool adVisibility = true;
   double syrianPrice, lebanonPrice;
   bool isLoading = true;
-
+//
   ChangeLogic(BuildContext context) {
     localization = Localization.of(context).currencyTypes;
-    fromT = localization[0];
-    toT = localization[0];
+
+    selectedValues = [
+      {'name': localization[0], 'value': 1},
+      {'name': localization[0], 'value': 1}
+    ];
     KeyboardVisibilityNotification().addNewListener(onChange: (x) {
       adVisibility = x;
       print(adVisibility);
       notifyListeners();
     });
-
-    currencyTypes = [
-      {'value': 1.0, 'name': localization[0]},
-      {'value': lebanonPrice, 'name': localization[1]},
-      {'value': syrianPrice, 'name': localization[2]},
-    ];
   }
+  List<Map> selectedValues;
   var localization;
 
   var controller = TextEditingController();
-  var priceToday = '';
   List<Map> currencyTypes;
 
-  int selectedIndex1 = 0;
-  int selectedIndex2 = 0;
   double from = 1.0;
   double to = 1.0;
   String fromT = '', toT = '';
   var result = 0.0;
-
-  void b() {
-    fromT = 'hello';
-    notifyListeners();
-  }
 }

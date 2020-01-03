@@ -7,8 +7,8 @@ import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class Cardd extends StatelessWidget {
-  bool isFirst;
-  Cardd({this.isFirst});
+  int index;
+  Cardd({this.index});
   @override
   Widget build(BuildContext context) {
     var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
@@ -18,7 +18,7 @@ class Cardd extends StatelessWidget {
     return Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height / 5,
-        color: !isFirst ? Color(0xff403E3F) : Color(0xff1B191A),
+        color: index == 1 ? Color(0xff403E3F) : Color(0xff1B191A),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -28,14 +28,13 @@ class Cardd extends StatelessWidget {
                 Spacer(
                   flex: 1,
                 ),
-                Selector<ChangeLogic, Tuple2<String, String>>(
+                Selector<ChangeLogic, List<Map>>(
                   selector: (BuildContext, ChangeLogic changeLogic) =>
-                      Tuple2(changeLogic.fromT, changeLogic.toT),
-                  builder: (BuildContext context, Tuple2 value, Widget child) {
+                      changeLogic.selectedValues,
+                  builder:
+                      (BuildContext context, List<Map> value, Widget child) {
                     return Text(
-                      this.isFirst
-                          ? '${localization.globals[0]} ${value.item1}'
-                          : '${localization.globals[1]} ${value.item2}',
+                      '${localization.globals[index]} ${value[index]['name']}',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     );
@@ -47,14 +46,8 @@ class Cardd extends StatelessWidget {
                 PopupMenuButton(
                   icon: Icon(Icons.arrow_drop_down),
                   onSelected: (x) {
-                    if (this.isFirst) {
-                      changeLogic.from = x['value'];
-                      changeLogic.fromT = x['name'];
-                    } else {
-                      changeLogic.to = x['value'];
-                      changeLogic.toT = x['name'];
-                    }
-                    changeLogic.b();
+                    changeLogic.selectedValues[this.index] = x;
+                    changeLogic.notifyListeners();
                   },
                   itemBuilder: (BuildContext context) =>
                       changeLogic.currencyTypes.map((x) {
@@ -79,7 +72,7 @@ class Cardd extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 vertical: 0,
               ),
-              child: !isFirst
+              child: index == 1
                   ? Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: Selector<ChangeLogic, double>(
@@ -118,7 +111,6 @@ class Cardd extends StatelessWidget {
                             readOnly: true,
                             //    focusNode: AlwaysDisabledFocusNode(),
                             style: TextStyle(color: Colors.white, fontSize: 20),
-                            onChanged: (x) {},
                             keyboardType: TextInputType.numberWithOptions(),
                             decoration: InputDecoration(
                                 focusedBorder: UnderlineInputBorder(

@@ -14,6 +14,7 @@ import 'package:usatolebanese/utility/localization/localization.dart';
 class BaseLogic extends ChangeNotifier {
   int syriaLastPrice, lebanonLastPrice;
   var lastPrices = {};
+
   var pages = [
     ValueRoot(
       isLebanon: true,
