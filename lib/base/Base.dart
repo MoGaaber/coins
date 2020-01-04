@@ -3,6 +3,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:tuple/tuple.dart';
@@ -23,6 +24,7 @@ class Base extends StatelessWidget {
             backgroundColor: Color(0xff1B191A),
             drawer: Draw(),
             appBar: AppBar(
+              actions: <Widget>[],
               textTheme: TextTheme(
                   title: TextStyle(
                 fontSize: logic.aspectRatio * 30,

@@ -7,27 +7,22 @@ import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class ChangeLogic extends ChangeNotifier with EquatableMixin {
   double convert(double input, double from, double to) {
-    if (input <= 0) {
-      return 0.0;
-    } else {
-      return (input * from) / to;
-    }
+    return (input * from) / to;
   }
 
-  bool adVisibility = true;
-  double syrianPrice, lebanonPrice;
-  bool isLoading = true;
-
+  var keyboardVisibility = false;
   ChangeLogic(BuildContext context) {
+    KeyboardVisibilityNotification().addNewListener(onChange: (x) {
+      keyboardVisibility = x;
+      notifyListeners();
+    });
     localization = Localization.of(context).currencyTypes;
     selectedValues = [
       {'name': localization[0], 'value': 1},
       {'name': localization[0], 'value': 1}
     ];
-    KeyboardVisibilityNotification().addNewListener(onChange: (x) {
-      adVisibility = x;
-      print(adVisibility);
-      notifyListeners();
+    controller.addListener(() {
+      print('.' + controller.value.text);
     });
   }
   List<Map> selectedValues;
@@ -37,6 +32,18 @@ class ChangeLogic extends ChangeNotifier with EquatableMixin {
   List<Map> currencyTypes;
 
   var result = 0.0;
+
+  onChanged(String text) {
+    if (text.isEmpty || double.parse(text) <= 0) {
+      result = 0;
+    } else {
+      result = convert(
+          double.parse(text),
+          selectedValues[0]['value'].toDouble(),
+          selectedValues[1]['value'].toDouble());
+    }
+    notifyListeners();
+  }
 
   @override
   // TODO: implement props

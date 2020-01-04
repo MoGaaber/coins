@@ -15,15 +15,14 @@ class Localization {
         'Lebanese Pound',
         'Syrian Pound',
         'Currency Calculator',
-        'Rating & Support',
         'Share App',
         'Rate App',
       ],
       'warning':
-          "Disclaimer: We are just a publisher of the market price and exchangers , nd we have no role in determining the price . ",
+          "Disclaimer: We are just a publisher of the market price and exchangers , and we have no role in determining the price",
       'coin': ['Last update', 'Official Price ', 'Previous Days'],
       'pages': ['Currencies Converter', 'Lebanon Pound', 'Syrian Pound'],
-      'currencyTypes': ['USA Dollar', 'LB Pound', 'SY Pound'],
+      'currencyTypes': ['US Dollar', 'LB Pound', 'SY Pound'],
       'globals': ['From', 'To', 'Buy', 'Sell', 'Type Here']
     },
     'ar': {
@@ -32,16 +31,16 @@ class Localization {
         'الليرة السورية',
         'محول العملات',
         'التقييم والدعم',
-        'مشاركه التطبيق',
+        'مشاركة التطبيق',
         'تقييم التطبيق',
       ],
       'warning':
-          'تنويه : نحن مجرد ناقلين لسعر السوق والصرافيين ، وليس لنا أى دور فى تحديد السعر .',
+          'تنويه: نحن مجرد ناقلين لسعر السوق والصرافين، وليس لنا أي دور في تحديد السعر.',
       'coin': ['اخر تحديث', 'السعر الرسمي', 'الأيام السابقة'],
       'globals': ['من', 'إلى', 'بيع', 'شراء', 'اكتب هنا'],
       'pages': ['العملة السورية', 'العملة اللبنانية', 'محول العملات'],
       'currencyTypes': [
-        'الدولار الأميريكى',
+        'الدولار الأميريكي',
         'الليرة اللبنانية',
         'الليرة السورية'
       ]

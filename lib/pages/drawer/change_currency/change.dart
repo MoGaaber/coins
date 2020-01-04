@@ -30,7 +30,7 @@ class Change extends StatelessWidget {
           builder: (BuildContext context,
               AsyncSnapshot<DocumentSnapshot> lebanonSnapshot) {
             if (!lebanonSnapshot.hasData) {
-              return Text('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+              return Center(child: CircularProgressIndicator());
             } else {
               return StreamBuilder<DocumentSnapshot>(
                 stream: Firestore.instance
@@ -40,7 +40,7 @@ class Change extends StatelessWidget {
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot> syrianSnapshot) {
                   if (!syrianSnapshot.hasData) {
-                    return Text('!!!');
+                    return Center(child: CircularProgressIndicator());
                   } else {
                     changeLogic.currencyTypes = [
                       {'value': 1.0, 'name': changeLogic.localization[0]},
@@ -55,130 +55,26 @@ class Change extends StatelessWidget {
                     ];
 
                     return Column(
+                      mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-                        Stack(
-                          alignment: localization.locale.languageCode == 'ar'
-                              ? Alignment.centerLeft
-                              : Alignment.centerRight,
-                          children: <Widget>[
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                Carddy(
-                                  index: 0,
-                                ),
-                                Carddy(
-                                  index: 1,
-                                ),
-                              ],
-                            ),
-                            Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: FloatingActionButton(
-                                  child: Icon(
-                                    Icons.repeat,
-                                    color: Colors.black,
-                                  ),
-                                  onPressed: () {
-                                    if (changeLogic
-                                            .controller.text.isNotEmpty &&
-                                        double.parse(
-                                                changeLogic.controller.text) !=
-                                            0) {
-                                      changeLogic.result = changeLogic.convert(
-                                          double.parse(
-                                              changeLogic.controller.text),
-                                          changeLogic.selectedValues[0]['value']
-                                              .toDouble(),
-                                          changeLogic.selectedValues[1]['value']
-                                              .toDouble());
-                                      changeLogic.adVisibility = true;
-                                    } else {
-                                      changeLogic.result = 0;
-                                    }
-
-                                    changeLogic.notifyListeners();
-                                  },
-                                  backgroundColor: Colors.white,
-                                ))
-                          ],
+                        Carddy(
+                          index: 0,
+                        ),
+                        Carddy(
+                          index: 1,
                         ),
                         Expanded(
-                          child: Selector<ChangeLogic, bool>(
-                            selector: (BuildContext, changeLogic) =>
-                                changeLogic.adVisibility,
-                            builder: (BuildContext context, bool value,
-                                Widget child) {
-                              return value && false
-                                  ? Ad(AdmobBannerSize.MEDIUM_RECTANGLE)
-                                  : Container(
-                                      color: Color(0xff242527),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: x.map((element) {
-                                          return Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: element.map((rowElement) {
-                                              return ButtonTheme(
-                                                minWidth: 70,
-                                                height: 45,
-                                                child: FlatButton(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  10))),
-                                                  color: Colors.white,
-                                                  onPressed: () {
-                                                    if (rowElement == 'd') {
-                                                      if (changeLogic.controller
-                                                          .text.isNotEmpty)
-                                                        changeLogic.controller
-                                                                .text =
-                                                            changeLogic
-                                                                .controller.text
-                                                                .substring(
-                                                                    0,
-                                                                    changeLogic
-                                                                            .controller
-                                                                            .text
-                                                                            .length -
-                                                                        1);
-                                                    } else {
-                                                      changeLogic.controller
-                                                          .text += rowElement;
-                                                    }
-                                                  },
-                                                  child: rowElement == 'd'
-                                                      ? Icon(
-                                                          FontAwesomeIcons
-                                                              .backspace,
-                                                          size: 16,
-                                                          color: Colors.black,
-                                                        )
-                                                      : Text(
-                                                          rowElement,
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 20),
-                                                        ),
-                                                ),
-                                              );
-                                            }).toList(),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    );
-                            },
-                          ),
-                        )
+                            child: Selector<ChangeLogic, bool>(
+                          selector: (BuildContext, ChangeLogic changeLogic) {
+                            return changeLogic.keyboardVisibility;
+                          },
+                          builder:
+                              (BuildContext context, bool value, Widget child) {
+                            return Ad(value
+                                ? AdmobBannerSize.BANNER
+                                : AdmobBannerSize.MEDIUM_RECTANGLE);
+                          },
+                        ))
                       ],
                     );
                   }

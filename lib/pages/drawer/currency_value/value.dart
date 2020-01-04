@@ -9,7 +9,7 @@ import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/globals/widgets/ad.dart';
 import 'package:usatolebanese/globals/widgets/warning.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/table.dart';
-import 'package:usatolebanese/pages/out/chart/chart.dart';
+import 'package:usatolebanese/pages/out/chart/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
@@ -44,7 +44,6 @@ class Value extends StatelessWidget {
               'lebanonLastPrice': data['buy']['to']
             };
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Center(
                   child: Padding(
@@ -124,7 +123,7 @@ class Value extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (BuildContext context) => Chart(
+                                builder: (BuildContext context) => ChartRoot(
                                     this.isLebanon ? 'lebaness' : 'turkesh',
                                     localization.last)));
                       },
@@ -136,6 +135,7 @@ class Value extends StatelessWidget {
                     ),
                   ),
                 ),
+                Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER))
                 //  Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER))
               ],
             );

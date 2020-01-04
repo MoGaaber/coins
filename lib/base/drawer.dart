@@ -15,7 +15,7 @@ class Draw extends StatelessWidget {
   Widget build(BuildContext context) {
     var logic = Provider.of<BaseLogic>(context, listen: false);
     return FractionallySizedBox(
-      widthFactor: 0.65,
+      widthFactor: 0.70,
       child: Drawer(
         child: Material(
           color: Colors.black,
@@ -40,7 +40,7 @@ class Draw extends StatelessWidget {
                         title: Text(
                           Localization.of(context).drawer[i],
                           style: TextStyle(
-                              fontSize: logic.aspectRatio * 31.2444444444,
+                              fontSize: logic.aspectRatio * 29,
                               fontWeight: FontWeight.w700,
                               color: Colors.white),
                         ),

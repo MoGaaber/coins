@@ -42,6 +42,7 @@ dependencies:
   firebase_admob: ^0.9.0+10
   keyboard_visibility: any
   equatable: ^1.0.1
+  syncfusion_flutter_charts: ^17.4.40
 
 
 dev_dependencies:
