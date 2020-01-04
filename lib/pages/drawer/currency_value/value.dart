@@ -55,7 +55,7 @@ class Value extends StatelessWidget {
                           '${localization[0]} : ',
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 14,
+                              fontSize: 23*logic.aspectRatio,
                               fontWeight: FontWeight.w300),
                         ),
                         Text(
@@ -71,7 +71,8 @@ class Value extends StatelessWidget {
                             mm
                           ])}',
                           style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w700),
+                              fontSize: 23 * logic.aspectRatio,
+                              fontWeight: FontWeight.w700),
                         )
                       ],
                     ),
