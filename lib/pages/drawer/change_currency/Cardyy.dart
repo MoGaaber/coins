@@ -85,8 +85,8 @@ class Carddy extends StatelessWidget {
                     ),
                   )
                 : SizedBox(
-                    width: 130,
-                    height: 50,
+                    width: baseLogic.aspectRatio * 217,
+                    height: baseLogic.aspectRatio * 83,
                     child: TextField(
                       onChanged: (x) {
                         changeLogic.onChanged(x);
@@ -94,7 +94,9 @@ class Carddy extends StatelessWidget {
                       controller: changeLogic.controller,
                       enableInteractiveSelection: false,
                       //    focusNode: AlwaysDisabledFocusNode(),
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 33 * baseLogic.aspectRatio),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(

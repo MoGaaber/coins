@@ -11,10 +11,11 @@ class Tabl extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var localization = Localization.of(context).globals;
+    var baseLogic = Provider.of<BaseLogic>(context, listen: false);
 
     var logic = Provider.of<BaseLogic>(context);
     return SizedBox.fromSize(
-        size: Size.fromHeight(140),
+        size: Size.fromHeight(baseLogic.aspectRatio * 233),
         child: Row(
           children: <Widget>[
             Spacer(

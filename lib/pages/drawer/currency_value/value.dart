@@ -78,7 +78,7 @@ class Value extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,12 +97,12 @@ class Value extends StatelessWidget {
                   ),
                 ),
                 Divider(
-                  height: 5,
+                  height: logic.aspectRatio * 8.3,
                   color: Color(0xff3E3E3E),
                 ),
                 Tabl(this.isLebanon, snapshot.data),
                 Divider(
-                  height: 5,
+                  height: logic.aspectRatio * 8.3,
                   color: Color(0xff3E3E3E),
                 ),
                 Padding(
@@ -113,8 +113,8 @@ class Value extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: ButtonTheme(
                     textTheme: ButtonTextTheme.primary,
-                    height: 40,
-                    minWidth: 100,
+                    height: 66 * logic.aspectRatio,
+                    minWidth: 200 * logic.aspectRatio,
                     child: FlatButton.icon(
                       color: Color(0xff1B191A),
                       shape: RoundedRectangleBorder(
@@ -129,7 +129,7 @@ class Value extends StatelessWidget {
                       },
                       icon: Icon(
                         FontAwesomeIcons.calendarAlt,
-                        size: 17,
+                        size: 28 * logic.aspectRatio,
                       ),
                       label: Text(localization.last),
                     ),
@@ -140,7 +140,7 @@ class Value extends StatelessWidget {
               ],
             );
           } else
-            return Text('Loading');
+            return CircularProgressIndicator();
         },
       ),
     );
