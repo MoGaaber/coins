@@ -11,21 +11,33 @@ import 'package:usatolebanese/globals/widgets/warning.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/table.dart';
 import 'package:usatolebanese/pages/out/chart/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 
-class Value extends StatelessWidget {
+class CurrencyValue extends StatefulWidget {
   bool isLebanon;
-  Value({this.isLebanon});
+  CurrencyValue({this.isLebanon});
+
+  @override
+  _CurrencyValueState createState() => _CurrencyValueState();
+}
+
+class _CurrencyValueState extends State<CurrencyValue> {
+  GlobalKey _keyRed = GlobalKey();
+
+  double getHeight() {
+    final RenderBox renderBoxRed = _keyRed.currentContext?.findRenderObject();
+    final height = renderBoxRed?.size?.height;
+    return height;
+  }
+
   @override
   Widget build(BuildContext context) {
-    var logic = Provider.of<BaseLogic>(context);
+    BaseLogic logic = Provider.of<BaseLogic>(context);
     var localization = Localization.of(context).coin;
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    num aspectRatio = logic.aspectRatio;
     return DefaultTextStyle(
       style: TextStyle(color: Colors.white),
       child: StreamBuilder<DocumentSnapshot>(
-        stream: this.isLebanon
+        stream: this.widget.isLebanon
             ? Firestore.instance
                 .collection('Pounds')
                 .document('Lebanese')
@@ -44,10 +56,11 @@ class Value extends StatelessWidget {
               'lebanonLastPrice': data['buy']['to']
             };
             return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.only(top: 33 * aspectRatio),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -55,7 +68,7 @@ class Value extends StatelessWidget {
                           '${localization[0]} : ',
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 23*logic.aspectRatio,
+                              fontSize: 23 * aspectRatio,
                               fontWeight: FontWeight.w300),
                         ),
                         Text(
@@ -71,7 +84,7 @@ class Value extends StatelessWidget {
                             mm
                           ])}',
                           style: TextStyle(
-                              fontSize: 23 * logic.aspectRatio,
+                              fontSize: 23 * aspectRatio,
                               fontWeight: FontWeight.w700),
                         )
                       ],
@@ -79,7 +92,7 @@ class Value extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  padding: EdgeInsets.symmetric(vertical: 16 * aspectRatio),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,30 +105,31 @@ class Value extends StatelessWidget {
                       Text(
                         '${snapshot.data.data['officialPrice']}',
                         style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 25),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 42 * aspectRatio),
                       )
                     ],
                   ),
                 ),
                 Divider(
-                  height: logic.aspectRatio * 8.3,
+                  height: aspectRatio * 8.3,
                   color: Color(0xff3E3E3E),
                 ),
-                Tabl(this.isLebanon, snapshot.data),
+                Tabl(this.widget.isLebanon, snapshot.data),
                 Divider(
-                  height: logic.aspectRatio * 8.3,
+                  height: aspectRatio * 8.3,
                   color: Color(0xff3E3E3E),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 30),
+                  padding: EdgeInsets.only(top: 50 * aspectRatio),
                   child: Warning(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: EdgeInsets.symmetric(vertical: 34 * aspectRatio),
                   child: ButtonTheme(
                     textTheme: ButtonTextTheme.primary,
-                    height: 66 * logic.aspectRatio,
-                    minWidth: 200 * logic.aspectRatio,
+                    height: 66 * aspectRatio,
+                    minWidth: 300 * aspectRatio,
                     child: FlatButton.icon(
                       color: Color(0xff1B191A),
                       shape: RoundedRectangleBorder(
@@ -125,23 +139,31 @@ class Value extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (BuildContext context) => ChartRoot(
-                                    this.isLebanon ? 'lebaness' : 'turkesh',
-                                    localization.last)));
+                                    widget.isLebanon ? 'lebaness' : 'turkesh',
+                                    localization.last,
+                                    aspectRatio)));
                       },
                       icon: Icon(
                         FontAwesomeIcons.calendarAlt,
-                        size: 28 * logic.aspectRatio,
+                        size: 28 * aspectRatio,
                       ),
-                      label: Text(localization.last),
+                      label: Text(
+                        localization.last,
+                        style: TextStyle(fontSize: 25 * logic.aspectRatio),
+                      ),
                     ),
                   ),
                 ),
-                Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER))
+                Expanded(
+                    key: _keyRed,
+                    child: Ad(100 < 250
+                        ? AdmobBannerSize.LARGE_BANNER
+                        : AdmobBannerSize.MEDIUM_RECTANGLE))
                 //  Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER))
               ],
             );
           } else
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
         },
       ),
     );

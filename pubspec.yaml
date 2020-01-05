@@ -29,20 +29,16 @@ dependencies:
   splashscreen: ^1.2.0
   cloud_firestore: ^0.13.0+1
   provider: ^4.0.1
-  fl_chart: ^0.6.2
   share: ^0.6.3+5
   font_awesome_flutter: ^8.5.0
   admob_flutter: ^0.3.4
   flutter_webview_plugin: ^0.3.10+1
   connectivity: ^0.4.6+1
-  bezier_chart: ^1.0.15
   intl: ^0.16.0
   date_format: ^1.0.8
   tuple: ^1.0.3
   firebase_admob: ^0.9.0+10
-  keyboard_visibility: any
   equatable: ^1.0.1
-  syncfusion_flutter_charts: ^17.4.40
 
 
 dev_dependencies:
@@ -55,10 +51,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-  module:
-
-    androidX: true
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

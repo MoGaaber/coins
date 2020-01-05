@@ -1,13 +1,7 @@
-import 'dart:math';
-
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
 import 'package:usatolebanese/base/logic.dart';
-import 'package:usatolebanese/main.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class Draw extends StatelessWidget {
@@ -40,37 +34,23 @@ class Draw extends StatelessWidget {
                         title: Text(
                           Localization.of(context).drawer[i],
                           style: TextStyle(
-                              fontSize: logic.aspectRatio * 29,
-                              fontWeight: FontWeight.w700,
+                              fontSize: logic.aspectRatio * 28,
+                              fontWeight: FontWeight.w400,
                               color: Colors.white),
                         ),
                         leading: Icon(logic.icons[i],
-                            size: logic.aspectRatio * 44, color: Colors.white),
+                            size: logic.aspectRatio * 40, color: Colors.white),
                         onTap: () {
                           logic.navigateToPage(context, i);
                         }),
-                    Divider()
-
-//                    i == 2
-//                        ? Column(
-//                            crossAxisAlignment: CrossAxisAlignment.start,
-//                            children: <Widget>[
-//                              Divider(
-//                                color: Colors.white,
-//                              ),
-//                              Padding(
-//                                padding: const EdgeInsets.all(8.0),
-//                                child: Text(
-//                                  Localization.of(context).drawer[i + 1],
-//                                  style: TextStyle(
-//                                      fontSize: 20,
-//                                      fontWeight: FontWeight.bold,
-//                                      color: Colors.white),
-//                                ),
-//                              )
-//                            ],
-//                          )
-//                        : Container()
+                    i == 2
+                        ? Divider(
+                            height: 50 * logic.aspectRatio,
+                            color: Colors.white.withOpacity(0.3),
+                          )
+                        : Divider(
+                            height: 1,
+                          ),
                   ],
                 ),
             ],

@@ -1,64 +1,64 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity/connectivity.dart';
+import 'dart:math';
+
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
-import 'package:tuple/tuple.dart';
 import 'package:usatolebanese/base/drawer.dart';
 import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 
 class Base extends StatelessWidget {
+  BannerAd _bannerAd;
+
   @override
   Widget build(BuildContext context) {
     var logic = Provider.of<BaseLogic>(context, listen: false);
-    print(logic.aspectRatio.toString());
-    print(logic.size.width);
-    print(logic.size.height);
-    return SafeArea(
-        child: Scaffold(
-            backgroundColor: Color(0xff1B191A),
-            drawer: Draw(),
-            appBar: AppBar(
-              actions: <Widget>[],
-              textTheme: TextTheme(
-                  title: TextStyle(
-                fontSize: logic.aspectRatio * 30,
-                fontWeight: FontWeight.bold,
-              )),
-              title: Selector<BaseLogic, int>(
-                selector: (BuildContext, BaseLogic logic) => logic.index,
-                builder: (BuildContext context, int value, Widget child) {
-                  return Text(
-                    Localization.of(context).drawer[value],
-                  );
-                },
-              ),
-              centerTitle: true,
-              backgroundColor: Color(0xff242527),
-              leading: Builder(
-                builder: (BuildContext context) => IconButton(
-                  icon: Icon(
-                    Icons.menu,
-                    size: logic.aspectRatio * 42.7555555556,
-                  ),
-                  onPressed: () {
-                    logic.openDrawer(context); ////
+
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: SafeArea(
+          child: Scaffold(
+              backgroundColor: Color(0xff1B191A),
+              drawer: Draw(),
+              appBar: AppBar(
+                actions: <Widget>[],
+                textTheme: TextTheme(
+                    title: TextStyle(
+                  fontSize: logic.aspectRatio * 30,
+                  fontWeight: FontWeight.bold,
+                )),
+                title: Selector<BaseLogic, int>(
+                  selector: (_, BaseLogic logic) => logic.index,
+                  builder: (BuildContext context, int value, _) {
+                    return Text(
+                      Localization.of(context).drawer[value],
+                    );
                   },
                 ),
+                centerTitle: true,
+                backgroundColor: Color(0xff242527),
+                leading: Builder(
+                  builder: (BuildContext context) => IconButton(
+                    icon: Icon(
+                      Icons.menu,
+                      size: logic.aspectRatio * 42.7555555556,
+                    ),
+                    onPressed: () {
+                      logic.openDrawer(context); ////
+                    },
+                  ),
+                ),
               ),
-            ),
-            body: Selector<BaseLogic, int>(
-              selector: (BuildContext, BaseLogic baseLogic) {
-                return baseLogic.index;
-              },
-              builder: (BuildContext context, int value, Widget child) {
-                return logic.pages[value];
-              },
-            )));
+              body: Selector<BaseLogic, int>(
+                selector: (_, BaseLogic baseLogic) {
+                  return baseLogic.index;
+                },
+                builder: (_, int value, __) {
+                  return logic.pages[value];
+                },
+              ))),
+    );
   }
 }

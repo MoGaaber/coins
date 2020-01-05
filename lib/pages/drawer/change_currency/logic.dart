@@ -1,9 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class ChangeLogic extends ChangeNotifier with EquatableMixin {
   double convert(double input, double from, double to) {
@@ -12,10 +10,6 @@ class ChangeLogic extends ChangeNotifier with EquatableMixin {
 
   var keyboardVisibility = false;
   ChangeLogic(BuildContext context) {
-    KeyboardVisibilityNotification().addNewListener(onChange: (x) {
-      keyboardVisibility = x;
-      notifyListeners();
-    });
     localization = Localization.of(context).currencyTypes;
     selectedValues = [
       {'name': localization[0], 'value': 1},
@@ -48,4 +42,9 @@ class ChangeLogic extends ChangeNotifier with EquatableMixin {
   @override
   // TODO: implement props
   List<Object> get props => selectedValues;
+
+  void onSelectedPopUp(Map x, int index) {
+    selectedValues[index] = x;
+    notifyListeners();
+  }
 }

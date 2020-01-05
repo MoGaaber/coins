@@ -45,9 +45,7 @@ class Carddy extends StatelessWidget {
                     size: 25,
                   ),
                   onSelected: (x) {
-                    print(x);
-                    changeLogic.selectedValues[this.index] = x;
-                    changeLogic.notifyListeners();
+                    changeLogic.onSelectedPopUp(x, index);
                   },
                   itemBuilder: (BuildContext context) =>
                       changeLogic.currencyTypes.map((x) {
@@ -79,7 +77,7 @@ class Carddy extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         );
                       },
-                      selector: (BuildContext, ChangeLogic changeLogic) {
+                      selector: (_, ChangeLogic changeLogic) {
                         return changeLogic.result;
                       },
                     ),

@@ -785,8 +785,7 @@ class BezierChartState extends State<BezierChart>
                   key: _keyScroll,
                   scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-                  child: Align(
-                    alignment: Alignment(0.0, 0.4),
+                  child: Center(
                     child: CustomPaint(
                       size: Size(
                         _contentWidth,

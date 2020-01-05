@@ -1,24 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:usatolebanese/base/root.dart';
-import 'package:usatolebanese/main.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/change.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/value.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class BaseLogic extends ChangeNotifier {
+  InterstitialAd fullScreenAd;
+
+  InterstitialAd createFullScreenAd() {
+    return InterstitialAd(
+      adUnitId: InterstitialAd.testAdUnitId,
+    );
+  }
+
+  showAd() {
+    fullScreenAd = createFullScreenAd()
+      ..load()
+      ..show();
+  }
+
   int index = 0;
 
   var pages = [
-    Value(
+    CurrencyValue(
       isLebanon: true,
     ),
-    Value(
+    CurrencyValue(
       isLebanon: false,
     ),
     Change()
@@ -51,27 +61,21 @@ class BaseLogic extends ChangeNotifier {
     screenHeight = size.height;
     screenWidth = size.width;
     aspectRatio = size.aspectRatio;
-
-    animationController = AnimationController(
-      lowerBound: 0,
-      upperBound: 1,
-      vsync: tickerProvider,
-      duration: Duration(milliseconds: 300),
-    );
+    localization = Localization.of(context).currencyTypes;
 
     FirebaseAdMob.instance
         .initialize(appId: 'ca-app-pub-3118554882781656~3307182209')
         .then((x) {
-      print(x);
+      showAd();
     });
-    localization = Localization.of(context).currencyTypes;
   }
+
   var icons = [
+    FontAwesomeIcons.coins,
+    FontAwesomeIcons.coins,
     FontAwesomeIcons.exchangeAlt,
-    FontAwesomeIcons.coins,
-    FontAwesomeIcons.coins,
+    FontAwesomeIcons.share,
     FontAwesomeIcons.star,
-    FontAwesomeIcons.share
   ];
 
   void openDrawer(BuildContext context) {
