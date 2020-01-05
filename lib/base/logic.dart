@@ -3,6 +3,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/change.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/value.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
@@ -54,6 +55,7 @@ class BaseLogic extends ChangeNotifier {
     }
   }
 
+  int openApp;
   double screenWidth, screenHeight, aspectRatio;
   Size size;
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
@@ -67,6 +69,17 @@ class BaseLogic extends ChangeNotifier {
         .initialize(appId: 'ca-app-pub-3118554882781656~3307182209')
         .then((x) {
       showAd();
+    });
+  }
+  bool isShareReady = false;
+  void initPref() async {
+    var instance = await SharedPreferences.getInstance();
+    int num = instance.getInt('openApp') ?? 0;
+
+    instance.setInt('openApp', num += 1).then((x) {
+      if (num % 7 == 0) {
+        isShareReady = true;
+      }
     });
   }
 

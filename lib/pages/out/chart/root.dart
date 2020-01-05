@@ -26,7 +26,7 @@ class ChartRoot extends StatelessWidget {
               children: <Widget>[
                 Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER)),
                 Container(
-                    color: Colors.indigo,
+                    color: Colors.transparent,
                     child: Chart(this.collection, this.aspectRatio)),
                 Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER)),
               ],

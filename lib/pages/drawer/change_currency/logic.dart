@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class ChangeLogic extends ChangeNotifier with EquatableMixin {
-  double convert(double input, double from, double to) {
-    return (input * from) / to;
+  double convert(num input) {
+    return (input * selectedValues[0]['value']) / selectedValues[1]['value'];
   }
 
   var keyboardVisibility = false;
@@ -24,17 +24,13 @@ class ChangeLogic extends ChangeNotifier with EquatableMixin {
 
   var controller = TextEditingController();
   List<Map> currencyTypes;
-
   var result = 0.0;
 
   onChanged(String text) {
     if (text.isEmpty || double.parse(text) <= 0) {
       result = 0;
     } else {
-      result = convert(
-          double.parse(text),
-          selectedValues[0]['value'].toDouble(),
-          selectedValues[1]['value'].toDouble());
+      result = convert(double.parse(text));
     }
     notifyListeners();
   }
@@ -45,6 +41,7 @@ class ChangeLogic extends ChangeNotifier with EquatableMixin {
 
   void onSelectedPopUp(Map x, int index) {
     selectedValues[index] = x;
+    result = convert(num.tryParse(controller.text));
     notifyListeners();
   }
 }
