@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/logic.dart';
@@ -56,15 +57,18 @@ class _CurrencyValueState extends State<CurrencyValue> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-//                    CustomPaint(
-//                      size: Size(50, 50),
-//                      painter: Circle(),
-//                    ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: CustomPaint(
+                          size: Size(0, 0),
+                          painter: Circle(),
+                        ),
+                      ),
                       Text(
                         '${localization[0]}  :  ',
                         style: TextStyle(
-                            color: Colors.lightGreenAccent,
                             fontSize: 22 * aspectRatio,
                             fontWeight: FontWeight.w300),
                       ),
@@ -171,13 +175,17 @@ class _CurrencyValueState extends State<CurrencyValue> {
 class Circle extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    var paint = Paint();
-    canvas.drawCircle(Offset(0, 0), 20, Paint());
+    final paint = Paint();
+    // set the color property of the paint
+    paint.color = Colors.green;
+
+    // center of the canvas is (x,y) => (width/2, height/2)
+    var center = Offset(size.width / 2, size.height / 2);
+
+    // draw the circle on centre of canvas having radius 75.0
+    canvas.drawCircle(center, 4, paint);
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    return false;
-  }
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
