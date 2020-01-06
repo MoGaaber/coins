@@ -19,7 +19,7 @@ class Warning extends StatelessWidget {
           child: Icon(
             FontAwesomeIcons.info,
             color: Colors.red,
-            size: logic.aspectRatio * 32.8888888889,
+            size: logic.aspectRatio * 38.8888888889,
           ),
         ),
         Flexible(
@@ -28,8 +28,8 @@ class Warning extends StatelessWidget {
             Localization.of(context).warning,
             style: TextStyle(
                 color: Colors.white,
-                fontSize: logic.aspectRatio * 21.3777777778,
-                fontWeight: FontWeight.w700),
+                fontSize: logic.aspectRatio * 19.3777777778,
+                fontWeight: FontWeight.w400),
           ),
         ),
       ],

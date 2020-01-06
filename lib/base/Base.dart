@@ -51,7 +51,7 @@ class Base extends StatelessWidget {
       },
       child: SafeArea(
           child: Scaffold(
-              backgroundColor: Color(0xff1B191A),
+              backgroundColor: Color(0xff0E0E0E),
               drawer: Draw(),
               appBar: AppBar(
                 actions: <Widget>[
@@ -72,6 +72,10 @@ class Base extends StatelessWidget {
                   builder: (BuildContext context, int value, _) {
                     return Text(
                       Localization.of(context).drawer[value],
+                      style: TextStyle(
+                          fontSize: logic.aspectRatio * 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     );
                   },
                 ),

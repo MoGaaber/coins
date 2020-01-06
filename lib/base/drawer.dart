@@ -9,7 +9,7 @@ class Draw extends StatelessWidget {
   Widget build(BuildContext context) {
     var logic = Provider.of<BaseLogic>(context, listen: false);
     return FractionallySizedBox(
-      widthFactor: 0.70,
+      widthFactor: 0.75,
       child: Drawer(
         child: Material(
           color: Colors.black,
@@ -24,7 +24,7 @@ class Draw extends StatelessWidget {
                   height: logic.aspectRatio * 164.444444444,
                 )),
                 decoration: BoxDecoration(
-                  color: Color(0xff49000E),
+                  color: Color(0xff250101),
                 ),
               ),
               for (int i = 0; i < logic.icons.length; i++)
@@ -34,12 +34,13 @@ class Draw extends StatelessWidget {
                         title: Text(
                           Localization.of(context).drawer[i],
                           style: TextStyle(
-                              fontSize: logic.aspectRatio * 28,
-                              fontWeight: FontWeight.w400,
+                              fontSize: logic.aspectRatio * 30,
+                              fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
                         leading: Icon(logic.icons[i],
-                            size: logic.aspectRatio * 40, color: Colors.white),
+                            size: logic.aspectRatio * 37,
+                            color: Colors.white.withOpacity(0.6)),
                         onTap: () {
                           logic.navigateToPage(context, i);
                         }),

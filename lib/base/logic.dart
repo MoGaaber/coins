@@ -10,7 +10,8 @@ import 'package:usatolebanese/utility/localization/localization.dart';
 
 class BaseLogic extends ChangeNotifier {
   InterstitialAd fullScreenAd;
-
+  AnimationController controller;
+  Animation<Offset> animation;
   InterstitialAd createFullScreenAd() {
     return InterstitialAd(
       adUnitId: InterstitialAd.testAdUnitId,
@@ -64,6 +65,13 @@ class BaseLogic extends ChangeNotifier {
     screenWidth = size.width;
     aspectRatio = size.aspectRatio;
     localization = Localization.of(context).currencyTypes;
+    controller = AnimationController(
+      vsync: tickerProvider,
+      duration: Duration(milliseconds: 500),
+    );
+    animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(0, 0.1))
+        .animate(controller);
+    controller.repeat(reverse: true);
 
     FirebaseAdMob.instance
         .initialize(appId: 'ca-app-pub-3118554882781656~3307182209')

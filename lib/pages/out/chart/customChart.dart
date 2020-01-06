@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:usatolebanese/pages/out/chart/x.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -190,12 +191,6 @@ class BezierChartState extends State<BezierChart>
   double _yAxisWidth = 0.0;
 
   ///Refresh the position of the vertical/bubble
-  void _refreshPosition(details) {
-    if (_animationController.status == AnimationStatus.completed &&
-        _displayIndicator) {
-      return _updatePosition(details.globalPosition);
-    }
-  }
 
   ///Update and refresh the position based on the current screen
   void _updatePosition(Offset globalPosition) {
@@ -225,7 +220,9 @@ class BezierChartState extends State<BezierChart>
       }
     }
     _onDataPointSnap(double.maxFinite);
-    if (updatePosition) _updatePosition(details.globalPosition);
+    if (updatePosition) {
+      _updatePosition(details.globalPosition);
+    }
   }
 
   ///Hide the vertical/bubble indicator and refresh the widget
@@ -735,6 +732,7 @@ class BezierChartState extends State<BezierChart>
 
   @override
   Widget build(BuildContext context) {
+//    var logic =Provider.of<Cha>(context);
     //using `Listener` to fix the issue with single touch for multitouch gesture like pinch/zoom
     //https://github.com/flutter/flutter/issues/13102
     return Container(
@@ -760,7 +758,15 @@ class BezierChartState extends State<BezierChart>
         },
         child: GestureDetector(
           onLongPressStart: isPinchZoomActive ? null : _onDisplayIndicator,
-          onLongPressMoveUpdate: isPinchZoomActive ? null : _refreshPosition,
+          onLongPressMoveUpdate: isPinchZoomActive
+              ? null
+              : (LongPressMoveUpdateDetails details) {
+                  if (_animationController.status ==
+                          AnimationStatus.completed &&
+                      _displayIndicator) {
+                    return _updatePosition(details.globalPosition);
+                  }
+                },
           onScaleStart: (_) {
             _previousScale = _currentScale;
           },

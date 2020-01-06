@@ -27,11 +27,19 @@ class Tabl extends StatelessWidget {
                 Text(''),
                 Text(
                   localization[0],
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                      letterSpacing: 0.5,
+                      color: Colors.white.withOpacity(0.7)),
                 ),
                 Text(
                   localization[1],
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                      letterSpacing: 0.5,
+                      color: Colors.white.withOpacity(0.7)),
                 ),
               ],
             ),
@@ -45,19 +53,31 @@ class Tabl extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       localization[2],
-                      style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12,
+                          letterSpacing: 0.5,
+                          color: Colors.white.withOpacity(0.7)),
                     ),
-                    logic.icon('buy', snapshot)
+                    SlideTransition(
+                      child: logic.icon('buy', snapshot),
+                      position: logic.animation,
+                    )
                   ],
                 ),
                 Text(
                   snapshot.data['buy']['from'].toString(),
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                      letterSpacing: 2,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500),
                 ),
                 Text(
                   snapshot.data['buy']['to'].toString(),
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                      letterSpacing: 2,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500),
                 )
               ],
             ),
@@ -71,19 +91,31 @@ class Tabl extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       localization[3],
-                      style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.5,
+                          fontSize: 12,
+                          color: Colors.white.withOpacity(0.7)),
                     ),
-                    logic.icon('sell', this.snapshot)
+                    SlideTransition(
+                      child: logic.icon('sell', this.snapshot),
+                      position: logic.animation,
+                    )
                   ],
                 ),
                 Text(
                   snapshot.data['sell']['from'].toString(),
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                      letterSpacing: 0.5,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500),
                 ),
                 Text(
                   snapshot.data['sell']['to'].toString(),
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                      fontSize: 20,
+                      letterSpacing: 0.5,
+                      fontWeight: FontWeight.w500),
                 )
               ],
             ),

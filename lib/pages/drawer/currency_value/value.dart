@@ -21,14 +21,6 @@ class CurrencyValue extends StatefulWidget {
 }
 
 class _CurrencyValueState extends State<CurrencyValue> {
-  GlobalKey _keyRed = GlobalKey();
-
-  double getHeight() {
-    final RenderBox renderBoxRed = _keyRed.currentContext?.findRenderObject();
-    final height = renderBoxRed?.size?.height;
-    return height;
-  }
-
   @override
   Widget build(BuildContext context) {
     BaseLogic logic = Provider.of<BaseLogic>(context);
@@ -57,56 +49,63 @@ class _CurrencyValueState extends State<CurrencyValue> {
             };
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 33 * aspectRatio),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Text(
-                          '${localization[0]} : ',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 23 * aspectRatio,
-                              fontWeight: FontWeight.w300),
-                        ),
-                        Text(
-                          '${formatDate(snapshot.data.data['at'].toDate(), [
-                            'dd',
-                            '/',
-                            mm,
-                            '/',
-                            yyyy,
-                            ' - ',
-                            h,
-                            ':',
-                            mm
-                          ])}',
-                          style: TextStyle(
-                              fontSize: 23 * aspectRatio,
-                              fontWeight: FontWeight.w700),
-                        )
-                      ],
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+//                    CustomPaint(
+//                      size: Size(50, 50),
+//                      painter: Circle(),
+//                    ),
+                      Text(
+                        '${localization[0]}  :  ',
+                        style: TextStyle(
+                            color: Colors.lightGreenAccent,
+                            fontSize: 22 * aspectRatio,
+                            fontWeight: FontWeight.w300),
+                      ),
+                      Text(
+                        '${formatDate(snapshot.data.data['at'].toDate(), [
+                          'dd',
+                          '/',
+                          mm,
+                          '/',
+                          yyyy,
+                          ' - ',
+                          h,
+                          ':',
+                          mm,
+                          ' ',
+                          am
+                        ])}',
+                        style: TextStyle(
+                            fontSize: 23 * aspectRatio,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600),
+                      )
+                    ],
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16 * aspectRatio),
+                  padding: EdgeInsets.symmetric(vertical: 20 * aspectRatio),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text('${localization[1]} :  ',
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
+                              color: Colors.white.withOpacity(0.9),
+                              fontSize: 22 * aspectRatio,
                               fontWeight: FontWeight.w300)),
                       Text(
                         '${snapshot.data.data['officialPrice']}',
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
-                            fontSize: 42 * aspectRatio),
+                            fontSize: 36 * aspectRatio),
                       )
                     ],
                   ),
@@ -128,8 +127,8 @@ class _CurrencyValueState extends State<CurrencyValue> {
                   padding: EdgeInsets.symmetric(vertical: 34 * aspectRatio),
                   child: ButtonTheme(
                     textTheme: ButtonTextTheme.primary,
-                    height: 66 * aspectRatio,
-                    minWidth: 300 * aspectRatio,
+                    height: 60 * aspectRatio,
+                    minWidth: 250 * aspectRatio,
                     child: FlatButton.icon(
                       color: Color(0xff1B191A),
                       shape: RoundedRectangleBorder(
@@ -149,13 +148,12 @@ class _CurrencyValueState extends State<CurrencyValue> {
                       ),
                       label: Text(
                         localization.last,
-                        style: TextStyle(fontSize: 25 * logic.aspectRatio),
+                        style: TextStyle(fontSize: 22 * logic.aspectRatio),
                       ),
                     ),
                   ),
                 ),
                 Expanded(
-                    key: _keyRed,
                     child: Ad(100 < 250
                         ? AdmobBannerSize.LARGE_BANNER
                         : AdmobBannerSize.MEDIUM_RECTANGLE))
@@ -167,5 +165,19 @@ class _CurrencyValueState extends State<CurrencyValue> {
         },
       ),
     );
+  }
+}
+
+class Circle extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint();
+    canvas.drawCircle(Offset(0, 0), 20, Paint());
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return false;
   }
 }
