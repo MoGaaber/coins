@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
+import 'package:tuple/tuple.dart';
 import 'package:usatolebanese/base/drawer.dart';
 import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
@@ -53,52 +54,68 @@ class Base extends StatelessWidget {
           child: Scaffold(
               backgroundColor: Color(0xff0E0E0E),
               drawer: Draw(),
-              appBar: AppBar(
-                actions: <Widget>[
-                  IconButton(
-                      icon: Icon(Icons.share),
-                      onPressed: () {
-                        Share.share('check out my website https://example.com',
-                            subject: 'Look what I made!');
-                      })
-                ],
-                textTheme: TextTheme(
-                    title: TextStyle(
-                  fontSize: logic.aspectRatio * 30,
-                  fontWeight: FontWeight.bold,
-                )),
-                title: Selector<BaseLogic, int>(
-                  selector: (_, BaseLogic logic) => logic.index,
-                  builder: (BuildContext context, int value, _) {
-                    return Text(
-                      Localization.of(context).drawer[value],
-                      style: TextStyle(
-                          fontSize: logic.aspectRatio * 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    );
-                  },
-                ),
-                centerTitle: true,
-                backgroundColor: Color(0xff242527),
-                leading: Builder(
-                  builder: (BuildContext context) => IconButton(
-                    icon: Icon(
-                      Icons.menu,
-                      size: logic.aspectRatio * 42.7555555556,
-                    ),
-                    onPressed: () {
-                      logic.openDrawer(context); ////
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(60),
+                child: AppBar(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusDirectional.vertical(
+                          bottom: Radius.circular(10))),
+                  actions: <Widget>[
+                    IconButton(
+                        icon: Icon(Icons.refresh),
+                        onPressed: () {
+                          logic.fetchData();
+                          logic.notifyListeners();
+                        }),
+                    IconButton(
+                        icon: Icon(Icons.share),
+                        onPressed: () {
+                          Share.share(
+                              'check out my website https://example.com',
+                              subject: 'Look what I made!');
+                        })
+                  ],
+                  textTheme: TextTheme(
+                      title: TextStyle(
+                    fontSize: logic.aspectRatio * 30,
+                    fontWeight: FontWeight.bold,
+                  )),
+                  title: Selector<BaseLogic, int>(
+                    selector: (_, BaseLogic logic) => logic.index,
+                    builder: (BuildContext context, int value, _) {
+                      return Text(
+                        Localization.of(context).drawer[value],
+                        style: TextStyle(
+                            fontSize: logic.aspectRatio * 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      );
                     },
+                  ),
+                  centerTitle: true,
+                  backgroundColor: Color(0xff242527),
+                  leading: Builder(
+                    builder: (BuildContext context) => IconButton(
+                      icon: Icon(
+                        Icons.menu,
+                        size: logic.aspectRatio * 42.7555555556,
+                      ),
+                      onPressed: () {
+                        logic.openDrawer(context); ////
+                      },
+                    ),
                   ),
                 ),
               ),
-              body: Selector<BaseLogic, int>(
+              body: Selector<BaseLogic, Tuple2<int, bool>>(
                 selector: (_, BaseLogic baseLogic) {
-                  return baseLogic.index;
+                  return Tuple2(baseLogic.index, baseLogic.isLoading);
                 },
-                builder: (_, int value, __) {
-                  return logic.pages[value];
+                builder: (_, Tuple2 value, __) {
+                  return value.item2
+                      ? Center(child: CircularProgressIndicator())
+                      : logic.pages[value.item1];
                 },
               ))),
     );

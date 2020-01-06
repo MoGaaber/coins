@@ -27,9 +27,10 @@ class Warning extends StatelessWidget {
           child: Text(
             Localization.of(context).warning,
             style: TextStyle(
+                wordSpacing: 1,
                 color: Colors.white,
                 fontSize: logic.aspectRatio * 19.3777777778,
-                fontWeight: FontWeight.w400),
+                fontWeight: FontWeight.w500),
           ),
         ),
       ],

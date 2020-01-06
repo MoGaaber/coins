@@ -5,9 +5,8 @@ import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class Tabl extends StatelessWidget {
-  bool isLebanon;
-  DocumentSnapshot snapshot;
-  Tabl(this.isLebanon, this.snapshot);
+  Map<String, dynamic> data;
+  Tabl(this.data);
   @override
   Widget build(BuildContext context) {
     var localization = Localization.of(context).globals;
@@ -60,20 +59,20 @@ class Tabl extends StatelessWidget {
                           color: Colors.white.withOpacity(0.7)),
                     ),
                     SlideTransition(
-                      child: logic.icon('buy', snapshot),
+                      child: logic.icon('buy', data),
                       position: logic.animation,
                     )
                   ],
                 ),
                 Text(
-                  snapshot.data['buy']['from'].toString(),
+                  data['buy']['from'].toString(),
                   style: TextStyle(
                       letterSpacing: 2,
                       fontSize: 20,
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  snapshot.data['buy']['to'].toString(),
+                  data['buy']['to'].toString(),
                   style: TextStyle(
                       letterSpacing: 2,
                       fontSize: 20,
@@ -98,20 +97,20 @@ class Tabl extends StatelessWidget {
                           color: Colors.white.withOpacity(0.7)),
                     ),
                     SlideTransition(
-                      child: logic.icon('sell', this.snapshot),
+                      child: logic.icon('sell', this.data),
                       position: logic.animation,
                     )
                   ],
                 ),
                 Text(
-                  snapshot.data['sell']['from'].toString(),
+                  data['sell']['from'].toString(),
                   style: TextStyle(
                       letterSpacing: 0.5,
                       fontSize: 20,
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  snapshot.data['sell']['to'].toString(),
+                  data['sell']['to'].toString(),
                   style: TextStyle(
                       fontSize: 20,
                       letterSpacing: 0.5,

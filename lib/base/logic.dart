@@ -18,23 +18,32 @@ class BaseLogic extends ChangeNotifier {
     );
   }
 
-  showAd() {
-    fullScreenAd = createFullScreenAd()
-      ..load()
-      ..show();
+  void showAd() {
+    FirebaseAdMob.instance
+        .initialize(appId: 'ca-app-pub-3118554882781656~3307182209')
+        .then((x) {
+      fullScreenAd = createFullScreenAd()
+        ..load()
+        ..show();
+    });
   }
 
   int index = 0;
 
-  var pages = [
-    CurrencyValue(
-      isLebanon: true,
-    ),
-    CurrencyValue(
-      isLebanon: false,
-    ),
-    Change()
-  ];
+  var pages = [CurrencyValue(), CurrencyValue(), Change()];
+  bool isLoading = true;
+  List<DocumentSnapshot> documents;
+  void fetchData() {
+    if (isLoading != true) isLoading = true;
+    Future.wait([
+      Firestore.instance.collection('Pounds').document('Lebanese').get(),
+      Firestore.instance.collection('Pounds').document('Syrian').get()
+    ]).then((x) {
+      documents = x;
+      isLoading = false;
+      notifyListeners();
+    });
+  }
 
   List<Map> currencyTypes;
   int syrianPrice, lebanonPrice;
@@ -42,8 +51,8 @@ class BaseLogic extends ChangeNotifier {
   AnimationController animationController;
 
   var localization;
-  Widget icon(String x, DocumentSnapshot snapshot) {
-    if (snapshot.data[x]['to'] > snapshot.data[x]['from']) {
+  Widget icon(String x, Map<String, dynamic> data) {
+    if (data[x]['to'] > data[x]['from']) {
       return Icon(
         Icons.keyboard_arrow_up,
         color: Colors.green,
@@ -60,6 +69,8 @@ class BaseLogic extends ChangeNotifier {
   double screenWidth, screenHeight, aspectRatio;
   Size size;
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
+    fetchData();
+    showAd();
     size = MediaQuery.of(context).size;
     screenHeight = size.height;
     screenWidth = size.width;
@@ -67,17 +78,11 @@ class BaseLogic extends ChangeNotifier {
     localization = Localization.of(context).currencyTypes;
     controller = AnimationController(
       vsync: tickerProvider,
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 800),
     );
-    animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(0, 0.1))
+    animation = Tween<Offset>(begin: Offset(0, -0.15), end: Offset(0, 0.2))
         .animate(controller);
     controller.repeat(reverse: true);
-
-    FirebaseAdMob.instance
-        .initialize(appId: 'ca-app-pub-3118554882781656~3307182209')
-        .then((x) {
-      showAd();
-    });
   }
   bool isShareReady = false;
   void initPref() async {
