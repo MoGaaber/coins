@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/Base.dart';
 import 'package:usatolebanese/base/logic.dart';
@@ -11,8 +13,13 @@ class BaseRoot extends StatefulWidget {
   _BaseRootState createState() => _BaseRootState();
 }
 
-class _BaseRootState extends State<BaseRoot>
-    with SingleTickerProviderStateMixin {
+class _BaseRootState extends State<BaseRoot> with TickerProviderStateMixin {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext cx) {
     return MultiProvider(

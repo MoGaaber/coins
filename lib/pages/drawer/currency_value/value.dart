@@ -111,8 +111,8 @@ class _CurrencyValueState extends State<CurrencyValue> {
               child: ButtonTheme(
                 textTheme: ButtonTextTheme.primary,
                 height: 80 * aspectRatio,
-                minWidth: 260 * aspectRatio,
-                child: FlatButton.icon(
+                minWidth: 240 * aspectRatio,
+                child: FlatButton(
                   color: Colors.transparent,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -127,13 +127,10 @@ class _CurrencyValueState extends State<CurrencyValue> {
                             builder: (BuildContext context) => ChartRoot(
                                 'lebaness', localization.last, aspectRatio)));
                   },
-                  icon: Icon(
-                    FontAwesomeIcons.calendarAlt,
-                    size: 28 * aspectRatio,
-                  ),
-                  label: Text(
+                  child: Text(
                     localization.last,
                     style: TextStyle(
+                        wordSpacing: 0.8,
                         fontWeight: FontWeight.w700,
                         fontSize: 26 * logic.aspectRatio),
                   ),

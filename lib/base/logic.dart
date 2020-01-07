@@ -3,6 +3,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/change.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/value.dart';
@@ -12,6 +13,11 @@ class BaseLogic extends ChangeNotifier {
   InterstitialAd fullScreenAd;
   AnimationController controller;
   Animation<Offset> animation;
+  AnimationController rotationController;
+  Animation<double> rotationAnimation;
+  AnimationController colorController;
+  Animation<Color> colorAnimation;
+
   InterstitialAd createFullScreenAd() {
     return InterstitialAd(
       adUnitId: InterstitialAd.testAdUnitId,
@@ -30,16 +36,23 @@ class BaseLogic extends ChangeNotifier {
 
   int index = 0;
 
-  var pages = [CurrencyValue(), CurrencyValue(), Change()];
+  var pages;
   bool isLoading = true;
   List<DocumentSnapshot> documents;
   void fetchData() {
-    if (isLoading != true) isLoading = true;
+    if (isLoading == false) isLoading = true;
+    notifyListeners();
     Future.wait([
       Firestore.instance.collection('Pounds').document('Lebanese').get(),
       Firestore.instance.collection('Pounds').document('Syrian').get()
     ]).then((x) {
       documents = x;
+      currencyTypes = List.generate(3, (index) {
+        return {
+          'name': localization[index],
+          'value': index == 0 ? 1 : documents[index - 1].data['buy']['to']
+        };
+      });
       isLoading = false;
       notifyListeners();
     });
@@ -50,7 +63,7 @@ class BaseLogic extends ChangeNotifier {
   var lastPrices = {};
   AnimationController animationController;
 
-  var localization;
+  List<String> localization;
   Widget icon(String x, Map<String, dynamic> data) {
     if (data[x]['to'] > data[x]['from']) {
       return Icon(
@@ -68,7 +81,16 @@ class BaseLogic extends ChangeNotifier {
   int openApp;
   double screenWidth, screenHeight, aspectRatio;
   Size size;
+  BuildContext context;
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
+    pages = [CurrencyValue(), CurrencyValue(), Change(context)];
+    Stream.value(MediaQuery.of(context).viewInsets.bottom).listen((x) {
+      print(x.toString() + '!!!!!!');
+    });
+    KeyboardVisibilityNotification().addNewListener(onChange: (x) {
+      print(x);
+    });
+
     fetchData();
     showAd();
     size = MediaQuery.of(context).size;
@@ -82,6 +104,19 @@ class BaseLogic extends ChangeNotifier {
     );
     animation = Tween<Offset>(begin: Offset(0, -0.15), end: Offset(0, 0.2))
         .animate(controller);
+    rotationController = AnimationController(
+      vsync: tickerProvider,
+      duration: Duration(milliseconds: 800),
+    );
+    rotationAnimation =
+        Tween<double>(begin: 0, end: 1).animate(rotationController);
+    colorController = AnimationController(
+      vsync: tickerProvider,
+      duration: Duration(milliseconds: 200),
+    );
+    colorAnimation = ColorTween(begin: Colors.white, end: Colors.pinkAccent)
+        .animate(colorController);
+
     controller.repeat(reverse: true);
   }
   bool isShareReady = false;
