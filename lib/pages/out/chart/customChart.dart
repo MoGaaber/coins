@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:usatolebanese/pages/out/chart/logic.dart';
 import 'package:usatolebanese/pages/out/chart/x.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -707,8 +708,24 @@ class BezierChartState extends State<BezierChart>
 
   @override
   void initState() {
+    logic = Provider.of<ChartLogic>(context, listen: false);
     _currentBezierChartScale = widget.bezierChartScale;
     _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      if (logic.text !=
+          'no no long press on it again and done not move up your finger') {
+        logic.controller.forward().then((x) {
+          logic.text =
+              'no no long press on it again and done not move up your finger';
+
+          logic.controller.reverse();
+        });
+        if (logic.text == 'success , now you are ready') {
+          _scrollController.dispose();
+        }
+      }
+    });
+
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(
@@ -729,10 +746,9 @@ class BezierChartState extends State<BezierChart>
   }
 
   int _touchFingers = 0;
-
+  ChartLogic logic;
   @override
   Widget build(BuildContext context) {
-//    var logic =Provider.of<Cha>(context);
     //using `Listener` to fix the issue with single touch for multitouch gesture like pinch/zoom
     //https://github.com/flutter/flutter/issues/13102
     return Container(
@@ -757,10 +773,40 @@ class BezierChartState extends State<BezierChart>
           }
         },
         child: GestureDetector(
+          onLongPressUp: () {
+            if (logic.text != 'success , now you are ready') {
+              print('!!');
+              if (logic.text == 'drag') {
+                _displayIndicator = false;
+                logic.controller.forward().then((x) {
+                  logic.text = 'long press again';
+
+                  logic.controller.reverse();
+                });
+              }
+            } else {
+              logic.controller.forward().then((x) {
+                logic.ready = true;
+              });
+            }
+          },
           onLongPressStart: isPinchZoomActive ? null : _onDisplayIndicator,
           onLongPressMoveUpdate: isPinchZoomActive
               ? null
               : (LongPressMoveUpdateDetails details) {
+                  if (logic.text != 'success , now you are ready') {
+                    if (details.localOffsetFromOrigin.dx.abs() > 100) {
+                      logic.controller.forward().then((x) {
+                        logic.text = 'success , now you are ready';
+
+                        logic.controller.reverse();
+                      });
+                    }
+                  } else {
+                    logic.controller.forward().then((x) {
+                      logic.ready = true;
+                    });
+                  }
                   if (_animationController.status ==
                           AnimationStatus.completed &&
                       _displayIndicator) {

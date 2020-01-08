@@ -21,7 +21,7 @@ class _ChartState extends State<Chart> {
 
   @override
   Widget build(BuildContext context) {
-    var logic = Provider.of<ChartLogic>(context);
+    var logic = Provider.of<ChartLogic>(context, listen: false);
     return SizedBox.fromSize(
       size: Size.fromHeight(340),
       child: FutureBuilder(
@@ -40,12 +40,23 @@ class _ChartState extends State<Chart> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: BezierChart(
-                  onValueSelected: (x) {
-                    print('!!!');
-                  },
+                  onValueSelected: (x) {},
                   onIndicatorVisible: (x) {
-                    logic.text = 'Now drag';
-                    logic.notifyListeners();
+                    if (logic.text != 'success , now you are ready') {
+                      logic.controller.forward().then((xy) {
+                        if (x) {
+                          logic.text = 'drag';
+                        } else {
+                          logic.text = 'long pressss again';
+                        }
+
+                        logic.controller.reverse().then((xy) {});
+                      });
+                    } else {
+                      logic.controller.forward().then((x) {
+                        logic.ready = true;
+                      });
+                    }
                   },
                   fromDate:
                       documents[documents.length - 1].data['date'].toDate(),

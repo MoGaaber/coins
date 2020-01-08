@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
@@ -13,68 +17,75 @@ import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
+  if (message.containsKey('data')) {
+    // Handle data message
+    final dynamic data = message['data'];
+  }
+
+  if (message.containsKey('notification')) {
+    // Handle notification message
+    final dynamic notification = message['notification'];
+  }
+
+  // Or do other work.
+}
+
 class Base extends StatefulWidget {
   @override
   _BaseState createState() => _BaseState();
 }
 
 class _BaseState extends State<Base> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
   BannerAd _bannerAd;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    KeyboardVisibilityNotification().addNewListener(onChange: (x) {
-      print(x);
-    });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-//    if (MediaQuery.of(context).viewInsets.bottom == 0) {
-//      changeLogic.keyboardVisibility = true;
-//      changeLogic.notifyListeners();
-//    } else {
-//      changeLogic.keyboardVisibility = false;
-//      changeLogic.notifyListeners();
-//    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var logic = Provider.of<BaseLogic>(context, listen: false);
-    var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
-
-    var buttons = [
+    baseLogic = Provider.of<BaseLogic>(context, listen: false);
+    buttons = [
       {
         'text': 'Exit App',
         'onPressed': () {
           exit(0);
         }
       },
-      if (logic.isShareReady) {'text': 'Share App', 'onPressed': () {}}
+      if (baseLogic.isShareReady) {'text': 'Share App', 'onPressed': () {}}
     ];
+  }
 
-    void showDialoggy(BuildContext context) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Are'),
-              actions: buttons.map((element) {
-                return FlatButton(
-                    onPressed: element['onPressed'],
-                    child: Text(element['text']));
-              }).toList(),
-              backgroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-            );
-          });
-    }
+  void showDialoggy(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Are'),
+            actions: buttons.map((element) {
+              return FlatButton(
+                  onPressed: element['onPressed'],
+                  child: Text(element['text']));
+            }).toList(),
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+          );
+        });
+  }
 
+  List<Map> buttons;
+
+  BaseLogic baseLogic;
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
     return WillPopScope(
       onWillPop: () async {
         showDialoggy(context);
@@ -82,6 +93,10 @@ class _BaseState extends State<Base> {
       },
       child: SafeArea(
           child: Scaffold(
+              key: baseLogic.scaffoldKey,
+              floatingActionButton: FloatingActionButton(onPressed: () {
+                baseLogic.showSnackBar();
+              }),
               backgroundColor: Color(0xff0E0E0E),
               drawer: Draw(),
               appBar: PreferredSize(
@@ -93,34 +108,34 @@ class _BaseState extends State<Base> {
                           bottom: Radius.circular(10))),
                   actions: <Widget>[
                     RotationTransition(
-                      turns: logic.rotationAnimation,
+                      turns: baseLogic.rotationAnimation,
                       child: IconButton(
                           icon: Icon(Icons.refresh),
                           onPressed: () {
-                            logic.rotationController.forward(from: 0);
-                            logic.fetchData();
+                            baseLogic.rotationController.forward(from: 0);
+                            baseLogic.fetchData();
                           }),
                     ),
                     IconButton(
                         icon: AnimatedBuilder(
-                          animation: logic.colorController,
+                          animation: baseLogic.colorController,
                           builder: (BuildContext context, Widget child) => Icon(
                             Icons.share,
-                            color: logic.colorAnimation.value,
+                            color: baseLogic.colorAnimation.value,
                           ),
                         ),
                         onPressed: () {
 //                          Share.share(
 //                              'check out my website https://example.com',
 //                              subject: 'Look what I made!');
-                          logic.colorController.forward().then((x) {
-                            logic.colorController.reverse();
+                          baseLogic.colorController.forward().then((x) {
+                            baseLogic.colorController.reverse();
                           });
                         })
                   ],
                   textTheme: TextTheme(
                       title: TextStyle(
-                    fontSize: logic.aspectRatio * 30,
+                    fontSize: baseLogic.aspectRatio * 30,
                     fontWeight: FontWeight.bold,
                   )),
                   title: Selector<BaseLogic, int>(
@@ -129,7 +144,7 @@ class _BaseState extends State<Base> {
                       return Text(
                         Localization.of(context).drawer[value],
                         style: TextStyle(
-                            fontSize: logic.aspectRatio * 30,
+                            fontSize: baseLogic.aspectRatio * 30,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       );
@@ -141,10 +156,10 @@ class _BaseState extends State<Base> {
                     builder: (BuildContext context) => IconButton(
                       icon: Icon(
                         Icons.menu,
-                        size: logic.aspectRatio * 42.7555555556,
+                        size: baseLogic.aspectRatio * 42.7555555556,
                       ),
                       onPressed: () {
-                        logic.openDrawer(context); ////
+                        baseLogic.openDrawer(context); ////
                       },
                     ),
                   ),
@@ -157,9 +172,84 @@ class _BaseState extends State<Base> {
                 builder: (_, Tuple2 value, __) {
                   return value.item2
                       ? Center(child: Text('!!'))
-                      : logic.pages[value.item1];
+                      : baseLogic.pages[value.item1];
                 },
               ))),
+    );
+  }
+}
+
+final Map<String, Item> _items = <String, Item>{};
+Item _itemForMessage(Map<String, dynamic> message) {
+  final dynamic data = message['data'] ?? message;
+  final String itemId = data['id'];
+  final Item item = _items.putIfAbsent(itemId, () => Item(itemId: itemId))
+    ..status = data['status'];
+  return item;
+}
+
+class Item {
+  Item({this.itemId});
+  final String itemId;
+
+  StreamController<Item> _controller = StreamController<Item>.broadcast();
+  Stream<Item> get onChanged => _controller.stream;
+
+  String _status;
+  String get status => _status;
+  set status(String value) {
+    _status = value;
+    _controller.add(this);
+  }
+
+  static final Map<String, Route<void>> routes = <String, Route<void>>{};
+  Route<void> get route {
+    final String routeName = '/detail/$itemId';
+    return routes.putIfAbsent(
+      routeName,
+      () => MaterialPageRoute<void>(
+        settings: RouteSettings(name: routeName),
+        builder: (BuildContext context) => DetailPage(itemId),
+      ),
+    );
+  }
+}
+
+class DetailPage extends StatefulWidget {
+  DetailPage(this.itemId);
+  final String itemId;
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  Item _item;
+  StreamSubscription<Item> _subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _item = _items[widget.itemId];
+    _subscription = _item.onChanged.listen((Item item) {
+      if (!mounted) {
+        _subscription.cancel();
+      } else {
+        setState(() {
+          _item = item;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Item ${_item.itemId}"),
+      ),
+      body: Material(
+        child: Center(child: Text("Item status: ${_item.status}")),
+      ),
     );
   }
 }

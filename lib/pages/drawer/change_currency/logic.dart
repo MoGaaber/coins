@@ -8,7 +8,7 @@ import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class ChangeLogic extends ChangeNotifier with EquatableMixin {
-  double convert(double input) {
+  num convert(num input) {
     return (input * selectedValues[0]['value']) / selectedValues[1]['value'];
   }
 
@@ -31,13 +31,13 @@ class ChangeLogic extends ChangeNotifier with EquatableMixin {
   bool test = true;
   var controller = TextEditingController();
   List<Map> currencyTypes;
-  num result = 0.0;
+  num result = 0;
 
   onChanged(String text, BuildContext context) {
-    if (text.isEmpty || double.parse(text) <= 0) {
-      result = 0.0;
+    if (text.isEmpty || num.parse(text) <= 0) {
+      result = 0;
     } else {
-      result = convert(double.parse(text));
+      result = convert(num.parse(text));
     }
     notifyListeners();
   }
@@ -49,7 +49,7 @@ class ChangeLogic extends ChangeNotifier with EquatableMixin {
   void onSelectedPopUp(Map x, int index) {
     selectedValues[index] = x;
     if (controller.text.isNotEmpty) {
-      result = convert(double.parse(controller.text));
+      result = convert(num.parse(controller.text));
     }
     notifyListeners();
   }

@@ -91,25 +91,31 @@ class Carddy extends StatelessWidget {
               index == 1
                   ? Padding(
                       padding: const EdgeInsets.only(top: 5),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Selector<ChangeLogic, double>(
-                            builder: (BuildContext context, double value,
-                                Widget child) {
-                              return Text(
-                                '$value  ',
+                      child: Selector<ChangeLogic, Tuple2<num, String>>(
+                        builder: (BuildContext context,
+                            Tuple2<num, String> value, Widget child) {
+                          return Text.rich(
+                            TextSpan(
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 25,
+                                    fontSize: 21,
                                     fontWeight: FontWeight.bold),
-                              );
-                            },
-                            selector: (_, ChangeLogic changeLogic) {
-                              return changeLogic.result;
-                            },
-                          ),
-                        ],
+                                text: '${value.item1} ',
+                                children: [
+                                  TextSpan(
+                                    text: '${value.item2.substring(0, 2)}',
+                                    style: TextStyle(
+                                        color: Colors.white.withOpacity(0.5),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500),
+                                  )
+                                ]),
+                          );
+                        },
+                        selector: (_, ChangeLogic changeLogic) {
+                          return Tuple2(changeLogic.result,
+                              changeLogic.selectedValues[1]['name']);
+                        },
                       ),
                     )
                   : SizedBox(

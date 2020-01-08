@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,6 +18,7 @@ class BaseLogic extends ChangeNotifier {
   Animation<double> rotationAnimation;
   AnimationController colorController;
   Animation<Color> colorAnimation;
+  final FirebaseMessaging fireBaseMessaging = FirebaseMessaging();
 
   InterstitialAd createFullScreenAd() {
     return InterstitialAd(
@@ -82,7 +84,35 @@ class BaseLogic extends ChangeNotifier {
   double screenWidth, screenHeight, aspectRatio;
   Size size;
   BuildContext context;
+  Widget snackBar;
+  void showSnackBar() {
+    ScaffoldState scaffoldState = scaffoldKey?.currentState as ScaffoldState;
+
+    scaffoldState?.showSnackBar(SnackBar(
+        duration: Duration(minutes: 1),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        behavior: SnackBarBehavior.fixed,
+        action: SnackBarAction(
+            label: 'Refresh',
+            onPressed: () {
+              fetchData();
+            }),
+        content: Text(
+          'The prices is refreshed check the last update now by clicking on refresh button ',
+          style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
+        )));
+  }
+
+  var scaffoldKey = GlobalKey();
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
+    this.context = context;
+    fireBaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        showSnackBar();
+      },
+    );
+
     pages = [CurrencyValue(), CurrencyValue(), Change(context)];
     Stream.value(MediaQuery.of(context).viewInsets.bottom).listen((x) {
       print(x.toString() + '!!!!!!');
@@ -92,7 +122,7 @@ class BaseLogic extends ChangeNotifier {
     });
 
     fetchData();
-    showAd();
+    //showAd();
     size = MediaQuery.of(context).size;
     screenHeight = size.height;
     screenWidth = size.width;

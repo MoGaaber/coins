@@ -19,7 +19,7 @@ class Localization {
         'Rate App',
       ],
       'warning':
-          "Disclaimer: We are just a publisher of the market price and exchangers , and we have no role in determining the price",
+          "Disclaimer: We are just a publisher of the market price and exchangers and we have no role in determining the price .",
       'coin': ['Last update', 'Official Price ', 'Previous Days'],
       'pages': ['Currencies Converter', 'Lebanon Pound', 'Syrian Pound'],
       'currencyTypes': ['US Dollar', 'LB Pound', 'SY Pound'],
