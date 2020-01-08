@@ -26,7 +26,7 @@ class _ChartState extends State<Chart> {
       size: Size.fromHeight(340),
       child: FutureBuilder(
         future: Firestore.instance
-            .collection('Syria Statics ')
+            .collection(widget.collection)
             .limit(7)
             .orderBy('date', descending: true)
             .getDocuments(),
@@ -43,16 +43,33 @@ class _ChartState extends State<Chart> {
                   onValueSelected: (x) {},
                   onIndicatorVisible: (x) {
                     if (logic.text != 'success , now you are ready') {
-                      logic.controller.forward().then((xy) {
-                        if (x) {
-                          logic.text = 'drag';
-                        } else {
-                          logic.text = 'long pressss again';
-                        }
+                      logic.tickerFuture.timeout(Duration(milliseconds: 0),
+                          onTimeout: () {
+                        logic.duration = Duration(milliseconds: 600);
+                        logic.tween.begin = Offset(0, 0);
+                        logic.tween.end = Offset(0, -66);
 
-                        logic.controller.reverse().then((xy) {});
+                        logic.controller.forward().then((xy) {
+                          if (x) {
+                            logic.text = 'drag';
+                          } else {
+                            logic.text = 'long pressss again';
+                          }
+
+                          logic.controller.reverse().then((x) {
+                            logic.duration = Duration(milliseconds: 600);
+                            logic.tween.begin = Offset(0, 0);
+                            logic.tween.end = Offset(0, 20);
+                            logic.tickerFuture =
+                                logic.controller.repeat(reverse: true);
+                          });
+                        });
                       });
                     } else {
+                      logic.duration = Duration(milliseconds: 600);
+                      logic.tween.begin = Offset(0, 0);
+                      logic.tween.end = Offset(0, -66);
+
                       logic.controller.forward().then((x) {
                         logic.ready = true;
                       });

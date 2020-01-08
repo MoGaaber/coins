@@ -16,7 +16,7 @@ class RealChart extends StatelessWidget {
 
     return SafeArea(
         child: Scaffold(
-            backgroundColor: Color(0xff1B191A),
+            backgroundColor: Color(0xff0E0E0E),
 //            appBar: AppBar(
 //              centerTitle: true,
 //              title: Text(
@@ -42,11 +42,12 @@ class RealChart extends StatelessWidget {
                 AnimatedBuilder(
                   builder: (BuildContext context, Widget child) {
                     return Transform.translate(
-                      offset: chartLogic.animation.value,
+                      offset: Offset(0, 0),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 0, vertical: 15),
                         child: Material(
-                          color: Color(0xff494949),
+                          color: Colors.lightBlue,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 20),

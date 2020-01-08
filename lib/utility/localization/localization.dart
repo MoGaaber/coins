@@ -11,6 +11,9 @@ class Localization {
 
   static Map<String, Map> _localizedValues = {
     'en': {
+      'language': ['Choose Language'],
+      'instruction': ['Long press', 'Drag'],
+      'notification': 'We have anew update on prices check it out',
       'drawer': [
         'Lebanese Pound',
         'Syrian Pound',
@@ -26,6 +29,8 @@ class Localization {
       'globals': ['From', 'To', 'Buy', 'Sell', 'Type Here']
     },
     'ar': {
+      'language': ['إختيار اللغة'],
+      'notification': 'We have anew update on prices check it out',
       'drawer': [
         'الليرة اللبنانية',
         'الليرة السورية',
@@ -49,6 +54,10 @@ class Localization {
 
   List<String> get drawer {
     return _localizedValues[locale.languageCode]['drawer'];
+  }
+
+  List<String> get language {
+    return _localizedValues[locale.languageCode]['language'];
   }
 
   String get warning {

@@ -125,7 +125,9 @@ class _CurrencyValueState extends State<CurrencyValue> {
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) => ChartRoot(
-                                'lebaness', localization.last, aspectRatio)));
+                                logic.index == 0 ? 'lebaness' : '',
+                                localization.last,
+                                aspectRatio)));
                   },
                   child: Text(
                     localization.last,

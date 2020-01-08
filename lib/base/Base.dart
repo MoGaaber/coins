@@ -17,20 +17,6 @@ import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
-Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
-  if (message.containsKey('data')) {
-    // Handle data message
-    final dynamic data = message['data'];
-  }
-
-  if (message.containsKey('notification')) {
-    // Handle notification message
-    final dynamic notification = message['notification'];
-  }
-
-  // Or do other work.
-}
-
 class Base extends StatefulWidget {
   @override
   _BaseState createState() => _BaseState();
@@ -175,81 +161,6 @@ class _BaseState extends State<Base> {
                       : baseLogic.pages[value.item1];
                 },
               ))),
-    );
-  }
-}
-
-final Map<String, Item> _items = <String, Item>{};
-Item _itemForMessage(Map<String, dynamic> message) {
-  final dynamic data = message['data'] ?? message;
-  final String itemId = data['id'];
-  final Item item = _items.putIfAbsent(itemId, () => Item(itemId: itemId))
-    ..status = data['status'];
-  return item;
-}
-
-class Item {
-  Item({this.itemId});
-  final String itemId;
-
-  StreamController<Item> _controller = StreamController<Item>.broadcast();
-  Stream<Item> get onChanged => _controller.stream;
-
-  String _status;
-  String get status => _status;
-  set status(String value) {
-    _status = value;
-    _controller.add(this);
-  }
-
-  static final Map<String, Route<void>> routes = <String, Route<void>>{};
-  Route<void> get route {
-    final String routeName = '/detail/$itemId';
-    return routes.putIfAbsent(
-      routeName,
-      () => MaterialPageRoute<void>(
-        settings: RouteSettings(name: routeName),
-        builder: (BuildContext context) => DetailPage(itemId),
-      ),
-    );
-  }
-}
-
-class DetailPage extends StatefulWidget {
-  DetailPage(this.itemId);
-  final String itemId;
-  @override
-  _DetailPageState createState() => _DetailPageState();
-}
-
-class _DetailPageState extends State<DetailPage> {
-  Item _item;
-  StreamSubscription<Item> _subscription;
-
-  @override
-  void initState() {
-    super.initState();
-    _item = _items[widget.itemId];
-    _subscription = _item.onChanged.listen((Item item) {
-      if (!mounted) {
-        _subscription.cancel();
-      } else {
-        setState(() {
-          _item = item;
-        });
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Item ${_item.itemId}"),
-      ),
-      body: Material(
-        child: Center(child: Text("Item status: ${_item.status}")),
-      ),
     );
   }
 }

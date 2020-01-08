@@ -775,16 +775,29 @@ class BezierChartState extends State<BezierChart>
         child: GestureDetector(
           onLongPressUp: () {
             if (logic.text != 'success , now you are ready') {
-              print('!!');
               if (logic.text == 'drag') {
                 _displayIndicator = false;
-                logic.controller.forward().then((x) {
-                  logic.text = 'long press again';
+                logic.tickerFuture.timeout(Duration(milliseconds: 0),
+                    onTimeout: () {
+                  logic.tween.begin = Offset(0, 0);
+                  logic.tween.end = Offset(0, -60);
 
-                  logic.controller.reverse();
+                  logic.controller.forward().then((x) {
+                    logic.text = 'long press again';
+
+                    logic.controller.reverse().then((x) {
+                      logic.tween.begin = Offset(0, 0);
+                      logic.tween.end = Offset(0, 20);
+                      logic.tickerFuture =
+                          logic.controller.repeat(reverse: true);
+                    });
+                  });
                 });
               }
             } else {
+              logic.tween.begin = Offset(0, 0);
+              logic.tween.end = Offset(0, -60);
+
               logic.controller.forward().then((x) {
                 logic.ready = true;
               });
@@ -796,13 +809,24 @@ class BezierChartState extends State<BezierChart>
               : (LongPressMoveUpdateDetails details) {
                   if (logic.text != 'success , now you are ready') {
                     if (details.localOffsetFromOrigin.dx.abs() > 100) {
+                      logic.tween.begin = Offset(0, 0);
+                      logic.tween.end = Offset(0, -60);
+
                       logic.controller.forward().then((x) {
                         logic.text = 'success , now you are ready';
 
-                        logic.controller.reverse();
+                        logic.controller.reverse().then((x) {
+                          logic.tween.begin = Offset(0, 0);
+                          logic.tween.end = Offset(0, 20);
+                          logic.tickerFuture =
+                              logic.controller.repeat(reverse: true);
+                        });
                       });
                     }
                   } else {
+                    logic.tween.begin = Offset(0, 0);
+                    logic.tween.end = Offset(0, -60);
+
                     logic.controller.forward().then((x) {
                       logic.ready = true;
                     });
