@@ -7,16 +7,18 @@ import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class Carddy extends StatelessWidget {
+  String x = 'الدولار الأميركي';
   int index;
   Carddy({this.index});
   @override
   Widget build(BuildContext context) {
     var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
     var baseLogic = Provider.of<BaseLogic>(context, listen: false);
-
+    var textTheme = Theme.of(context).textTheme;
     var localization = Localization.of(
       context,
     );
+    print(x.split(' ')[0].substring(2, x.split(' ')[0].length));
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -48,10 +50,7 @@ class Carddy extends StatelessWidget {
                         Widget child) {
                       return Text(
                         '${this.index == 0 ? value.item1['name'] : value.item2['name']}',
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: textTheme.body2.copyWith(fontSize: 20),
                       );
                     },
                   ),
@@ -76,9 +75,9 @@ class Carddy extends StatelessWidget {
                           child: Center(
                             child: Text(
                               x['name'],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
+                              style: textTheme.caption.copyWith(
+                                color: Colors.black.withOpacity(0.5),
+                              ),
                             ),
                           ));
                     }).toList(),
@@ -103,7 +102,10 @@ class Carddy extends StatelessWidget {
                                 text: '${value.item1} ',
                                 children: [
                                   TextSpan(
-                                    text: '${value.item2.substring(0, 2)}',
+                                    text: localization.locale.languageCode ==
+                                            'ar'
+                                        ? '${value.item2.split(' ')[0].substring(2, value.item2.split(' ')[0].length)}'
+                                        : '${value.item2.substring(0, 2)}',
                                     style: TextStyle(
                                         color: Colors.white.withOpacity(0.5),
                                         fontSize: 15,

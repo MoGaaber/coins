@@ -5,9 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/change.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/value.dart';
+import 'package:usatolebanese/pages/out/chart/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class BaseLogic extends ChangeNotifier {
@@ -16,6 +18,9 @@ class BaseLogic extends ChangeNotifier {
   Animation<Offset> animation;
   AnimationController rotationController;
   Animation<double> rotationAnimation;
+  AnimationController scaleController;
+  Animation<double> scaleAnimation;
+
   AnimationController colorController;
   Animation<Color> colorAnimation;
   final FirebaseMessaging fireBaseMessaging = FirebaseMessaging();
@@ -104,9 +109,11 @@ class BaseLogic extends ChangeNotifier {
         )));
   }
 
+  bool isLoadContext = false;
   var scaffoldKey = GlobalKey();
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
     this.context = context;
+    isLoadContext = true;
     fireBaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         showSnackBar();
@@ -146,8 +153,15 @@ class BaseLogic extends ChangeNotifier {
     );
     colorAnimation = ColorTween(begin: Colors.white, end: Colors.pinkAccent)
         .animate(colorController);
+    scaleController = AnimationController(
+      vsync: tickerProvider,
+      duration: Duration(milliseconds: 1000),
+    );
 
     controller.repeat(reverse: true);
+    scaleAnimation = Tween<double>(begin: 1, end: 1.2).animate(
+        CurvedAnimation(parent: scaleController, curve: Curves.easeInOutCirc));
+    scaleController.repeat(reverse: true);
   }
   bool isShareReady = false;
   void initPref() async {
@@ -179,5 +193,39 @@ class BaseLogic extends ChangeNotifier {
     ).pop();
     index = i;
     notifyListeners();
+  }
+
+  void shareApp() {
+    Share.share(
+        'بين ال1500 و3000، الدولار عم يلعب ويلعبنا معه! إذا بدك تعرف سعر الدولار لحظة بلحظة ويوصلك تنبيه بتغير السعر بكل بساطة نزل هالتطبيق الأول من نوعه : https://play.google.com/store/apps/details?id=com.usatolebanese');
+  }
+
+  var collections = [
+    'Lebanon Statics',
+    'Syria Statics ',
+  ];
+  void navigateToChart() {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation) {
+        return ChartRoot(collections[index], aspectRatio);
+      },
+      transitionsBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation, Widget child) {
+        return SlideTransition(
+          position: new Tween<Offset>(
+            begin: const Offset(0.0, 1.0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: new SlideTransition(
+            position: new Tween<Offset>(
+              begin: Offset.zero,
+              end: const Offset(0.0, 1.0),
+            ).animate(secondaryAnimation),
+            child: child,
+          ),
+        );
+      },
+    ));
   }
 }

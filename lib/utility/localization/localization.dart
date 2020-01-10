@@ -11,6 +11,8 @@ class Localization {
 
   static Map<String, Map> _localizedValues = {
     'en': {
+      'out': 'Previous Days',
+      'dialogButtons': ['Exit', 'Share App :)'],
       'language': ['Choose Language'],
       'instruction': ['Long press', 'Drag'],
       'notification': 'We have anew update on prices check it out',
@@ -26,9 +28,11 @@ class Localization {
       'coin': ['Last update', 'Official Price ', 'Previous Days'],
       'pages': ['Currencies Converter', 'Lebanon Pound', 'Syrian Pound'],
       'currencyTypes': ['US Dollar', 'LB Pound', 'SY Pound'],
-      'globals': ['From', 'To', 'Buy', 'Sell', 'Type Here']
+      'globals': ['From', 'To', 'Buy', 'Sell', 'Type Here'],
+      'exit': 'Like the app?  Share it with your friends :)'
     },
     'ar': {
+      'dialogButtons': ['اغلاق', 'مشاركة التطبيق :)'],
       'language': ['إختيار اللغة'],
       'notification': 'We have anew update on prices check it out',
       'drawer': [
@@ -48,7 +52,8 @@ class Localization {
         'الدولار الأميركي',
         'الليرة اللبنانية',
         'الليرة السورية'
-      ]
+      ],
+      'exit': 'أعجبك التطبيق؟ شاركه مع أصدقائك :)'
     },
   };
 
@@ -74,5 +79,13 @@ class Localization {
 
   List<String> get currencyTypes {
     return _localizedValues[locale.languageCode]['currencyTypes'];
+  }
+
+  List<String> get dialogButtons {
+    return _localizedValues[locale.languageCode]['dialogButtons'];
+  }
+
+  String get exit {
+    return _localizedValues[locale.languageCode]['exit'];
   }
 }

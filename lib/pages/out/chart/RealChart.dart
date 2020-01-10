@@ -20,9 +20,8 @@ class RealChart extends StatelessWidget {
 //            appBar: AppBar(
 //              centerTitle: true,
 //              title: Text(
-//                this.title,
 //              ),
-
+//
 //            ),
             body: Stack(
               alignment: Alignment.topCenter,

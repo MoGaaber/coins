@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -8,32 +9,32 @@ class Warning extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var logic = Provider.of<BaseLogic>(context, listen: false);
-
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Flexible(
-          flex: 1,
-          child: Icon(
-            FontAwesomeIcons.info,
-            color: Colors.red,
-            size: logic.aspectRatio * 38.8888888889,
+    var textTheme = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Flexible(
+            flex: 1,
+            child: Icon(
+              FontAwesomeIcons.infoCircle,
+              color: Colors.red.withOpacity(0.5),
+              size: logic.aspectRatio * 38.8888888889,
+            ),
           ),
-        ),
-        Flexible(
-          flex: 8,
-          child: Text(
-            Localization.of(context).warning,
-            style: TextStyle(
-                wordSpacing: 1,
-                color: Colors.white,
-                fontSize: logic.aspectRatio * 19.3777777778,
-                fontWeight: FontWeight.w500),
+          Flexible(
+            flex: 8,
+            child: Text(
+              Localization.of(context).warning,
+              style: textTheme.caption,
+              textAlign: TextAlign.center,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

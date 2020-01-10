@@ -11,6 +11,7 @@ class Tabl extends StatelessWidget {
   Widget build(BuildContext context) {
     var localization = Localization.of(context).globals;
     var baseLogic = Provider.of<BaseLogic>(context, listen: false);
+    var textTheme = Theme.of(context).textTheme;
 
     var logic = Provider.of<BaseLogic>(context);
     return SizedBox.fromSize(
@@ -24,22 +25,8 @@ class Tabl extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text(''),
-                Text(
-                  localization[0],
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                      letterSpacing: 0.5,
-                      color: Colors.white.withOpacity(0.7)),
-                ),
-                Text(
-                  localization[1],
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                      letterSpacing: 0.5,
-                      color: Colors.white.withOpacity(0.7)),
-                ),
+                Text(localization[0], style: textTheme.caption),
+                Text(localization[1], style: textTheme.caption),
               ],
             ),
             Spacer(
@@ -52,11 +39,7 @@ class Tabl extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       localization[2],
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                          letterSpacing: 0.5,
-                          color: Colors.white.withOpacity(0.7)),
+                      style: textTheme.caption,
                     ),
                     SlideTransition(
                       child: logic.icon('buy', data),
@@ -66,17 +49,11 @@ class Tabl extends StatelessWidget {
                 ),
                 Text(
                   data['buy']['from'].toString(),
-                  style: TextStyle(
-                      letterSpacing: 2,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500),
+                  style: textTheme.title,
                 ),
                 Text(
                   data['buy']['to'].toString(),
-                  style: TextStyle(
-                      letterSpacing: 2,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500),
+                  style: textTheme.title,
                 )
               ],
             ),
@@ -88,14 +65,7 @@ class Tabl extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Text(
-                      localization[3],
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.5,
-                          fontSize: 12,
-                          color: Colors.white.withOpacity(0.7)),
-                    ),
+                    Text(localization[3], style: textTheme.caption),
                     SlideTransition(
                       child: logic.icon('sell', this.data),
                       position: logic.animation,
@@ -104,17 +74,11 @@ class Tabl extends StatelessWidget {
                 ),
                 Text(
                   data['sell']['from'].toString(),
-                  style: TextStyle(
-                      letterSpacing: 0.5,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500),
+                  style: textTheme.title,
                 ),
                 Text(
                   data['sell']['to'].toString(),
-                  style: TextStyle(
-                      fontSize: 20,
-                      letterSpacing: 0.5,
-                      fontWeight: FontWeight.w500),
+                  style: textTheme.title,
                 )
               ],
             ),

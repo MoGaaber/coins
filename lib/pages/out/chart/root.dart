@@ -12,7 +12,7 @@ class ChartRoot extends StatefulWidget {
   String collection, title;
   double aspectRatio;
 
-  ChartRoot(this.collection, this.title, this.aspectRatio);
+  ChartRoot(this.collection, this.aspectRatio);
 
   @override
   _ChartRootState createState() => _ChartRootState();

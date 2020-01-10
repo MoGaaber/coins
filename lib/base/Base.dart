@@ -24,30 +24,45 @@ class Base extends StatefulWidget {
 
 class _BaseState extends State<Base> {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-
+  var localization;
   BannerAd _bannerAd;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     baseLogic = Provider.of<BaseLogic>(context, listen: false);
-    buttons = [
+  }
+
+  void showDialoggy(BuildContext context) {
+    var localization = Localization.of(context).exit;
+    var localizationButtons = Localization.of(context).dialogButtons;
+
+    var buttons = [
       {
-        'text': 'Exit App',
+        'text': localizationButtons[0],
         'onPressed': () {
           exit(0);
         }
       },
-      if (baseLogic.isShareReady) {'text': 'Share App', 'onPressed': () {}}
+      {
+        'text': localizationButtons[1],
+        'onPressed': () {
+          baseLogic.shareApp();
+        }
+      }
     ];
-  }
 
-  void showDialoggy(BuildContext context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Are'),
+            title: Text(
+              localization,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline
+                  .copyWith(color: Colors.black87),
+            ),
             actions: buttons.map((element) {
               return FlatButton(
                   onPressed: element['onPressed'],
@@ -64,14 +79,10 @@ class _BaseState extends State<Base> {
 
   BaseLogic baseLogic;
   @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
+    var baseLogic = Provider.of<BaseLogic>(context, listen: false);
+
     return WillPopScope(
       onWillPop: () async {
         showDialoggy(context);
@@ -80,13 +91,9 @@ class _BaseState extends State<Base> {
       child: SafeArea(
           child: Scaffold(
               key: baseLogic.scaffoldKey,
-              floatingActionButton: FloatingActionButton(onPressed: () {
-                baseLogic.showSnackBar();
-              }),
-              backgroundColor: Color(0xff0E0E0E),
               drawer: Draw(),
               appBar: PreferredSize(
-                preferredSize: Size.fromHeight(60),
+                preferredSize: Size.fromHeight(100 * baseLogic.aspectRatio),
                 child: AppBar(
                   elevation: 0,
                   shape: RoundedRectangleBorder(
@@ -111,19 +118,13 @@ class _BaseState extends State<Base> {
                           ),
                         ),
                         onPressed: () {
-//                          Share.share(
-//                              'check out my website https://example.com',
-//                              subject: 'Look what I made!');
                           baseLogic.colorController.forward().then((x) {
-                            baseLogic.colorController.reverse();
+                            baseLogic.colorController.reverse().then((x) {
+                              baseLogic.shareApp();
+                            });
                           });
                         })
                   ],
-                  textTheme: TextTheme(
-                      title: TextStyle(
-                    fontSize: baseLogic.aspectRatio * 30,
-                    fontWeight: FontWeight.bold,
-                  )),
                   title: Selector<BaseLogic, int>(
                     selector: (_, BaseLogic logic) => logic.index,
                     builder: (BuildContext context, int value, _) {
