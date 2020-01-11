@@ -38,14 +38,14 @@ class RealChart extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Expanded(
-                              child: snapshot.data.getBool('ready') != null
+                              child: snapshot.data.getBool('ready') == null
                                   ? Container()
                                   : Ad(AdmobBannerSize.MEDIUM_RECTANGLE)),
                           Chart(this.collection, this.aspectRatio),
                           Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER)),
                         ],
                       ),
-                      snapshot.data.getBool('ready') == null
+                      snapshot.data.getBool('ready') != null
                           ? Container()
                           : AnimatedBuilder(
                               builder: (BuildContext context, Widget child) {
