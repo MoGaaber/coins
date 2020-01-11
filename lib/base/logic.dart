@@ -95,7 +95,7 @@ class BaseLogic extends ChangeNotifier {
   Size size;
   BuildContext context;
   Widget snackBar;
-  void showSnackBar() {
+  void showSnackBar(int index) {
     ScaffoldState scaffoldState = scaffoldKey?.currentState as ScaffoldState;
 
     scaffoldState?.showSnackBar(SnackBar(
@@ -114,6 +114,11 @@ class BaseLogic extends ChangeNotifier {
         )));
   }
 
+  void indexing(int index) {
+    this.index = index;
+    notifyListeners();
+  }
+
   bool isLoadContext = false;
   var scaffoldKey = GlobalKey();
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
@@ -121,18 +126,26 @@ class BaseLogic extends ChangeNotifier {
     isLoadContext = true;
     fireBaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
-        print(message);
-        showSnackBar();
+//        indexing(message['data']['index']);
+//        int index = message['data']['index'];
+//        print(message['data']);
+//        print(message['data']['index']);
+//        this.index = index;
+//        notifyListeners();
+//        message['data'].forEach((k, v) {
+//          print(k);
+//          if (k != 'index') {
+//            documents[index].data[k]['to'] = documents[index].data[k]['from'];
+//            documents[index].data[k]['to'] = v;
+//          }
+//        });
+//
+//        notifyListeners();
+        showSnackBar(message['index']);
       },
     );
 
     pages = [CurrencyValue(), CurrencyValue(), Change(context)];
-    Stream.value(MediaQuery.of(context).viewInsets.bottom).listen((x) {
-      print(x.toString() + '!!!!!!');
-    });
-    KeyboardVisibilityNotification().addNewListener(onChange: (x) {
-      print(x);
-    });
 
     fetchData();
     //showAd();

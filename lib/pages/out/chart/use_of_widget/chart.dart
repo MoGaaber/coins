@@ -6,6 +6,7 @@ import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/pages/out/chart/widget/customChart.dart';
 import 'package:usatolebanese/pages/out/chart/use_of_widget/logic.dart';
 import 'package:usatolebanese/pages/out/chart/widget/x.dart';
+import 'package:usatolebanese/utility/localization/localization.dart';
 
 class Chart extends StatelessWidget {
   Offset x = Offset(0, 0);
@@ -15,6 +16,7 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var localization = Localization.of(context).instruction;
     var logic = Provider.of<ChartLogic>(context, listen: false);
 
     return SizedBox.fromSize(
@@ -34,24 +36,21 @@ class Chart extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 33 * aspectRatio),
                 child: BezierChart(
-                  onValueSelected: (x) {},
-                  onIndicatorVisible: (x) {
-                    if (logic.text != 'success , now you are ready') {
+                  onIndicatorVisible: (indicatorVisibility) {
+                    if (logic.text != localization.last) {
                       logic.tickerFuture.timeout(Duration(milliseconds: 0),
                           onTimeout: () {
-                        logic.duration = Duration(milliseconds: 600);
                         logic.tween.begin = Offset(0, 0);
-                        logic.tween.end = Offset(0, -66);
+                        logic.tween.end = Offset(0, -85);
 
                         logic.controller.forward().then((xy) {
-                          if (x) {
-                            logic.text = 'drag';
+                          if (indicatorVisibility) {
+                            logic.text = localization[3];
                           } else {
-                            logic.text = 'long pressss again';
+                            logic.text = localization[1];
                           }
 
                           logic.controller.reverse().then((x) {
-                            logic.duration = Duration(milliseconds: 600);
                             logic.tween.begin = Offset(0, 0);
                             logic.tween.end = Offset(0, 20);
                             logic.tickerFuture =
@@ -60,13 +59,7 @@ class Chart extends StatelessWidget {
                         });
                       });
                     } else {
-                      logic.duration = Duration(milliseconds: 600);
-                      logic.tween.begin = Offset(0, 0);
-                      logic.tween.end = Offset(0, -66);
-
-                      logic.controller.forward().then((x) {
-                        logic.ready = true;
-                      });
+                      logic.success();
                     }
                   },
                   fromDate:
@@ -105,7 +98,7 @@ class Chart extends StatelessWidget {
               ),
             );
           } else {
-            return Text('!!');
+            return Center(child: CircularProgressIndicator());
           }
         },
       ),

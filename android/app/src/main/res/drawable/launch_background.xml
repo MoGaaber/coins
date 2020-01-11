@@ -7,6 +7,6 @@
 <!--     <item>-->
 <!--        <bitmap-->
 <!--            android:gravity="center"-->
-<!--            android:src="@drawable/logo.9.png" />-->
+<!--            android:src="@mipmap/logo" />-->
 <!--    </item>-->
 </layer-list>

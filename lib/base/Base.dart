@@ -23,9 +23,7 @@ class Base extends StatefulWidget {
 }
 
 class _BaseState extends State<Base> {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   var localization;
-  BannerAd _bannerAd;
   @override
   void initState() {
     // TODO: implement initState
@@ -78,9 +76,9 @@ class _BaseState extends State<Base> {
   List<Map> buttons;
 
   BaseLogic baseLogic;
+
   @override
   Widget build(BuildContext context) {
-    var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
     var baseLogic = Provider.of<BaseLogic>(context, listen: false);
 
     return WillPopScope(
@@ -138,7 +136,6 @@ class _BaseState extends State<Base> {
                     },
                   ),
                   centerTitle: false,
-                  backgroundColor: Color(0xff242527),
                   leading: Builder(
                     builder: (BuildContext context) => IconButton(
                       icon: Icon(

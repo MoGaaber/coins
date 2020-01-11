@@ -13,13 +13,14 @@ class Localization {
     'en': {
       'instructions': [
         "Long press on the section of Chart and don't move up your finger from it",
+        "Long press again on it",
+        "No , Long press on it again and don't move up your finger this time",
         "Now drag your finger in hirozintal directions",
         "you are succefully do it . Enjoy :)"
       ],
       'out': 'Previous Days',
       'dialogButtons': ['Exit', 'Share App :)'],
       'language': ['Choose Language'],
-      'instruction': ['Long press', 'Drag'],
       'notification': 'We have anew update on prices check it out',
       'drawer': [
         'Lebanese Pound',
@@ -38,7 +39,9 @@ class Localization {
     },
     'ar': {
       'instructions': [
-        'قم بالضغط مطولاً على جزء الاحصائيات ولا تقم برفع اصبعك من عليه ',
+        'اضغط مطولاً على الاحصائيات ولا ترفع اصبعك من عليها',
+        'إضغط عليه مجدداً',
+        'لا . إضغط مطولاً عليه مره اخري ولا ترفع  إصبعك هذه المرة',
         'الآن قم بالسحب فى اتجاه عرضي',
         'لقد نجحت . استمتع '
       ],
@@ -81,6 +84,10 @@ class Localization {
 
   List<String> get coin {
     return _localizedValues[locale.languageCode]['coin'];
+  }
+
+  List<String> get instruction {
+    return _localizedValues[locale.languageCode]['instructions'];
   }
 
   List<String> get globals {

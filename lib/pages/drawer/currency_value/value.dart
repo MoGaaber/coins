@@ -164,7 +164,9 @@ class _CurrencyValueState extends State<CurrencyValue>
                                 color: Colors.white,
                                 width: 1.5,
                               )),
-                          onPressed: () {},
+                          onPressed: () {
+                            logic.navigateToChart();
+                          },
                           child: Text(
                             localization.last,
                             style: TextStyle(

@@ -24,10 +24,10 @@ class ChartRoot extends StatefulWidget {
 
 class _ChartRootState extends State<ChartRoot> with TickerProviderStateMixin {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext cx) {
     return ChangeNotifierProvider(
         create: (context) {
-          return ChartLogic(this);
+          return ChartLogic(this, cx);
         },
         child: RealChart(
           widget.collection,

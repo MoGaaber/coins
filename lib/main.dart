@@ -44,7 +44,6 @@ class Root extends StatelessWidget {
           showSemanticsDebugger: false,
           debugShowMaterialGrid: false,
           debugShowCheckedModeBanner: false,
-          locale: Locale.fromSubtags(languageCode: 'ar'),
           themeMode: ThemeMode.dark,
           theme: ThemeData(
               textTheme: TextTheme(

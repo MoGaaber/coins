@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:usatolebanese/pages/out/chart/use_of_widget/logic.dart';
 import 'package:usatolebanese/pages/out/chart/widget/x.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:usatolebanese/utility/localization/localization.dart';
 
 typedef FooterValueBuilder = String Function(double value);
 typedef FooterDateTimeBuilder = String Function(
@@ -143,12 +144,10 @@ class BezierChart extends StatefulWidget {
 class BezierChartState extends State<BezierChart>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
-  ScrollController _scrollController;
   GlobalKey _keyScroll = GlobalKey();
 
   ///Track the current position when dragging the indicator
   Offset _verticalIndicatorPosition;
-  bool _displayIndicator = false;
 
   ///padding for leading and trailing of the chart
   final double horizontalPadding = 50.0;
@@ -201,7 +200,7 @@ class BezierChartState extends State<BezierChart>
     return setState(
       () {
         final fixedPosition = Offset(
-            position.dx + _scrollController.offset - horizontalPadding,
+            position.dx + logic.scrollController.offset - horizontalPadding,
             position.dy);
         _verticalIndicatorPosition = fixedPosition;
       },
@@ -211,8 +210,8 @@ class BezierChartState extends State<BezierChart>
   ///After long press this method is called to display the bubble indicator if is not visible
   ///An animation and snap sound are triggered
   _onDisplayIndicator(details, {bool updatePosition = true}) {
-    if (!_displayIndicator) {
-      _displayIndicator = true;
+    if (!logic.displayIndicator) {
+      logic.displayIndicator = true;
       _animationController.forward(
         from: 0.0,
       );
@@ -228,7 +227,7 @@ class BezierChartState extends State<BezierChart>
 
   ///Hide the vertical/bubble indicator and refresh the widget
   _onHideIndicator() {
-    if (_displayIndicator) {
+    if (logic.displayIndicator) {
       if (widget.onIndicatorVisible != null) {
         widget.onIndicatorVisible(false);
       }
@@ -236,7 +235,7 @@ class BezierChartState extends State<BezierChart>
         () {
           setState(
             () {
-              _displayIndicator = false;
+              logic.displayIndicator = false;
             },
           );
         },
@@ -427,7 +426,7 @@ class BezierChartState extends State<BezierChart>
           final space = (_contentWidth / _xAxisDataPoints.length);
           fixedPosition =
               Offset(isOnlyOneAxis ? 0.0 : (index * space) + space / 2, 0.0);
-          _scrollController.jumpTo((index * space));
+          logic.scrollController.jumpTo((index * space));
           setState(
             () {
               _verticalIndicatorPosition = fixedPosition;
@@ -444,13 +443,13 @@ class BezierChartState extends State<BezierChart>
           final jumpToX = (index * horizontalSpacing) -
               horizontalPadding / 2 -
               _keyScroll.currentContext.size.width / 2;
-          _scrollController.jumpTo(jumpToX);
+          logic.scrollController.jumpTo(jumpToX);
 
           fixedPosition = Offset(
               isOnlyOneAxis
                   ? 0.0
                   : (index * horizontalSpacing + 2 * horizontalPadding) -
-                      _scrollController.offset,
+                      logic.scrollController.offset,
               0.0);
           _verticalIndicatorPosition = fixedPosition;
           _onDisplayIndicator(
@@ -706,25 +705,19 @@ class BezierChartState extends State<BezierChart>
     super.didUpdateWidget(oldWidget);
   }
 
+  List<String> localization;
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    localization = Localization.of(context).instruction;
+  }
+
   @override
   void initState() {
     logic = Provider.of<ChartLogic>(context, listen: false);
+    logic.scrollListening();
     _currentBezierChartScale = widget.bezierChartScale;
-    _scrollController = ScrollController();
-    _scrollController.addListener(() {
-      if (logic.text !=
-          'no no long press on it again and done not move up your finger') {
-        logic.controller.forward().then((x) {
-          logic.text =
-              'no no long press on it again and done not move up your finger';
-
-          logic.controller.reverse();
-        });
-        if (logic.text == 'success , now you are ready') {
-          _scrollController.dispose();
-        }
-      }
-    });
 
     _animationController = AnimationController(
       vsync: this,
@@ -741,7 +734,7 @@ class BezierChartState extends State<BezierChart>
   @override
   void dispose() {
     _animationController.dispose();
-    _scrollController.dispose();
+    logic.scrollController.dispose();
     super.dispose();
   }
 
@@ -774,66 +767,16 @@ class BezierChartState extends State<BezierChart>
         },
         child: GestureDetector(
           onLongPressUp: () {
-            if (logic.text != 'success , now you are ready') {
-              if (logic.text == 'drag') {
-                _displayIndicator = false;
-                logic.tickerFuture.timeout(Duration(milliseconds: 0),
-                    onTimeout: () {
-                  logic.tween.begin = Offset(0, 0);
-                  logic.tween.end = Offset(0, -60);
-
-                  logic.controller.forward().then((x) {
-                    logic.text = 'long press again';
-
-                    logic.controller.reverse().then((x) {
-                      logic.tween.begin = Offset(0, 0);
-                      logic.tween.end = Offset(0, 20);
-                      logic.tickerFuture =
-                          logic.controller.repeat(reverse: true);
-                    });
-                  });
-                });
-              }
-            } else {
-              logic.tween.begin = Offset(0, 0);
-              logic.tween.end = Offset(0, -60);
-
-              logic.controller.forward().then((x) {
-                logic.sharedPreferences.setBool('ready', true);
-              });
-            }
+            logic.onLongPressUp();
           },
           onLongPressStart: isPinchZoomActive ? null : _onDisplayIndicator,
           onLongPressMoveUpdate: isPinchZoomActive
               ? null
               : (LongPressMoveUpdateDetails details) {
-                  if (logic.text != 'success , now you are ready') {
-                    if (details.localOffsetFromOrigin.dx.abs() > 100) {
-                      logic.tween.begin = Offset(0, 0);
-                      logic.tween.end = Offset(0, -60);
-
-                      logic.controller.forward().then((x) {
-                        logic.text = 'success , now you are ready';
-
-                        logic.controller.reverse().then((x) {
-                          logic.tween.begin = Offset(0, 0);
-                          logic.tween.end = Offset(0, 20);
-                          logic.tickerFuture =
-                              logic.controller.repeat(reverse: true);
-                        });
-                      });
-                    }
-                  } else {
-                    logic.tween.begin = Offset(0, 0);
-                    logic.tween.end = Offset(0, -60);
-
-                    logic.controller.forward().then((x) {
-                      logic.sharedPreferences.setBool('ready', true);
-                    });
-                  }
+                  logic.onLongPressMove(details);
                   if (_animationController.status ==
                           AnimationStatus.completed &&
-                      _displayIndicator) {
+                      logic.displayIndicator) {
                     return _updatePosition(details.globalPosition);
                   }
                 },
@@ -843,7 +786,7 @@ class BezierChartState extends State<BezierChart>
           onScaleUpdate: _currentBezierChartScale != BezierChartScale.CUSTOM &&
                   //Hourly chart doesn't support pinch/zoom for now
                   _currentBezierChartScale != BezierChartScale.HOURLY &&
-                  !_displayIndicator
+                  !logic.displayIndicator
               ? (details) => _onPinchZoom(_previousScale * details.scale)
               : null,
           onTap: isPinchZoomActive ? null : _onHideIndicator,
@@ -854,7 +797,7 @@ class BezierChartState extends State<BezierChart>
               final maxHeight = constraints.biggest.height * 0.75;
               items.add(
                 MySingleChildScrollView(
-                  controller: _scrollController,
+                  controller: logic.scrollController,
                   physics: isPinchZoomActive || !_isScrollable
                       ? NeverScrollableScrollPhysics()
                       : widget.config.physics,
@@ -874,7 +817,7 @@ class BezierChartState extends State<BezierChart>
                         bezierChartScale: _currentBezierChartScale,
                         verticalIndicatorPosition: _verticalIndicatorPosition,
                         series: computedSeries,
-                        showIndicator: _displayIndicator,
+                        showIndicator: logic.displayIndicator,
                         animation: CurvedAnimation(
                           parent: _animationController,
                           curve: Interval(
@@ -886,8 +829,8 @@ class BezierChartState extends State<BezierChart>
                         xAxisDataPoints: _xAxisDataPoints,
                         onDataPointSnap: _onDataPointSnap,
                         maxWidth: MediaQuery.of(context).size.width,
-                        scrollOffset: _scrollController.hasClients
-                            ? _scrollController.offset
+                        scrollOffset: logic.scrollController.hasClients
+                            ? logic.scrollController.offset
                             : 0.0,
                         footerValueBuilder: widget.footerValueBuilder,
                         bubbleLabelValueBuilder: widget.bubbleLabelValueBuilder,

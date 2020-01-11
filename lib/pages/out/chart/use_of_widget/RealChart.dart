@@ -25,9 +25,11 @@ class RealChart extends StatelessWidget {
 //
 //            ),
             body: FutureBuilder<SharedPreferences>(
+              future: SharedPreferences.getInstance(),
               builder: (BuildContext context,
                   AsyncSnapshot<SharedPreferences> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting)
+                if (snapshot.connectionState == ConnectionState.done) {
+                  chartLogic.sharedPreferences = snapshot.data;
                   return Stack(
                     alignment: Alignment.topCenter,
                     children: <Widget>[
@@ -36,39 +38,38 @@ class RealChart extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Expanded(
-                              child: snapshot.data.getBool('ready') == null
+                              child: snapshot.data.getBool('ready') != null
                                   ? Container()
                                   : Ad(AdmobBannerSize.MEDIUM_RECTANGLE)),
                           Chart(this.collection, this.aspectRatio),
                           Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER)),
                         ],
                       ),
-                      chartLogic.sharedPreferences.getBool('ready') == null
+                      snapshot.data.getBool('ready') == null
                           ? Container()
                           : AnimatedBuilder(
                               builder: (BuildContext context, Widget child) {
                                 return Transform.translate(
-                                  offset: Offset(0, 0),
+                                  offset: chartLogic.animation.value,
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 0,
                                         vertical: 25 * aspectRatio),
                                     child: Material(
-                                      color: Colors.lightBlue,
+                                      color: Colors.red,
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             vertical: 16 * aspectRatio,
                                             horizontal: 33 * aspectRatio),
                                         child: Text(
                                           chartLogic.text,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 31 * aspectRatio,
-                                              fontWeight: FontWeight.w500),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .caption,
                                         ),
                                       ),
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(14)),
+                                          BorderRadius.all(Radius.circular(15)),
                                     ),
                                   ),
                                 );
@@ -77,9 +78,9 @@ class RealChart extends StatelessWidget {
                             ),
                     ],
                   );
-                else {
+                } else {
                   return Center(
-                    child: Text('!!'),
+                    child: CircularProgressIndicator(),
                   );
                 }
               },
