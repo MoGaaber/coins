@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:usatolebanese/pages/out/chart/logic.dart';
-import 'package:usatolebanese/pages/out/chart/x.dart';
+import 'package:usatolebanese/pages/out/chart/use_of_widget/logic.dart';
+import 'package:usatolebanese/pages/out/chart/widget/x.dart';
 import 'package:intl/intl.dart' as intl;
 
 typedef FooterValueBuilder = String Function(double value);
@@ -799,8 +799,7 @@ class BezierChartState extends State<BezierChart>
               logic.tween.end = Offset(0, -60);
 
               logic.controller.forward().then((x) {
-logic.sharedPreferences.setBool('ready', true);
-
+                logic.sharedPreferences.setBool('ready', true);
               });
             }
           },

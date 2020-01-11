@@ -9,7 +9,7 @@ import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/change.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/value.dart';
-import 'package:usatolebanese/pages/out/chart/root.dart';
+import 'package:usatolebanese/pages/out/chart/use_of_widget/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class BaseLogic extends ChangeNotifier {
@@ -42,7 +42,7 @@ class BaseLogic extends ChangeNotifier {
   }
 
   int index = 0;
-
+  Map<String, dynamic> data;
   var pages;
   bool isLoading = true;
   List<DocumentSnapshot> documents;
@@ -54,18 +54,23 @@ class BaseLogic extends ChangeNotifier {
       Firestore.instance.collection('Pounds').document('Syrian').get()
     ]).then((x) {
       documents = x;
-      currencyTypes = List.generate(3, (index) {
-        return {
-          'name': localization[index],
-          'value': index == 0 ? 1 : documents[index - 1].data['buy']['to']
-        };
-      });
+
+      data = {
+        'currencyTypes': List.generate(3, (index) {
+          return {
+            'name': localization[index],
+            'value': index == 0 ? 1 : documents[index - 1].data['buy']['to']
+          };
+        }),
+        'lebanonChart': [],
+        'syrianChart': [],
+      };
+
       isLoading = false;
       notifyListeners();
     });
   }
 
-  List<Map> currencyTypes;
   int syrianPrice, lebanonPrice;
   var lastPrices = {};
   AnimationController animationController;

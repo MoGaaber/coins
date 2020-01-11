@@ -11,7 +11,7 @@ import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/globals/widgets/ad.dart';
 import 'package:usatolebanese/globals/widgets/warning.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/table.dart';
-import 'package:usatolebanese/pages/out/chart/root.dart';
+import 'package:usatolebanese/pages/out/chart/use_of_widget/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class Second extends StatelessWidget {

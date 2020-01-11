@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/globals/widgets/ad.dart';
-import 'package:usatolebanese/pages/out/chart/RealChart.dart';
-import 'package:usatolebanese/pages/out/chart/chart.dart';
-import 'package:usatolebanese/pages/out/chart/logic.dart';
+import 'package:usatolebanese/pages/out/chart/use_of_widget/RealChart.dart';
+import 'package:usatolebanese/pages/out/chart/use_of_widget/chart.dart';
+import 'package:usatolebanese/pages/out/chart/use_of_widget/logic.dart';
 
 class ChartRoot extends StatefulWidget {
   String collection, title;
   double aspectRatio;
-
-  ChartRoot(this.collection, this.aspectRatio);
+  Map<String, dynamic> data;
+  int index;
+  ChartRoot(
+    this.collection,
+    this.aspectRatio,
+  );
 
   @override
   _ChartRootState createState() => _ChartRootState();
@@ -25,6 +29,9 @@ class _ChartRootState extends State<ChartRoot> with TickerProviderStateMixin {
         create: (context) {
           return ChartLogic(this);
         },
-        child: RealChart(widget.collection, widget.aspectRatio));
+        child: RealChart(
+          widget.collection,
+          widget.aspectRatio,
+        ));
   }
 }

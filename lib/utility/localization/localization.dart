@@ -11,6 +11,11 @@ class Localization {
 
   static Map<String, Map> _localizedValues = {
     'en': {
+      'instructions': [
+        "Long press on the section of Chart and don't move up your finger from it",
+        "Now drag your finger in hirozintal directions",
+        "you are succefully do it . Enjoy :)"
+      ],
       'out': 'Previous Days',
       'dialogButtons': ['Exit', 'Share App :)'],
       'language': ['Choose Language'],
@@ -32,6 +37,11 @@ class Localization {
       'exit': 'Like the app?  Share it with your friends :)'
     },
     'ar': {
+      'instructions': [
+        'قم بالضغط مطولاً على جزء الاحصائيات ولا تقم برفع اصبعك من عليه ',
+        'الآن قم بالسحب فى اتجاه عرضي',
+        'لقد نجحت . استمتع '
+      ],
       'dialogButtons': ['اغلاق', 'مشاركة التطبيق :)'],
       'language': ['إختيار اللغة'],
       'notification': 'We have anew update on prices check it out',

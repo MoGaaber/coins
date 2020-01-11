@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ChartLogic extends ChangeNotifier {
   Animation<Offset> animation;
   AnimationController controller;
+
   Duration duration = Duration(milliseconds: 1000);
   Tween<Offset> tween = Tween(begin: Offset(0, 0), end: Offset(0, 20));
   bool ready = false;
@@ -17,6 +18,7 @@ class ChartLogic extends ChangeNotifier {
   }
 
   ChartLogic(TickerProvider provider) {
+    initPreference();
 //    SharedPreferences.getInstance().then((x) {
 //      if (x.getBool('learn') == null) {
 //      } else {

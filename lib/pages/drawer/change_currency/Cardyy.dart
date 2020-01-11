@@ -69,7 +69,7 @@ class Carddy extends StatelessWidget {
                       );
                     },
                     itemBuilder: (BuildContext context) =>
-                        baseLogic.currencyTypes.map((x) {
+                        baseLogic.data['currencyTypes'].map((x) {
                       return PopupMenuItem(
                           value: x,
                           child: Center(
