@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class Ad extends StatelessWidget {
   AdmobBannerSize adMobBannerSize;
-  Ad(this.adMobBannerSize);
+  String adCode;
+  Ad(this.adMobBannerSize, this.adCode);
   @override
   Widget build(BuildContext context) {
     return AdmobBanner(

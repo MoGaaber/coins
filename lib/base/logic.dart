@@ -46,6 +46,7 @@ class BaseLogic extends ChangeNotifier {
   Map<String, dynamic> data;
   var pages;
   bool isLoading = true;
+  List<Map> currencyTypes;
   List<DocumentSnapshot> documents;
   void fetchData() {
     if (isLoading == false) isLoading = true;
@@ -56,16 +57,12 @@ class BaseLogic extends ChangeNotifier {
     ]).then((x) {
       documents = x;
 
-      data = {
-        'currencyTypes': List.generate(3, (index) {
-          return {
-            'name': localization[index],
-            'value': index == 0 ? 1 : documents[index - 1].data['buy']['to']
-          };
-        }),
-        'lebanonChart': [],
-        'syrianChart': [],
-      };
+      currencyTypes = List.generate(3, (index) {
+        return {
+          'name': localization[index],
+          'value': index == 0 ? 1 : documents[index - 1].data['buy']['to']
+        };
+      });
 
       isLoading = false;
       notifyListeners();
@@ -123,8 +120,11 @@ class BaseLogic extends ChangeNotifier {
   List tilesTab;
   bool isLoadContext = false;
   var scaffoldKey = GlobalKey();
+
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
     this.context = context;
+    var localizationn = Localization.of(context);
+
     isLoadContext = true;
     fireBaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
@@ -148,23 +148,6 @@ class BaseLogic extends ChangeNotifier {
     );
 
     pages = [CurrencyValue(), CurrencyValue(), Change(context)];
-    tilesTab = [
-      (int i) {
-        index = i;
-      },
-      (int i) {
-        index = i;
-      },
-      (int i) {
-        index = i;
-      },
-      () {
-        shareApp();
-      },
-      () {
-        rateApp();
-      }
-    ];
 
     fetchData();
     showAd();
@@ -226,9 +209,6 @@ class BaseLogic extends ChangeNotifier {
   }
 
   void navigateToPage(BuildContext context, int i) {
-    Navigator.of(
-      context,
-    ).pop();
     index = i;
     notifyListeners();
   }
@@ -240,7 +220,8 @@ class BaseLogic extends ChangeNotifier {
 
   void rateApp() {
     WebviewScaffold(
-        url: 'https://play.google.com/store/apps/details?id=com.usatolebanese');
+      url: 'www.google.com.eg',
+    );
   }
 
   var collections = [

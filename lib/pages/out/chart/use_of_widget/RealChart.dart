@@ -2,6 +2,7 @@ import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:usatolebanese/globals/logics/constants.dart';
 import 'package:usatolebanese/globals/widgets/ad.dart';
 import 'package:usatolebanese/pages/out/chart/use_of_widget/chart.dart';
 import 'package:usatolebanese/pages/out/chart/use_of_widget/logic.dart';
@@ -40,9 +41,12 @@ class RealChart extends StatelessWidget {
                           Expanded(
                               child: snapshot.data.getBool('ready') == null
                                   ? Container()
-                                  : Ad(AdmobBannerSize.MEDIUM_RECTANGLE)),
+                                  : Ad(AdmobBannerSize.MEDIUM_RECTANGLE,
+                                      Constants.secondAdCode)),
                           Chart(this.collection, this.aspectRatio),
-                          Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER)),
+                          Expanded(
+                              child: Ad(AdmobBannerSize.LARGE_BANNER,
+                                  Constants.secondAdCode)),
                         ],
                       ),
                       snapshot.data.getBool('ready') != null

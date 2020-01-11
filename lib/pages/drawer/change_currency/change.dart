@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/logic.dart';
+import 'package:usatolebanese/globals/logics/constants.dart';
 import 'package:usatolebanese/globals/widgets/ad.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/Cardyy.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
@@ -46,7 +47,8 @@ class Change extends StatelessWidget {
                         color: Colors.red,
                       )
                     : Expanded(
-                        child: Ad(AdmobBannerSize.MEDIUM_RECTANGLE),
+                        child: Ad(AdmobBannerSize.MEDIUM_RECTANGLE,
+                            Constants.firstAdCode),
                       );
               },
             )

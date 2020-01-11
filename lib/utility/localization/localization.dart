@@ -34,7 +34,7 @@ class Localization {
       'coin': ['Last update', 'Official Price ', 'Previous Days'],
       'pages': ['Currencies Converter', 'Lebanon Pound', 'Syrian Pound'],
       'currencyTypes': ['US Dollar', 'LB Pound', 'SY Pound'],
-      'globals': ['From', 'To', 'Buy', 'Sell', 'Type Here'],
+      'globals': ['From', 'To', 'Buy', 'Sell', 'Type Here', 'Ok'],
       'exit': 'Like the app?  Share it with your friends :)'
     },
     'ar': {
@@ -59,7 +59,7 @@ class Localization {
       'warning':
           'تنويه: نحن مجرد ناقلين لسعر السوق والصرافين، وليس لنا أي دور في تحديد السعر.',
       'coin': ['اخر تحديث', 'السعر الرسمي', 'الأيام السابقة'],
-      'globals': ['من', 'إلى', 'بيع', 'شراء', 'اكتب هنا'],
+      'globals': ['من', 'إلى', 'بيع', 'شراء', 'اكتب هنا', 'حسناً'],
       'pages': ['العملة السورية', 'العملة اللبنانية', 'محول العملات'],
       'currencyTypes': [
         'الدولار الأميركي',

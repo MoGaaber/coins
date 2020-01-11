@@ -11,7 +11,7 @@ class Draw extends StatelessWidget {
   Widget build(BuildContext context) {
     var logic = Provider.of<BaseLogic>(context, listen: false);
     return FractionallySizedBox(
-      widthFactor: 0.75,
+      widthFactor: 0.70,
       child: Drawer(
         child: Material(
           color: Colors.black,
@@ -44,7 +44,11 @@ class Draw extends StatelessWidget {
                             size: logic.aspectRatio * 37,
                             color: Colors.white.withOpacity(0.6)),
                         onTap: () {
-                          if (i < 2) {
+                          Navigator.of(
+                            context,
+                          ).pop();
+
+                          if (i <= 2) {
                             logic.navigateToPage(context, i);
                           } else {
                             if (i == 3) {

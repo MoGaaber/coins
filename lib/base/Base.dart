@@ -49,7 +49,6 @@ class _BaseState extends State<Base> {
         }
       }
     ];
-
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -155,7 +154,7 @@ class _BaseState extends State<Base> {
                 },
                 builder: (_, Tuple2 value, __) {
                   return value.item2
-                      ? Center(child: Text('!!'))
+                      ? Center(child: CircularProgressIndicator())
                       : baseLogic.pages[value.item1];
                 },
               ))),

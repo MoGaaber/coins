@@ -8,20 +8,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/logic.dart';
+import 'package:usatolebanese/globals/logics/constants.dart';
 import 'package:usatolebanese/globals/widgets/ad.dart';
 import 'package:usatolebanese/globals/widgets/warning.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/table.dart';
 import 'package:usatolebanese/pages/out/chart/use_of_widget/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
-
-class Second extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-    );
-  }
-}
 
 class CurrencyValue extends StatefulWidget {
   @override
@@ -39,7 +31,6 @@ class _CurrencyValueState extends State<CurrencyValue>
     num aspectRatio = logic.aspectRatio;
     double height = (MediaQuery.of(context).size.height);
     bool bigScreenSize = height >= 792;
-    print(height);
     return DefaultTextStyle(
       style: TextStyle(color: Colors.white),
       child: Column(
@@ -47,25 +38,31 @@ class _CurrencyValueState extends State<CurrencyValue>
         children: <Widget>[
           Stack(
             overflow: Overflow.visible,
-            alignment: Alignment.bottomRight,
+            alignment: Localization.of(context).locale.languageCode == 'ar'
+                ? Alignment.bottomRight
+                : Alignment.bottomLeft,
             children: <Widget>[
               bigScreenSize
                   ? Container()
                   : Positioned(
-                      bottom: -20,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              logic.navigateToChart();
-                            },
-                            child: Icon(
-                              FontAwesomeIcons.chartLine,
-                              size: 15,
-                            ),
+                      left: Localization.of(context).locale.languageCode == 'ar'
+                          ? null
+                          : 15,
+                      right:
+                          Localization.of(context).locale.languageCode == 'ar'
+                              ? 15
+                              : null,
+                      bottom: -33 * aspectRatio,
+                      child: SizedBox(
+                        width: 83 * aspectRatio,
+                        height: 83 * aspectRatio,
+                        child: FloatingActionButton(
+                          onPressed: () {
+                            logic.navigateToChart();
+                          },
+                          child: Icon(
+                            FontAwesomeIcons.chartLine,
+                            size: 25 * aspectRatio,
                           ),
                         ),
                       ),
@@ -128,6 +125,7 @@ class _CurrencyValueState extends State<CurrencyValue>
                       ),
                     ),
                     Divider(
+                      endIndent: 117 * aspectRatio,
                       indent: 117 * aspectRatio,
                       height: aspectRatio * 8.3,
                       color: Color(0xff3E3E3E),
@@ -138,6 +136,8 @@ class _CurrencyValueState extends State<CurrencyValue>
             ],
           ),
           Tabl(data),
+          bigScreenSize ? Warning() : Container(),
+
           Divider(
             height: aspectRatio * 8.3,
             color: Color(0xff3E3E3E),
@@ -180,7 +180,9 @@ class _CurrencyValueState extends State<CurrencyValue>
                   ],
                 )
               : Container(),
-          Expanded(child: Ad(AdmobBannerSize.MEDIUM_RECTANGLE))
+          Expanded(
+              child:
+                  Ad(AdmobBannerSize.MEDIUM_RECTANGLE, Constants.firstAdCode))
           //  Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER))
         ],
       ),
