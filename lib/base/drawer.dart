@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +44,15 @@ class Draw extends StatelessWidget {
                             size: logic.aspectRatio * 37,
                             color: Colors.white.withOpacity(0.6)),
                         onTap: () {
-                          logic.navigateToPage(context, i);
+                          if (i < 2) {
+                            logic.navigateToPage(context, i);
+                          } else {
+                            if (i == 3) {
+                              logic.shareApp();
+                            } else {
+                              logic.rateApp();
+                            }
+                          }
                         }),
                     i == 2
                         ? Divider(

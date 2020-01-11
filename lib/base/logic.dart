@@ -3,6 +3,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:share/share.dart';
@@ -119,6 +120,7 @@ class BaseLogic extends ChangeNotifier {
     notifyListeners();
   }
 
+  List tilesTab;
   bool isLoadContext = false;
   var scaffoldKey = GlobalKey();
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
@@ -146,9 +148,26 @@ class BaseLogic extends ChangeNotifier {
     );
 
     pages = [CurrencyValue(), CurrencyValue(), Change(context)];
+    tilesTab = [
+      (int i) {
+        index = i;
+      },
+      (int i) {
+        index = i;
+      },
+      (int i) {
+        index = i;
+      },
+      () {
+        shareApp();
+      },
+      () {
+        rateApp();
+      }
+    ];
 
     fetchData();
-    //showAd();
+    showAd();
     size = MediaQuery.of(context).size;
     screenHeight = size.height;
     screenWidth = size.width;
@@ -217,6 +236,11 @@ class BaseLogic extends ChangeNotifier {
   void shareApp() {
     Share.share(
         'بين ال1500 و3000، الدولار عم يلعب ويلعبنا معه! إذا بدك تعرف سعر الدولار لحظة بلحظة ويوصلك تنبيه بتغير السعر بكل بساطة نزل هالتطبيق الأول من نوعه : https://play.google.com/store/apps/details?id=com.usatolebanese');
+  }
+
+  void rateApp() {
+    WebviewScaffold(
+        url: 'https://play.google.com/store/apps/details?id=com.usatolebanese');
   }
 
   var collections = [
