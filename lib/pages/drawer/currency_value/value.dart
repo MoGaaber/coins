@@ -14,6 +14,15 @@ import 'package:usatolebanese/pages/drawer/currency_value/table.dart';
 import 'package:usatolebanese/pages/out/chart/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
+class Second extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+    );
+  }
+}
+
 class CurrencyValue extends StatefulWidget {
   @override
   _CurrencyValueState createState() => _CurrencyValueState();
@@ -28,35 +37,39 @@ class _CurrencyValueState extends State<CurrencyValue>
     var localization = Localization.of(context).coin;
     var textTheme = Theme.of(context).textTheme;
     num aspectRatio = logic.aspectRatio;
+    double height = (MediaQuery.of(context).size.height);
+    bool bigScreenSize = height >= 792;
+    print(height);
     return DefaultTextStyle(
       style: TextStyle(color: Colors.white),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Stack(
             overflow: Overflow.visible,
             alignment: Alignment.bottomRight,
             children: <Widget>[
-              Positioned(
-                bottom: -20,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        logic.navigateToChart();
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.chartLine,
-                        size: 15,
+              bigScreenSize
+                  ? Container()
+                  : Positioned(
+                      bottom: -20,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              logic.navigateToChart();
+                            },
+                            child: Icon(
+                              FontAwesomeIcons.chartLine,
+                              size: 15,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
               Center(
                 child: Column(
                   children: <Widget>[
@@ -115,7 +128,7 @@ class _CurrencyValueState extends State<CurrencyValue>
                       ),
                     ),
                     Divider(
-                      indent: 60,
+                      indent: 117 * aspectRatio,
                       height: aspectRatio * 8.3,
                       color: Color(0xff3E3E3E),
                     ),
@@ -129,43 +142,42 @@ class _CurrencyValueState extends State<CurrencyValue>
             height: aspectRatio * 8.3,
             color: Color(0xff3E3E3E),
           ),
-//          Padding(
-//            padding: EdgeInsets.only(top: 50 * aspectRatio),
-//            child: Warning(),
-//          ),
-//          Padding(
-//            padding: EdgeInsets.symmetric(vertical: 34 * aspectRatio),
-//            child: ButtonTheme(
-//              textTheme: ButtonTextTheme.primary,
-//              height: 80 * aspectRatio,
-//              minWidth: 240 * aspectRatio,
-//              child: FlatButton(
-//                color: Colors.transparent,
-//                shape: RoundedRectangleBorder(
-//                    borderRadius: BorderRadius.all(Radius.circular(5)),
-//                    side: BorderSide(
-//                      color: Colors.white,
-//                      width: 1.5,
-//                    )),
-//                onPressed: () {
-//                  Navigator.push(
-//                      context,
-//                      MaterialPageRoute(
-//                          builder: (BuildContext context) => ChartRoot(
-//                              logic.index == 0 ? 'lebaness' : '',
-//                              localization.last,
-//                              aspectRatio)));
-//                },
-//                child: Text(
-//                  localization.last,
-//                  style: TextStyle(
-//                      wordSpacing: 0.8,
-//                      fontWeight: FontWeight.w700,
-//                      fontSize: 26 * logic.aspectRatio),
-//                ),
-//              ),
-//            ),
-//          ),
+          bigScreenSize
+              ? Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 50 * aspectRatio),
+                      child: Warning(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 34 * aspectRatio),
+                      child: ButtonTheme(
+                        textTheme: ButtonTextTheme.primary,
+                        height: 80 * aspectRatio,
+                        minWidth: 240 * aspectRatio,
+                        child: FlatButton(
+                          color: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)),
+                              side: BorderSide(
+                                color: Colors.white,
+                                width: 1.5,
+                              )),
+                          onPressed: () {},
+                          child: Text(
+                            localization.last,
+                            style: TextStyle(
+                                wordSpacing: 0.8,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 26 * logic.aspectRatio),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : Container(),
           Expanded(child: Ad(AdmobBannerSize.MEDIUM_RECTANGLE))
           //  Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER))
         ],

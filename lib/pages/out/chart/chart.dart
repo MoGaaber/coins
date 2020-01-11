@@ -23,7 +23,7 @@ class _ChartState extends State<Chart> {
   Widget build(BuildContext context) {
     var logic = Provider.of<ChartLogic>(context, listen: false);
     return SizedBox.fromSize(
-      size: Size.fromHeight(340),
+      size: Size.fromHeight(566 * 0.60),
       child: FutureBuilder(
         future: Firestore.instance
             .collection(widget.collection)
@@ -31,14 +31,13 @@ class _ChartState extends State<Chart> {
             .orderBy('date', descending: true)
             .getDocuments(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done ||
-              snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState == ConnectionState.done) {
             var documents = snapshot.data.documents;
             return Container(
               height: MediaQuery.of(context).size.height / 2,
               width: MediaQuery.of(context).size.width,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 20),
+                padding: EdgeInsets.only(bottom: 33 * widget.aspectRatio),
                 child: BezierChart(
                   onValueSelected: (x) {},
                   onIndicatorVisible: (x) {

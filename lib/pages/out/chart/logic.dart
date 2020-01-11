@@ -11,7 +11,6 @@ class ChartLogic extends ChangeNotifier {
   Duration duration = Duration(milliseconds: 1000);
   Tween<Offset> tween = Tween(begin: Offset(0, 0), end: Offset(0, 20));
   bool ready = false;
-  Completer<SharedPreferences> completer = Completer();
   SharedPreferences sharedPreferences;
   void initPreference() async {
     sharedPreferences = await SharedPreferences.getInstance();

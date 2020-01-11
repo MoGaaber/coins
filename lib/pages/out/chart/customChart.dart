@@ -799,7 +799,8 @@ class BezierChartState extends State<BezierChart>
               logic.tween.end = Offset(0, -60);
 
               logic.controller.forward().then((x) {
-                logic.ready = true;
+logic.sharedPreferences.setBool('ready', true);
+
               });
             }
           },
@@ -828,7 +829,7 @@ class BezierChartState extends State<BezierChart>
                     logic.tween.end = Offset(0, -60);
 
                     logic.controller.forward().then((x) {
-                      logic.ready = true;
+                      logic.sharedPreferences.setBool('ready', true);
                     });
                   }
                   if (_animationController.status ==

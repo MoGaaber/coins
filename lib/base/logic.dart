@@ -116,6 +116,7 @@ class BaseLogic extends ChangeNotifier {
     isLoadContext = true;
     fireBaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
+        print(message);
         showSnackBar();
       },
     );

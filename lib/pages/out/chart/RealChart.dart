@@ -13,7 +13,6 @@ class RealChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ChartLogic chartLogic = Provider.of<ChartLogic>(context, listen: false);
-
     return SafeArea(
         child: Scaffold(
             backgroundColor: Color(0xff0E0E0E),
@@ -31,40 +30,44 @@ class RealChart extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Expanded(
-                        child: !chartLogic.ready
+                        child: !chartLogic.sharedPreferences.getBool('ready')
                             ? Container()
                             : Ad(AdmobBannerSize.MEDIUM_RECTANGLE)),
                     Chart(this.collection, this.aspectRatio),
                     Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER)),
                   ],
                 ),
-                AnimatedBuilder(
-                  builder: (BuildContext context, Widget child) {
-                    return Transform.translate(
-                      offset: Offset(0, 0),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 0, vertical: 15),
-                        child: Material(
-                          color: Colors.lightBlue,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            child: Text(
-                              chartLogic.text,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.5,
-                                  fontWeight: FontWeight.w500),
+                chartLogic.sharedPreferences.getBool('ready')
+                    ? Container()
+                    : AnimatedBuilder(
+                        builder: (BuildContext context, Widget child) {
+                          return Transform.translate(
+                            offset: Offset(0, 0),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 0, vertical: 25 * aspectRatio),
+                              child: Material(
+                                color: Colors.lightBlue,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 16 * aspectRatio,
+                                      horizontal: 33 * aspectRatio),
+                                  child: Text(
+                                    chartLogic.text,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 31 * aspectRatio,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(14)),
+                              ),
                             ),
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(14)),
-                        ),
+                          );
+                        },
+                        animation: chartLogic.animation,
                       ),
-                    );
-                  },
-                  animation: chartLogic.animation,
-                ),
               ],
             )));
   }
