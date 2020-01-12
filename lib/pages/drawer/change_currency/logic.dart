@@ -1,10 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
-import 'package:provider/provider.dart';
-import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class ChangeLogic extends ChangeNotifier with EquatableMixin {

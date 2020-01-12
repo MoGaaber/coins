@@ -41,12 +41,12 @@ class RealChart extends StatelessWidget {
                           Expanded(
                               child: snapshot.data.getBool('ready') == null
                                   ? Container()
-                                  : Ad(AdmobBannerSize.MEDIUM_RECTANGLE,
-                                      Constants.secondAdCode)),
+                                  : Ad(AdmobBannerSize.LARGE_BANNER,
+                                      Constants.firstAdCode)),
                           Chart(this.collection, this.aspectRatio),
                           Expanded(
                               child: Ad(AdmobBannerSize.LARGE_BANNER,
-                                  Constants.secondAdCode)),
+                                  Constants.firstAdCode)),
                         ],
                       ),
                       snapshot.data.getBool('ready') != null

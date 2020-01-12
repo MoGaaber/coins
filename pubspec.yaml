@@ -44,6 +44,7 @@ dependencies:
   observable: ^0.22.2
   firebase_messaging: ^6.0.9
   google_fonts: ^0.3.2
+  launch_review: ^2.0.0
 
 
 

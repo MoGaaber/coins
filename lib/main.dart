@@ -1,15 +1,7 @@
-import 'dart:async';
-import 'dart:convert';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:usatolebanese/base/Base.dart';
 import 'package:usatolebanese/base/root.dart';
-import 'package:usatolebanese/language_select/language.dart';
 import 'package:usatolebanese/utility/localization/delegate.dart';
 import 'package:usatolebanese/utility/theme/dark/dark.dart';
 
@@ -36,6 +28,9 @@ class Root extends StatelessWidget {
 
     num aspectRatio;
     return MaterialApp(
+      showSemanticsDebugger: false,
+      debugShowMaterialGrid: false,
+      debugShowCheckedModeBanner: false,
       builder: (context, widget) {
         aspectRatio = MediaQuery.of(context).size.aspectRatio;
         DarkTheme darkTheme =

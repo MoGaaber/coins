@@ -1,20 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:http/http.dart' as http;
-import 'package:firebase_admob/firebase_admob.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
 import 'package:tuple/tuple.dart';
 import 'package:usatolebanese/base/drawer.dart';
 import 'package:usatolebanese/base/logic.dart';
-import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class Base extends StatefulWidget {

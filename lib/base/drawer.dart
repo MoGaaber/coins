@@ -1,10 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/logic.dart';
+import 'package:usatolebanese/globals/logics/constants.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
+import 'package:launch_review/launch_review.dart';
 
 class Draw extends StatelessWidget {
   @override
@@ -54,7 +54,8 @@ class Draw extends StatelessWidget {
                             if (i == 3) {
                               logic.shareApp();
                             } else {
-                              logic.rateApp();
+                              LaunchReview.launch(
+                                  androidAppId: Constants.packageName);
                             }
                           }
                         }),

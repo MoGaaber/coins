@@ -9,7 +9,14 @@ class Ad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdmobBanner(
-      adUnitId: BannerAd.testAdUnitId,
+      onBannerCreated: (x) {
+        print(x);
+      },
+      listener: (x, y) {
+        print(x);
+        print(y);
+      },
+      adUnitId: adCode,
       adSize: adMobBannerSize,
     );
   }

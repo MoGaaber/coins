@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:usatolebanese/globals/logics/constants.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/change.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/value.dart';
 import 'package:usatolebanese/pages/out/chart/use_of_widget/root.dart';
@@ -28,13 +28,35 @@ class BaseLogic extends ChangeNotifier {
 
   InterstitialAd createFullScreenAd() {
     return InterstitialAd(
-      adUnitId: InterstitialAd.testAdUnitId,
+      adUnitId: Constants.secondAdCode,
     );
   }
 
+/*
+* بعد ذلك، ضع الوحدة الإعلانية داخل تطبيقك
+اتبع هذه التعليمات:
+أكمِل التعليمات في دليل حزمة SDK لإعلانات Google على الأجهزة الجوّالة باستخدام رقم تعريف التطبيق التالي:
+ca-app-pub-5221499382551302~9992907849
+اتّبع دليل تنفيذ إعلانات البانر لدمج حزمة SDK. ستحدّد نوع الإعلان وحجمه وموضعه عند دمج الرمز باستخدام رقم تعريف الوحدة الإعلانية التالي:
+ca-app-pub-5221499382551302/9801336152
+راجع سياسات AdMob لضمان التزام عملية تنفيذ الإعلانات.
+
+
+
+بعد ذلك، ضع الوحدة الإعلانية داخل تطبيقك
+اتبع هذه التعليمات:
+أكمِل التعليمات في دليل حزمة SDK لإعلانات Google على الأجهزة الجوّالة باستخدام رقم تعريف التطبيق التالي:
+ca-app-pub-5221499382551302~9992907849
+اتّبع دليل تنفيذ الإعلانات البينية لدمج حزمة SDK. ستحدّد نوع الإعلان وموضعه عند دمج الرمز باستخدام رقم تعريف الوحدة الإعلانية التالي:
+ca-app-pub-5221499382551302/5670519450
+راجع سياسات AdMob لضمان التزام عملية تنفيذ الإعلانات.
+
+
+
+*/
   void showAd() {
     FirebaseAdMob.instance
-        .initialize(appId: 'ca-app-pub-3118554882781656~3307182209')
+        .initialize(appId: 'ca-app-pub-5221499382551302~9992907849')
         .then((x) {
       fullScreenAd = createFullScreenAd()
         ..load()

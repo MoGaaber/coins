@@ -1,8 +1,6 @@
 import 'package:admob_flutter/admob_flutter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +10,6 @@ import 'package:usatolebanese/globals/logics/constants.dart';
 import 'package:usatolebanese/globals/widgets/ad.dart';
 import 'package:usatolebanese/globals/widgets/warning.dart';
 import 'package:usatolebanese/pages/drawer/currency_value/table.dart';
-import 'package:usatolebanese/pages/out/chart/use_of_widget/root.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 
 class CurrencyValue extends StatefulWidget {
@@ -124,12 +121,14 @@ class _CurrencyValueState extends State<CurrencyValue>
                         ],
                       ),
                     ),
-                    Divider(
-                      endIndent: 117 * aspectRatio,
-                      indent: 117 * aspectRatio,
-                      height: aspectRatio * 8.3,
-                      color: Color(0xff3E3E3E),
-                    ),
+                    bigScreenSize
+                        ? Divider(
+                            endIndent: 117 * aspectRatio,
+                            indent: 117 * aspectRatio,
+                            height: aspectRatio * 8.3,
+                            color: Color(0xff3E3E3E),
+                          )
+                        : Container(),
                   ],
                 ),
               ),

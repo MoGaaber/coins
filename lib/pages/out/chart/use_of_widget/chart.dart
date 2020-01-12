@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/pages/out/chart/widget/customChart.dart';
 import 'package:usatolebanese/pages/out/chart/use_of_widget/logic.dart';
 import 'package:usatolebanese/pages/out/chart/widget/x.dart';
