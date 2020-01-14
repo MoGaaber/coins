@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class ChartLogic extends ChangeNotifier {
   AnimationController controller;
   List<String> localization;
   ScrollController scrollController = ScrollController();
-
+  List<DocumentSnapshot> documents;
   Duration duration = Duration(milliseconds: 1000);
   Tween<Offset> tween = Tween(begin: Offset(0, 0), end: Offset(0, 20));
   bool ready = false;
@@ -32,14 +33,15 @@ class ChartLogic extends ChangeNotifier {
   }
 
   void scrollListening() {
-    scrollController.addListener(() {
-      if (text == localization.last) {
-        success();
-        scrollController.dispose();
-      } else if (text != localization[2]) {
-        inProgress(localization[2], false);
-      }
-    });
+    if (sharedPreferences.getBool('ready') != null)
+      scrollController.addListener(() {
+        if (text == localization.last) {
+          success();
+          scrollController.dispose();
+        } else if (text != localization[2]) {
+          inProgress(localization[2], false);
+        }
+      });
   }
 
   void onLongPressMove(LongPressMoveUpdateDetails details) {

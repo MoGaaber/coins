@@ -1,4 +1,5 @@
 import 'package:admob_flutter/admob_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,12 +26,19 @@ class RealChart extends StatelessWidget {
 //              ),
 //
 //            ),
-            body: FutureBuilder<SharedPreferences>(
-              future: SharedPreferences.getInstance(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<SharedPreferences> snapshot) {
+            body: FutureBuilder<List>(
+              future: Future.wait([
+                SharedPreferences.getInstance(),
+                Firestore.instance
+                    .collection(collection)
+                    .limit(7)
+                    .orderBy('date', descending: true)
+                    .getDocuments()
+              ]),
+              builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  chartLogic.sharedPreferences = snapshot.data;
+                  chartLogic.sharedPreferences = snapshot.data[0];
+                  chartLogic.documents = snapshot.data[1].documents;
                   return Stack(
                     alignment: Alignment.topCenter,
                     children: <Widget>[
@@ -39,7 +47,9 @@ class RealChart extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Expanded(
-                              child: snapshot.data.getBool('ready') == null
+                              child: chartLogic.sharedPreferences
+                                          .getBool('ready') ==
+                                      null
                                   ? Container()
                                   : Ad(AdmobBannerSize.LARGE_BANNER,
                                       Constants.firstAdCode)),
@@ -49,7 +59,7 @@ class RealChart extends StatelessWidget {
                                   Constants.firstAdCode)),
                         ],
                       ),
-                      snapshot.data.getBool('ready') != null
+                      chartLogic.sharedPreferences.getBool('ready') != null
                           ? Container()
                           : AnimatedBuilder(
                               builder: (BuildContext context, Widget child) {

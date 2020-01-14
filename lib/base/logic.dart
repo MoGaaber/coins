@@ -144,6 +144,8 @@ ca-app-pub-5221499382551302/5670519450
   var scaffoldKey = GlobalKey();
 
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
+    print('hi');
+    var local = Localization.of(context).rateApp;
     this.context = context;
     SharedPreferences.getInstance().then((instance) {
       int timesOfOpenApp = instance.getInt('timesOfOpenApp');
@@ -154,12 +156,42 @@ ca-app-pub-5221499382551302/5670519450
       } else {
         if (isRated == false) {
           instance.setInt('timesOfOpenApp', timesOfOpenApp + 1);
-          if (timesOfOpenApp % 15 == 0) {}
+          if (timesOfOpenApp % 15 == 0) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(
+                        local[0],
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline
+                            .copyWith(color: Colors.black87),
+                      ),
+                      actions: <Widget>[
+                        FlatButton(
+                          onPressed: () {
+                            rateApp();
+                          },
+                          child: Text(local[1]),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(local[2]),
+                        )
+                      ],
+                    );
+                  });
+            });
+          }
         }
       }
     });
-    fireBaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
+//    fireBaseMessaging.configure(
+//      onMessage: (Map<String, dynamic> message) async {
 //        indexing(message['data']['index']);
 //        int index = message['data']['index'];
 //        print(message['data']);
@@ -175,9 +207,9 @@ ca-app-pub-5221499382551302/5670519450
 //        });
 //
 //        notifyListeners();
-        showSnackBar(message['index']);
-      },
-    );
+//        showSnackBar(message['index']);
+//      },
+//    );
 
     pages = [CurrencyValue(), CurrencyValue(), Change(context)];
 

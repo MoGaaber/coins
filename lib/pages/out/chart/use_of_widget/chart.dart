@@ -19,88 +19,72 @@ class Chart extends StatelessWidget {
     var logic = Provider.of<ChartLogic>(context, listen: false);
 
     return SizedBox.fromSize(
-      size: Size.fromHeight(566 * 0.60),
-      child: FutureBuilder(
-        future: Firestore.instance
-            .collection(collection)
-            .limit(7)
-            .orderBy('date', descending: true)
-            .getDocuments(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            var documents = snapshot.data.documents;
-            return Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 33 * aspectRatio),
-                child: BezierChart(
-                  onIndicatorVisible: (indicatorVisibility) {
-                    if (logic.text != localization.last) {
-                      logic.tickerFuture.timeout(Duration(milliseconds: 0),
-                          onTimeout: () {
+        size: Size.fromHeight(566 * 0.60),
+        child: Container(
+          height: MediaQuery.of(context).size.height / 2,
+          width: MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 33 * aspectRatio),
+            child: BezierChart(
+              onIndicatorVisible: (indicatorVisibility) {
+                if (logic.text != localization.last) {
+                  logic.tickerFuture.timeout(Duration(milliseconds: 0),
+                      onTimeout: () {
+                    logic.tween.begin = Offset(0, 0);
+                    logic.tween.end = Offset(0, -85);
+
+                    logic.controller.forward().then((xy) {
+                      if (indicatorVisibility) {
+                        logic.text = localization[3];
+                      } else {
+                        logic.text = localization[1];
+                      }
+
+                      logic.controller.reverse().then((x) {
                         logic.tween.begin = Offset(0, 0);
-                        logic.tween.end = Offset(0, -85);
-
-                        logic.controller.forward().then((xy) {
-                          if (indicatorVisibility) {
-                            logic.text = localization[3];
-                          } else {
-                            logic.text = localization[1];
-                          }
-
-                          logic.controller.reverse().then((x) {
-                            logic.tween.begin = Offset(0, 0);
-                            logic.tween.end = Offset(0, 20);
-                            logic.tickerFuture =
-                                logic.controller.repeat(reverse: true);
-                          });
-                        });
+                        logic.tween.end = Offset(0, 20);
+                        logic.tickerFuture =
+                            logic.controller.repeat(reverse: true);
                       });
-                    } else {
-                      logic.success();
-                    }
-                  },
-                  fromDate:
-                      documents[documents.length - 1].data['date'].toDate(),
-                  bezierChartScale: BezierChartScale.WEEKLY,
-                  toDate: documents[0].data['date'].toDate(),
-                  series: [
-                    BezierLine(
-                      lineColor: Colors.red,
-                      label: "Buy price",
-                      data: documents.map((x) {
-                        return DataPoint<DateTime>(
-                            value: x['sell'].toDouble(),
-                            xAxis: x['date'].toDate());
-                      }).toList(),
-                    ),
-                    BezierLine(
-                        label: "Sell price",
-                        data: documents.map((x) {
-                          return DataPoint<DateTime>(
-                              value: x['buy'].toDouble(),
-                              xAxis: x['date'].toDate());
-                        }).toList(),
-                        lineColor: Color(0xffA2A2A2)),
-                  ],
-                  config: BezierChartConfig(
-                    displayDataPointWhenNoValue: false,
-                    showVerticalIndicator: true,
-                    verticalIndicatorColor: Colors.white,
-                    verticalIndicatorFixedPosition: false,
-                    showDataPoints: true,
-                    physics: BouncingScrollPhysics(),
-                    pinchZoom: false,
-                  ),
+                    });
+                  });
+                } else {
+                  logic.success();
+                }
+              },
+              fromDate: logic.documents[logic.documents.length - 1].data['date']
+                  .toDate(),
+              bezierChartScale: BezierChartScale.WEEKLY,
+              toDate: logic.documents[0].data['date'].toDate(),
+              series: [
+                BezierLine(
+                  lineColor: Colors.red,
+                  label: "Buy price",
+                  data: logic.documents.map((x) {
+                    return DataPoint<DateTime>(
+                        value: x['sell'].toDouble(), xAxis: x['date'].toDate());
+                  }).toList(),
                 ),
+                BezierLine(
+                    label: "Sell price",
+                    data: logic.documents.map((x) {
+                      return DataPoint<DateTime>(
+                          value: x['buy'].toDouble(),
+                          xAxis: x['date'].toDate());
+                    }).toList(),
+                    lineColor: Color(0xffA2A2A2)),
+              ],
+              config: BezierChartConfig(
+                displayDataPointWhenNoValue: false,
+                showVerticalIndicator: true,
+                verticalIndicatorColor: Colors.white,
+                verticalIndicatorFixedPosition: false,
+                showDataPoints: true,
+                physics: BouncingScrollPhysics(),
+                pinchZoom: false,
               ),
-            );
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-    );
+            ),
+          ),
+        ));
   }
 }

@@ -35,7 +35,12 @@ class Localization {
       'pages': ['Currencies Converter', 'Lebanon Pound', 'Syrian Pound'],
       'currencyTypes': ['US Dollar', 'LB Pound', 'SY Pound'],
       'globals': ['From', 'To', 'Buy', 'Sell', 'Type Here', 'Ok'],
-      'exit': 'Like the app?  Share it with your friends :)'
+      'exit': 'Like the app?  Share it with your friends :)',
+      'rateApp': [
+        'Rate us now , We want to know your opinion about our App',
+        'Rate us',
+        'Later'
+      ]
     },
     'ar': {
       'instructions': [
@@ -65,12 +70,21 @@ class Localization {
         'الليرة اللبنانية',
         'الليرة السورية'
       ],
-      'exit': 'أعجبك التطبيق؟ شاركه مع أصدقائك :)'
+      'exit': 'أعجبك التطبيق؟ شاركه مع أصدقائك :)',
+      'rateApp': [
+        'قم بتقييم التطبيق الآن نريد معرفة رأيك',
+        'قيمنا الآن',
+        'لاحقاً'
+      ]
     },
   };
 
   List<String> get drawer {
     return _localizedValues[locale.languageCode]['drawer'];
+  }
+
+  List<String> get rateApp {
+    return _localizedValues[locale.languageCode]['rateApp'];
   }
 
   List<String> get language {
