@@ -17,19 +17,16 @@ class Tabl extends StatelessWidget {
         size: Size.fromHeight(baseLogic.aspectRatio * 233),
         child: Row(
           children: <Widget>[
+//            Column(
+//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//              children: <Widget>[
+//                Text(''),
+//                Text(localization[0], style: textTheme.caption),
+//                Text(localization[1], style: textTheme.caption),
+//              ],
+//            ),
             Spacer(
               flex: 1,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(''),
-                Text(localization[0], style: textTheme.caption),
-                Text(localization[1], style: textTheme.caption),
-              ],
-            ),
-            Spacer(
-              flex: 3,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,10 +43,10 @@ class Tabl extends StatelessWidget {
                     )
                   ],
                 ),
-                Text(
-                  data['buy']['from'].toString(),
-                  style: textTheme.title,
-                ),
+//                Text(
+//                  data['buy']['from'].toString(),
+//                  style: textTheme.title,
+//                ),
                 Text(
                   data['buy']['to'].toString(),
                   style: textTheme.title,
@@ -71,10 +68,10 @@ class Tabl extends StatelessWidget {
                     )
                   ],
                 ),
-                Text(
-                  data['sell']['from'].toString(),
-                  style: textTheme.title,
-                ),
+//                Text(
+//                  data['sell']['from'].toString(),
+//                  style: textTheme.title,
+//                ),
                 Text(
                   data['sell']['to'].toString(),
                   style: textTheme.title,
@@ -82,7 +79,7 @@ class Tabl extends StatelessWidget {
               ],
             ),
             Spacer(
-              flex: 2,
+              flex: 1,
             ),
           ],
         ));

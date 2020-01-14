@@ -146,13 +146,16 @@ ca-app-pub-5221499382551302/5670519450
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
     this.context = context;
     SharedPreferences.getInstance().then((instance) {
-      int timesOfOpenApp = instance.getInt('isReadToRate');
-
-      if (timesOfOpenApp == null) {
-        instance.setInt('isReadToRate', 0);
+      int timesOfOpenApp = instance.getInt('timesOfOpenApp');
+      bool isRated = instance.getBool('isRated');
+      if (timesOfOpenApp == null || isRated == null) {
+        instance.setInt('timesOfOpenApp', 0);
+        instance.setBool('isRated', false);
       } else {
-        instance.setInt('isReadToRate', timesOfOpenApp + 1);
-        if (timesOfOpenApp % 15 == 0) {}
+        if (isRated == false) {
+          instance.setInt('timesOfOpenApp', timesOfOpenApp + 1);
+          if (timesOfOpenApp % 15 == 0) {}
+        }
       }
     });
     fireBaseMessaging.configure(

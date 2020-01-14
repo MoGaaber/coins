@@ -28,17 +28,86 @@ class _CurrencyValueState extends State<CurrencyValue>
     num aspectRatio = logic.aspectRatio;
     double height = (MediaQuery.of(context).size.height);
     bool bigScreenSize = height >= 792;
-    return DefaultTextStyle(
-      style: TextStyle(color: Colors.white),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Stack(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Center(
+          child: Stack(
             overflow: Overflow.visible,
-            alignment: Localization.of(context).locale.languageCode == 'ar'
-                ? Alignment.bottomRight
-                : Alignment.bottomLeft,
+            alignment: Alignment.center,
             children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 25 * aspectRatio),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 33 * aspectRatio),
+                          child: CustomPaint(
+                            size: Size(0, 0),
+                            painter: Circle(),
+                          ),
+                        ),
+                        Text(
+                          '${localization[0]}  :  ',
+                          style: GoogleFonts.cairo(
+                            textStyle: textTheme.headline,
+                          ),
+                        ),
+                        Text(
+                          '${formatDate(data['at'].toDate(), [
+                            'dd',
+                            '/',
+                            mm,
+                            '/',
+                            yyyy,
+                            ' - ',
+                            h,
+                            ':',
+                            mm,
+                            ' ',
+                            am
+                          ])}',
+                          style: textTheme.body1,
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20 * aspectRatio),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text('${localization[1]}       :       ',
+                            style: textTheme.headline),
+                        Text(
+                          '${data['officialPrice']}',
+                          style: textTheme.body2,
+                        )
+                      ],
+                    ),
+                  ),
+                  bigScreenSize
+                      ? Divider(
+                          endIndent: 117 * aspectRatio,
+                          indent: 117 * aspectRatio,
+                          height: aspectRatio * 8.3,
+                          color: Color(0xff3E3E3E),
+                        )
+                      : Container(),
+                  Tabl(data),
+                  Divider(
+                    height: aspectRatio * 8.3,
+                    color: Color(0xff3E3E3E),
+                  ),
+                ],
+              ),
               bigScreenSize
                   ? Container()
                   : Positioned(
@@ -64,118 +133,44 @@ class _CurrencyValueState extends State<CurrencyValue>
                         ),
                       ),
                     ),
-              Center(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: CustomPaint(
-                              size: Size(0, 0),
-                              painter: Circle(),
-                            ),
-                          ),
-                          Text(
-                            '${localization[0]}  :  ',
-                            style: GoogleFonts.cairo(
-                              textStyle: textTheme.headline,
-                            ),
-                          ),
-                          Text(
-                            '${formatDate(data['at'].toDate(), [
-                              'dd',
-                              '/',
-                              mm,
-                              '/',
-                              yyyy,
-                              ' - ',
-                              h,
-                              ':',
-                              mm,
-                              ' ',
-                              am
-                            ])}',
-                            style: textTheme.body1,
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 20 * aspectRatio),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text('${localization[1]}       :       ',
-                              style: textTheme.headline),
-                          Text(
-                            '${data['officialPrice']}',
-                            style: textTheme.body2,
-                          )
-                        ],
-                      ),
-                    ),
-                    bigScreenSize
-                        ? Divider(
-                            endIndent: 117 * aspectRatio,
-                            indent: 117 * aspectRatio,
-                            height: aspectRatio * 8.3,
-                            color: Color(0xff3E3E3E),
-                          )
-                        : Container(),
-                  ],
-                ),
-              ),
             ],
           ),
-          Tabl(data),
-          bigScreenSize ? Warning() : Container(),
+        ),
+        bigScreenSize ? Warning() : Container(),
 
-          Divider(
-            height: aspectRatio * 8.3,
-            color: Color(0xff3E3E3E),
-          ),
-          bigScreenSize
-              ? Padding(
-                  padding: EdgeInsets.symmetric(vertical: 34 * aspectRatio),
-                  child: ButtonTheme(
-                    textTheme: ButtonTextTheme.primary,
-                    height: 80 * aspectRatio,
-                    minWidth: 240 * aspectRatio,
-                    child: FlatButton(
-                      color: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                          side: BorderSide(
-                            color: Colors.white,
-                            width: 1.5,
-                          )),
-                      onPressed: () {
-                        logic.navigateToChart();
-                      },
-                      child: Text(
-                        localization.last,
-                        style: TextStyle(
-                            wordSpacing: 0.8,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 26 * logic.aspectRatio),
-                      ),
+        bigScreenSize
+            ? Padding(
+                padding: EdgeInsets.symmetric(vertical: 34 * aspectRatio),
+                child: ButtonTheme(
+                  textTheme: ButtonTextTheme.primary,
+                  height: 80 * aspectRatio,
+                  minWidth: 240 * aspectRatio,
+                  child: FlatButton(
+                    color: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        side: BorderSide(
+                          color: Colors.white,
+                          width: 1.5,
+                        )),
+                    onPressed: () {
+                      logic.navigateToChart();
+                    },
+                    child: Text(
+                      localization.last,
+                      style: TextStyle(
+                          wordSpacing: 0.8,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 26 * logic.aspectRatio),
                     ),
                   ),
-                )
-              : Container(),
-          Expanded(
-              child:
-                  Ad(AdmobBannerSize.MEDIUM_RECTANGLE, Constants.firstAdCode))
-          //  Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER))
-        ],
-      ),
+                ),
+              )
+            : Container(),
+        Expanded(
+            child: Ad(AdmobBannerSize.MEDIUM_RECTANGLE, Constants.firstAdCode))
+        //  Expanded(child: Ad(AdmobBannerSize.LARGE_BANNER))
+      ],
     );
   }
 }
