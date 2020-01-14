@@ -93,8 +93,8 @@ class Tabl extends StatelessWidget {
         bigScreenSize
             ? Container()
             : ScaleTransition(
-          scale: logic.scaleAnimation,
-              child: SizedBox(
+                scale: logic.scaleAnimation,
+                child: SizedBox(
                   width: 83 * aspectRatio,
                   height: 83 * aspectRatio,
                   child: FloatingActionButton(
@@ -107,7 +107,7 @@ class Tabl extends StatelessWidget {
                     ),
                   ),
                 ),
-            ),
+              ),
       ],
     );
   }
