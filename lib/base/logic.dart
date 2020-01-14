@@ -25,7 +25,7 @@ class BaseLogic extends ChangeNotifier {
   AnimationController colorController;
   Animation<Color> colorAnimation;
   final FirebaseMessaging fireBaseMessaging = FirebaseMessaging();
-
+  bool isReadyToRate;
   InterstitialAd createFullScreenAd() {
     return InterstitialAd(
       adUnitId: Constants.secondAdCode,
@@ -145,9 +145,16 @@ ca-app-pub-5221499382551302/5670519450
 
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
     this.context = context;
-    var localizationn = Localization.of(context);
+    SharedPreferences.getInstance().then((instance) {
+      int timesOfOpenApp = instance.getInt('isReadToRate');
 
-    isLoadContext = true;
+      if (timesOfOpenApp == null) {
+        instance.setInt('isReadToRate', 0);
+      } else {
+        instance.setInt('isReadToRate', timesOfOpenApp + 1);
+        if (timesOfOpenApp % 15 == 0) {}
+      }
+    });
     fireBaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
 //        indexing(message['data']['index']);

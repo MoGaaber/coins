@@ -142,41 +142,32 @@ class _CurrencyValueState extends State<CurrencyValue>
             color: Color(0xff3E3E3E),
           ),
           bigScreenSize
-              ? Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 50 * aspectRatio),
-                      child: Warning(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 34 * aspectRatio),
-                      child: ButtonTheme(
-                        textTheme: ButtonTextTheme.primary,
-                        height: 80 * aspectRatio,
-                        minWidth: 240 * aspectRatio,
-                        child: FlatButton(
-                          color: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5)),
-                              side: BorderSide(
-                                color: Colors.white,
-                                width: 1.5,
-                              )),
-                          onPressed: () {
-                            logic.navigateToChart();
-                          },
-                          child: Text(
-                            localization.last,
-                            style: TextStyle(
-                                wordSpacing: 0.8,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 26 * logic.aspectRatio),
-                          ),
-                        ),
+              ? Padding(
+                  padding: EdgeInsets.symmetric(vertical: 34 * aspectRatio),
+                  child: ButtonTheme(
+                    textTheme: ButtonTextTheme.primary,
+                    height: 80 * aspectRatio,
+                    minWidth: 240 * aspectRatio,
+                    child: FlatButton(
+                      color: Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          side: BorderSide(
+                            color: Colors.white,
+                            width: 1.5,
+                          )),
+                      onPressed: () {
+                        logic.navigateToChart();
+                      },
+                      child: Text(
+                        localization.last,
+                        style: TextStyle(
+                            wordSpacing: 0.8,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 26 * logic.aspectRatio),
                       ),
                     ),
-                  ],
+                  ),
                 )
               : Container(),
           Expanded(

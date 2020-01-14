@@ -78,6 +78,31 @@ class _BaseState extends State<Base> {
       },
       child: SafeArea(
           child: Scaffold(
+              floatingActionButton: FloatingActionButton(onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(
+                          'Rate App now !',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline
+                              .copyWith(color: Colors.black87),
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: () {},
+                            child: Text('Let me rate it !!'),
+                          ),
+                          FlatButton(
+                            onPressed: () {},
+                            child: Text('Later'),
+                          )
+                        ],
+                      );
+                    });
+              }),
               key: baseLogic.scaffoldKey,
               drawer: Draw(),
               appBar: PreferredSize(

@@ -6,6 +6,7 @@ import 'package:usatolebanese/globals/logics/constants.dart';
 import 'package:usatolebanese/globals/widgets/ad.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/Cardyy.dart';
 import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class Change extends StatelessWidget {
   BuildContext context;
@@ -13,14 +14,8 @@ class Change extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
-
+    var u = '111553.54458';
     double x = MediaQuery.of(changeLogic.context).viewInsets.bottom;
-    Stream.value(x).listen(
-      (x) {
-        print(x);
-      },
-    );
-
     return DefaultTextStyle(
         style: TextStyle(color: Colors.white),
         child: Column(

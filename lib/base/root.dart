@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/Base.dart';
 import 'package:usatolebanese/base/logic.dart';
@@ -20,6 +21,10 @@ class _BaseRootState extends State<BaseRoot> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext cx) {
+    KeyboardVisibilityNotification().addNewListener(onChange: (x) {
+      print(x);
+    });
+
     return MultiProvider(
       child: Base(),
       providers: [
