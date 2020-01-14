@@ -64,8 +64,7 @@ class RealChart extends StatelessWidget {
                           : AnimatedBuilder(
                               builder: (BuildContext context, Widget child) {
                                 return Transform.translate(
-                                  offset: /* chartLogic.animation.value*/ Offset(
-                                      0, 0),
+                                  offset : chartLogic.animation.value,
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 0,

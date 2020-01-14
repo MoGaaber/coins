@@ -92,19 +92,22 @@ class Tabl extends StatelessWidget {
             )),
         bigScreenSize
             ? Container()
-            : SizedBox(
-                width: 83 * aspectRatio,
-                height: 83 * aspectRatio,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    logic.navigateToChart();
-                  },
-                  child: Icon(
-                    FontAwesomeIcons.chartLine,
-                    size: 25 * aspectRatio,
+            : ScaleTransition(
+          scale: logic.scaleAnimation,
+              child: SizedBox(
+                  width: 83 * aspectRatio,
+                  height: 83 * aspectRatio,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      logic.navigateToChart();
+                    },
+                    child: Icon(
+                      FontAwesomeIcons.chartLine,
+                      size: 25 * aspectRatio,
+                    ),
                   ),
                 ),
-              ),
+            ),
       ],
     );
   }
