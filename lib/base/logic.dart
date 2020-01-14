@@ -147,6 +147,9 @@ ca-app-pub-5221499382551302/5670519450
     print('hi');
     var local = Localization.of(context).rateApp;
     this.context = context;
+    double height = (MediaQuery.of(context).size.height);
+    bool bigScreenSize = height >= 792;
+
     SharedPreferences.getInstance().then((instance) {
       int timesOfOpenApp = instance.getInt('timesOfOpenApp');
       bool isRated = instance.getBool('isRated');
@@ -246,7 +249,7 @@ ca-app-pub-5221499382551302/5670519450
     controller.repeat(reverse: true);
     scaleAnimation = Tween<double>(begin: 1, end: 1.2).animate(
         CurvedAnimation(parent: scaleController, curve: Curves.easeInOutCirc));
-    scaleController.repeat(reverse: true);
+    if (!bigScreenSize) scaleController.repeat(reverse: true);
   }
   bool isShareReady = false;
   void initPref() async {
