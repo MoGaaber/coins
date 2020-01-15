@@ -98,6 +98,7 @@ class _CurrencyValueState extends State<CurrencyValue>
                 )
               : Container(),
           Tabl(data),
+          Warning(),
           Divider(
             height: aspectRatio * 8.3,
             color: Color(0xff3E3E3E),

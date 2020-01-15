@@ -5,7 +5,7 @@ import 'package:usatolebanese/utility/localization/localization.dart';
 
 class ChangeLogic extends ChangeNotifier with EquatableMixin {
   num convert(num input) {
-    return input * (selectedValues[0]['value'] / selectedValues[1]['value']);
+    return input * (selectedValues[1]['value'] / selectedValues[0]['value']);
   }
 
   BuildContext context;
@@ -33,7 +33,6 @@ class ChangeLogic extends ChangeNotifier with EquatableMixin {
     if (text.isEmpty || num.parse(text) <= 0) {
       result = 0;
     } else {
-      // if
       unCheckedResult = convert(num.parse(text));
       if (unCheckedResult.toString().split('.')[1].length > 3) {
         var resultInString = convert(num.parse(text)).toString();
@@ -56,8 +55,20 @@ class ChangeLogic extends ChangeNotifier with EquatableMixin {
   void onSelectedPopUp(Map x, int index) {
     selectedValues[index] = x;
     if (controller.text.isNotEmpty) {
+      unCheckedResult = convert(num.parse(controller.text));
+      if (unCheckedResult.toString().split('.')[1].length > 3) {
+        var resultInString = convert(num.parse(controller.text)).toString();
+        var sections = resultInString.split('.');
+        var afterDot = sections[1];
+        var beforeDot = sections[0];
+        resultInString = beforeDot + '.' + afterDot.substring(0, 2);
+        result = double.parse(resultInString);
+      } else {
+        result = unCheckedResult;
+      }
       result = convert(num.parse(controller.text));
     }
+
     notifyListeners();
   }
 }

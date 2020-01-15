@@ -715,6 +715,8 @@ class BezierChartState extends State<BezierChart>
 
   @override
   void initState() {
+    super.initState();
+
     logic = Provider.of<ChartLogic>(context, listen: false);
     logic.scrollListening();
     _currentBezierChartScale = widget.bezierChartScale;
@@ -728,7 +730,6 @@ class BezierChartState extends State<BezierChart>
     _buildXDataPoints();
     _computeSeries();
     WidgetsBinding.instance.addPostFrameCallback(_onLayoutDone);
-    super.initState();
   }
 
   @override

@@ -52,11 +52,11 @@ class RealChart extends StatelessWidget {
                                       null
                                   ? Container()
                                   : Ad(AdmobBannerSize.LARGE_BANNER,
-                                      Constants.firstAdCode)),
+                                      Constants.thirdAdCode)),
                           Chart(this.collection, this.aspectRatio),
                           Expanded(
                               child: Ad(AdmobBannerSize.LARGE_BANNER,
-                                  Constants.firstAdCode)),
+                                  Constants.thirdAdCode)),
                         ],
                       ),
                       chartLogic.sharedPreferences.getBool('ready') != null
