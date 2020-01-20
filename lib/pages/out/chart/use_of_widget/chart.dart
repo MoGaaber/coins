@@ -65,6 +65,8 @@ class Chart extends StatelessWidget {
                         value: x['sell'].toDouble(), xAxis: x['date'].toDate());
                   }).toList(),
                 ),
+
+
                 BezierLine(
                     label: "Sell price",
                     data: logic.documents.map((x) {
@@ -75,13 +77,14 @@ class Chart extends StatelessWidget {
                     lineColor: Color(0xffA2A2A2)),
               ],
               config: BezierChartConfig(
+
                 displayDataPointWhenNoValue: false,
                 showVerticalIndicator: true,
                 verticalIndicatorColor: Colors.white,
                 verticalIndicatorFixedPosition: false,
                 showDataPoints: true,
                 physics: BouncingScrollPhysics(),
-                pinchZoom: false,
+                pinchZoom: true,
               ),
             ),
           ),

@@ -66,7 +66,6 @@ class ChangeLogic extends ChangeNotifier with EquatableMixin {
       } else {
         result = unCheckedResult;
       }
-      result = convert(num.parse(controller.text));
     }
 
     notifyListeners();

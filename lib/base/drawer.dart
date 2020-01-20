@@ -3,8 +3,10 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:usatolebanese/base/logic.dart';
 import 'package:usatolebanese/globals/logics/constants.dart';
+import 'package:usatolebanese/pages/out/chart/use_of_widget/reader.dart';
 import 'package:usatolebanese/utility/localization/localization.dart';
 import 'package:launch_review/launch_review.dart';
+
 
 class Draw extends StatelessWidget {
   @override
@@ -59,6 +61,7 @@ class Draw extends StatelessWidget {
                             }
                           }
                         }),
+
                     i == 2
                         ? Divider(
                             height: 50 * logic.aspectRatio,
@@ -67,8 +70,16 @@ class Draw extends StatelessWidget {
                         : Divider(
                             height: 1,
                           ),
+
                   ],
                 ),
+              ListTile(
+                leading: Icon(Icons.book,color: Colors.white,),
+                title: Text("Economy News",style: TextStyle(fontSize: 16),),
+                onTap:(){ Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Reader()));}
+              ),
             ],
           ),
         ),

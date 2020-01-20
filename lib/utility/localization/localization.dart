@@ -30,17 +30,18 @@ class Localization {
         'Rate App',
       ],
       'warning':
-          "Disclaimer: We are just a publisher of the market price and exchangers and we have no role in determining the price .",
-      'coin': ['Last update', 'Official Price ', 'Previous Days'],
-      'pages': ['Currencies Converter', 'Lebanon Pound', 'Syrian Pound'],
+          "Disclaimer: We are just a publisher of the market price and exchangers, and we have no role in determining the price.",
+      'coin': ['Last update', 'Official Price', 'Previous days'],
+      'pages': ['Currencies Converter', 'Lebanese Pound', 'Syrian Pound'],
       'currencyTypes': ['US Dollar', 'LB Pound', 'SY Pound'],
-      'globals': ['From', 'To', 'Buy', 'Sell', 'Type Here', 'Ok'],
+      'globals': ['From', 'To', 'Buy', 'Sell', 'Type here', 'Ok','Share app','Previous days'],
       'exit': 'Like the app?  Share it with your friends :)',
-      'rateApp': [
-        'Rate us now , We want to know your opinion about our App',
-        'Rate us',
-        'Later'
-      ]
+      'Rate app': [
+        'Your rating helps us keep it going, make it constructive :)',
+        'Rate now',
+        'cancel'
+      ],
+
     },
     'ar': {
       'instructions': [
@@ -50,21 +51,21 @@ class Localization {
         'الآن قم بالسحب فى اتجاه عرضي',
         'لقد نجحت . استمتع '
       ],
-      'dialogButtons': ['اغلاق', 'مشاركة التطبيق :)'],
+      'dialogButtons': ['اغلاق', 'مشاركة التطبيق'],
       'language': ['إختيار اللغة'],
       'notification': 'We have anew update on prices check it out',
       'drawer': [
         'الليرة اللبنانية',
         'الليرة السورية',
         'محول العملات',
+        'اخبار الاقتصاد'
         'مشاركة التطبيق',
-        'تقييم التطبيق',
         'تقييم التطبيق',
       ],
       'warning':
-          'تنويه: نحن مجرد ناقلين لسعر السوق والصرافين، وليس لنا أي دور في تحديد السعر.',
+      'تنويه: نحن مجرد ناقلين لسعر السوق والصرافين، وليس لنا أي دور في تحديد السعر.',
       'coin': ['اخر تحديث', 'السعر الرسمي', 'الأيام السابقة'],
-      'globals': ['من', 'إلى', 'بيع', 'شراء', 'اكتب هنا', 'حسناً'],
+      'globals': ['من', 'إلى', 'بيع', 'شراء', 'اكتب هنا', 'حسناً','مشاركة التطبيق','الايام السابقة'],
       'pages': ['العملة السورية', 'العملة اللبنانية', 'محول العملات'],
       'currencyTypes': [
         'الدولار الأميركي',
@@ -73,10 +74,15 @@ class Localization {
       ],
       'exit': 'أعجبك التطبيق؟ شاركه مع أصدقائك :)',
       'rateApp': [
-        'قم بتقييم التطبيق الآن نريد معرفة رأيك',
-        'قيمنا الآن',
+        'تقييمك يساعدنا على الاستمرار، اجعله بناءً :)',
+        'تقييم التطبيق',
         'لاحقاً'
-      ]
+      ],
+
+
+
+
+
     },
   };
 
@@ -119,4 +125,5 @@ class Localization {
   String get exit {
     return _localizedValues[locale.languageCode]['exit'];
   }
+
 }

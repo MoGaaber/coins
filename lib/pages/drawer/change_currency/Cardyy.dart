@@ -150,7 +150,7 @@ class Carddy extends StatelessWidget {
                                     BorderSide(color: Colors.white, width: 1)),
                             labelStyle: TextStyle(color: Colors.white),
                             hintText: localization
-                                .globals[localization.globals.length - 2],
+                                .globals[4],
                             hintStyle:
                                 TextStyle(color: Colors.white, fontSize: 12)),
                       ),

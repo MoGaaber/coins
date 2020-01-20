@@ -31,7 +31,7 @@ class RealChart extends StatelessWidget {
                 SharedPreferences.getInstance(),
                 Firestore.instance
                     .collection(collection)
-                    .limit(7)
+                    .limit(30)
                     .orderBy('date', descending: true)
                     .getDocuments()
               ]),

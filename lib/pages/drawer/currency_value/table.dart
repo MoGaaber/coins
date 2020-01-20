@@ -57,7 +57,27 @@ class Tabl extends StatelessWidget {
                     Text(
                       data['buy']['to'].toString(),
                       style: textTheme.title,
-                    )
+                    ),
+                    bigScreenSize
+                        ? Container()
+                        : ScaleTransition(
+                            scale: logic.scaleAnimation,
+                            child: SizedBox(
+                              width: 117,
+                              height: 30,
+                              child: RaisedButton.icon(
+                                  color: Colors.red,
+                                  hoverColor:  Colors.white,
+                                  onPressed: () {
+                                    logic.shareApp();
+                                  },
+                                  icon: Icon(FontAwesomeIcons.share,size: 14,color: Colors.white,),
+                                  label: Text(
+                                    localization[6],
+                                    style: textTheme.caption,
+                                  )),
+                            ),
+                          ),
                   ],
                 ),
                 Spacer(
@@ -75,6 +95,8 @@ class Tabl extends StatelessWidget {
                         )
                       ],
                     ),
+
+
 //                Text(
 //                  data['sell']['from'].toString(),
 //                  style: textTheme.title,
@@ -82,7 +104,31 @@ class Tabl extends StatelessWidget {
                     Text(
                       data['sell']['to'].toString(),
                       style: textTheme.title,
-                    )
+                    ),
+                    bigScreenSize
+                        ? Container()
+                        : ScaleTransition(
+                            scale: logic.scaleAnimation,
+                            child: SizedBox(
+                              width: 124,
+                              height: 30,
+                              child: RaisedButton.icon(
+                                  color: Colors.red,
+
+                                  onPressed: () {
+                                    logic.navigateToChart();
+                                  },
+                                  icon: Icon(FontAwesomeIcons.calendar,size: 14,color: Colors.white,),
+                                  label: Text(
+                                    localization[7],
+                                    style: textTheme.caption,
+                                  )),
+
+                            ),
+
+
+                          ),
+
                   ],
                 ),
                 Spacer(
@@ -90,24 +136,7 @@ class Tabl extends StatelessWidget {
                 ),
               ],
             )),
-        bigScreenSize
-            ? Container()
-            : ScaleTransition(
-                scale: logic.scaleAnimation,
-                child: SizedBox(
-                  width: 83 * aspectRatio,
-                  height: 83 * aspectRatio,
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      logic.navigateToChart();
-                    },
-                    child: Icon(
-                      FontAwesomeIcons.chartLine,
-                      size: 25 * aspectRatio,
-                    ),
-                  ),
-                ),
-              ),
+
       ],
     );
   }

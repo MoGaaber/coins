@@ -11,6 +11,9 @@
         android:name=".Application"
         android:label="$ to L.L"
         android:icon="@mipmap/logo">
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_ic_notification" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -37,5 +40,122 @@
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
                 android:value="ca-app-pub-5221499382551302~9992907849"/>
 
+
     </application>
+
+
 </manifest>
+<!--    import 'package:flutter/material.dart';-->
+<!--    import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';-->
+
+<!--    void main() {-->
+<!--    runApp(test());-->
+<!--    }-->
+
+<!--    class test extends StatefulWidget {-->
+<!--    @override-->
+<!--    _testState createState() => _testState();-->
+<!--    }-->
+
+<!--    class _testState extends State<test> {-->
+<!--@override-->
+<!--Widget build(BuildContext context) {-->
+<!--return MaterialApp(-->
+<!--home: Scaffold(-->
+<!--appBar: AppBar(),-->
+<!--body: StreamBuilder(-->
+<!--stream: Firestore.instance.collection("post").snapshots(),-->
+<!--builder: (context, snapshot) {-->
+<!--if (!snapshot.hasData) {-->
+<!--return Text("loading");-->
+<!--} else {-->
+<!--return ListView.builder(-->
+<!--itemCount: snapshot.data.documents.length,-->
+<!--itemBuilder: (context, index) {-->
+<!--DocumentSnapshot mypost = snapshot.data.documents[index];-->
+<!--return Stack(-->
+<!--children: <Widget>[-->
+<!--    Container(-->
+<!--    width: MediaQuery.of(context).size.width,-->
+<!--    height: 350,-->
+<!--    child: Padding(-->
+<!--    padding: EdgeInsets.only(top: 8.0, bottom: 8.0),-->
+<!--    child: Material(-->
+<!--    color: Colors.white,-->
+<!--    elevation: 14,-->
+<!--    shadowColor: Color(0Xbb219bF3),-->
+<!--    child: Center(-->
+<!--    child: Padding(-->
+<!--    padding: EdgeInsets.all(8.0),-->
+<!--    child: Column(-->
+<!--    children: <Widget>[-->
+<!--        Container(-->
+<!--        width:-->
+<!--        MediaQuery.of(context).size.width,-->
+<!--        height: 200,-->
+<!--        child: Image.network(-->
+<!--        "${mypost["image"]}",-->
+<!--        fit: BoxFit.fill,-->
+<!--        ),-->
+<!--        ),-->
+<!--        SizedBox(-->
+<!--        height: 10,-->
+<!--        ),-->
+<!--        Text(-->
+<!--        "${mypost["title"]}",-->
+<!--        style: TextStyle(-->
+<!--        fontSize: 16,-->
+<!--        fontWeight: FontWeight.bold,-->
+<!--        color: Colors.black),-->
+<!--        ),-->
+<!--        SizedBox(-->
+<!--        height: 10,-->
+<!--        ),-->
+<!--        Text(-->
+<!--        "${mypost["subtitle"]}",-->
+<!--        style: TextStyle(-->
+<!--        fontSize: 16,-->
+<!--        fontWeight: FontWeight.bold,-->
+<!--        color: Colors.blueGrey),-->
+<!--        ),-->
+
+
+
+
+<!--        ],-->
+<!--        ),-->
+<!--        ),-->
+<!--        ),-->
+<!--        ),-->
+<!--        ),-->
+<!--        ),-->
+<!--        //                          Column(-->
+<!--        //                            children: <Widget>[-->
+<!--            //                               FlatButton(-->
+<!--            //                                 onPressed: _rateApp,-->
+<!--            //                                 child: Image.network(-->
+<!--            //                                  "${mypost["image"]}",-->
+<!--            //                                  fit: BoxFit.fill,-->
+<!--            //                              ),-->
+<!--            //                               ),-->
+<!--            //-->
+<!--            //-->
+<!--            //                            ],-->
+<!--            //-->
+<!--            //-->
+<!--            //-->
+<!--            //                          ),-->
+<!--            ],-->
+<!--            );-->
+<!--            });-->
+<!--            }-->
+<!--            }),-->
+<!--            ),-->
+<!--            );-->
+<!--            }-->
+<!--            }-->
+<!--            //Widget _rateApp() {-->
+<!--            //  WebviewScaffold(-->
+<!--            //    url: 'https://www.youtube.com/watch?v=DEgtGLwdOHM&list=PLGCao0XZ7nkaDJX1WYvWawrdHIcjWY7Qh&index=2040',-->
+<!--            //  );-->
+<!--            //}-->

@@ -75,7 +75,8 @@ ca-app-pub-5221499382551302/5670519450
     notifyListeners();
     Future.wait([
       Firestore.instance.collection('Pounds').document('Lebanese').get(),
-      Firestore.instance.collection('Pounds').document('Syrian').get()
+      Firestore.instance.collection('Pounds').document('Syrian').get(),
+
     ]).then((x) {
       documents = x;
 
@@ -243,11 +244,11 @@ ca-app-pub-5221499382551302/5670519450
         .animate(colorController);
     scaleController = AnimationController(
       vsync: tickerProvider,
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(seconds: 2),
     );
 
     controller.repeat(reverse: true);
-    scaleAnimation = Tween<double>(begin: 1, end: 1.2).animate(
+    scaleAnimation = Tween<double>(begin: 1, end: 1.1).animate(
         CurvedAnimation(parent: scaleController, curve: Curves.easeInOutCirc));
     if (!bigScreenSize) scaleController.repeat(reverse: true);
   }
@@ -282,7 +283,7 @@ ca-app-pub-5221499382551302/5670519450
 
   void shareApp() {
     Share.share(
-        'بين ال1500 و3000، الدولار عم يلعب ويلعبنا معه! إذا بدك تعرف سعر الدولار لحظة بلحظة ويوصلك تنبيه بتغير السعر بكل بساطة نزل هالتطبيق الأول من نوعه : https://play.google.com/store/apps/details?id=com.usatolebanese');
+        'بين الـ 1500 و3000، الدولار طالع نازل! ما تخلّي حدا يغشّك وخلّيك على اطلاع بكافّة التغيّرات بسعر الدولار.ببساطة نزل هالتطبيق الأول من نوعه:https://play.google.com/store/apps/details?id=com.usatolebanese');
   }
 
   void rateApp() {

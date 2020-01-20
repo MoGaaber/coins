@@ -14,8 +14,6 @@ class Change extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var changeLogic = Provider.of<ChangeLogic>(context, listen: false);
-    var u = '111553.54458';
-    double x = MediaQuery.of(changeLogic.context).viewInsets.bottom;
     return DefaultTextStyle(
         style: TextStyle(color: Colors.white),
         child: Column(
@@ -27,6 +25,7 @@ class Change extends StatelessWidget {
             Carddy(
               index: 1,
             ),
+
             Selector<ChangeLogic, bool>(
               selector: (_, ChangeLogic changeLogic) {
                 return changeLogic.keyboardVisibility;
@@ -40,7 +39,7 @@ class Change extends StatelessWidget {
                       )
                     : Expanded(
                         child: Ad(AdmobBannerSize.MEDIUM_RECTANGLE,
-                            Constants.firstAdCode),
+                            Constants.thirdAdCode),
                       );
               },
             )

@@ -110,7 +110,8 @@ class _BaseState extends State<Base> {
                               baseLogic.shareApp();
                             });
                           });
-                        })
+                        }),
+
                   ],
                   title: Selector<BaseLogic, int>(
                     selector: (_, BaseLogic logic) => logic.index,
