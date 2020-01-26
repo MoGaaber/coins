@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:usatolebanese/globals/logics/constants.dart';
@@ -76,11 +77,12 @@ ca-app-pub-5221499382551302/5670519450
     Future.wait([
       Firestore.instance.collection('Pounds').document('Lebanese').get(),
       Firestore.instance.collection('Pounds').document('Syrian').get(),
-
+      Firestore.instance.collection('Pounds').document('Turkey').get(),
+      Firestore.instance.collection('Pounds').document('Euro').get(),
+      Firestore.instance.collection('Pounds').document('Egypt').get(),
     ]).then((x) {
       documents = x;
-
-      currencyTypes = List.generate(3, (index) {
+      currencyTypes = List.generate(6, (index) {
         return {
           'name': localization[index],
           'value': index == 0 ? 1 : documents[index - 1].data['buy']['to']
@@ -145,7 +147,6 @@ ca-app-pub-5221499382551302/5670519450
   var scaffoldKey = GlobalKey();
 
   BaseLogic(BuildContext context, TickerProvider tickerProvider) {
-    print('hi');
     var local = Localization.of(context).rateApp;
     this.context = context;
     double height = (MediaQuery.of(context).size.height);
@@ -218,7 +219,7 @@ ca-app-pub-5221499382551302/5670519450
     pages = [CurrencyValue(), CurrencyValue(), Change(context)];
 
     fetchData();
-    showAd();
+    //showAd();
     size = MediaQuery.of(context).size;
     screenHeight = size.height;
     screenWidth = size.width;
@@ -264,32 +265,33 @@ ca-app-pub-5221499382551302/5670519450
     });
   }
 
-  var icons = [
-    FontAwesomeIcons.coins,
-    FontAwesomeIcons.coins,
-    FontAwesomeIcons.exchangeAlt,
-    FontAwesomeIcons.share,
-    FontAwesomeIcons.star,
-  ];
+
 
   void openDrawer(BuildContext context) {
     Scaffold.of(context).openDrawer();
   }
+void pop(){
+  Navigator.pop(context);
 
+}
   void navigateToPage(BuildContext context, int i) {
+    pop();
+
     index = i;
     notifyListeners();
   }
 
   void shareApp() {
+    pop();
+
     Share.share(
         'بين الـ 1500 و3000، الدولار طالع نازل! ما تخلّي حدا يغشّك وخلّيك على اطلاع بكافّة التغيّرات بسعر الدولار.ببساطة نزل هالتطبيق الأول من نوعه:https://play.google.com/store/apps/details?id=com.usatolebanese');
   }
 
   void rateApp() {
-    WebviewScaffold(
-      url: 'www.google.com.eg',
-    );
+    pop();
+
+    LaunchReview.launch(androidAppId: Constants.packageName);
   }
 
   var collections = [

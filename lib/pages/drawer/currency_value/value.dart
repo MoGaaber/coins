@@ -107,7 +107,7 @@ class _CurrencyValueState extends State<CurrencyValue>
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 15 * aspectRatio),
+            padding: EdgeInsets.symmetric(vertical: 16 * aspectRatio),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -175,6 +175,7 @@ class _CurrencyValueState extends State<CurrencyValue>
                   ),
                 )
               : Container(),
+
           Padding(
             padding:  EdgeInsets.symmetric(vertical: 2*aspectRatio),
             child: CarouselSlider(
@@ -197,7 +198,7 @@ class _CurrencyValueState extends State<CurrencyValue>
 //                          final flutterWebviewPlugin = new FlutterWebviewPlugin();
 //
 //                          flutterWebviewPlugin.launch('https://www.facebook.com/', hidden: true);
-await launch(data['images'][i]['webSite']);
+              await launch(data['images'][i]['webSite']);
 
 
 

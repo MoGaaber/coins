@@ -26,14 +26,17 @@ class Localization {
         'Lebanese Pound',
         'Syrian Pound',
         'Currency Calculator',
-        'Share App',
+        'اسعار المحروقات',
+        'اسعار الذهب',
+        'Economy News',
+         'Share App',
         'Rate App',
       ],
       'warning':
           "Disclaimer: We are just a publisher of the market price and exchangers, and we have no role in determining the price.",
       'coin': ['Last update', 'Official Price', 'Previous days'],
       'pages': ['Currencies Converter', 'Lebanese Pound', 'Syrian Pound'],
-      'currencyTypes': ['US Dollar', 'LB Pound', 'SY Pound'],
+      'currencyTypes': ['US Dollar', 'LB Pound', 'SY Pound','Tuk Pound','EUR Pound','EGP Pound'],
       'globals': ['From', 'To', 'Buy', 'Sell', 'Type here', 'Ok','Share app','Previous days'],
       'exit': 'Like the app?  Share it with your friends :)',
       'Rate app': [
@@ -58,9 +61,12 @@ class Localization {
         'الليرة اللبنانية',
         'الليرة السورية',
         'محول العملات',
-        'اخبار الاقتصاد'
+        'اسعار المحروقات',
+        'اسعار الذهب',
+        'أخبار الاقتصاد',
         'مشاركة التطبيق',
         'تقييم التطبيق',
+
       ],
       'warning':
       'تنويه: نحن مجرد ناقلين لسعر السوق والصرافين، وليس لنا أي دور في تحديد السعر.',
@@ -70,7 +76,10 @@ class Localization {
       'currencyTypes': [
         'الدولار الأميركي',
         'الليرة اللبنانية',
-        'الليرة السورية'
+        'الليرة السورية',
+        'الليرة التركية',
+        'اليورو الاوروبي',
+        'الجنيه المصري'
       ],
       'exit': 'أعجبك التطبيق؟ شاركه مع أصدقائك :)',
       'rateApp': [

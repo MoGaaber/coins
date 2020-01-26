@@ -5,12 +5,12 @@ import 'package:usatolebanese/main.dart';
 class Buttony extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Test test = Provider.of(context);
+    //Test test = Provider.of(context);
 
     return RaisedButton(
         onPressed: () {
-          test.index++;
-          test.notifyListeners();
+        //  test.index++;
+         // test.notifyListeners();
         },
         child: Text(
           'العربية',

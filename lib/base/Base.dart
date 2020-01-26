@@ -93,6 +93,7 @@ class _BaseState extends State<Base> {
                           icon: Icon(Icons.refresh),
                           onPressed: () {
                             baseLogic.rotationController.forward(from: 0);
+                            baseLogic.showAd();
                             baseLogic.fetchData();
                           }),
                     ),

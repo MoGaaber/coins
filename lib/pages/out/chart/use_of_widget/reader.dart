@@ -44,10 +44,12 @@ class _ReaderState extends State<Reader> {
 
                                       children: <Widget>[
                                         InkWell(
-                                          onTap: (){Navigator.push(
+                                          onTap: (){
+                                            Navigator.push(
                                               context,
                                               MaterialPageRoute(builder: (context) => Pagedetails( collection: mypost['Pagedetails'],))
                                           );
+
                                           },
                                           child: Container(
                                             width:

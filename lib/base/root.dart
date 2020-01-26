@@ -6,6 +6,7 @@ import 'package:usatolebanese/base/Base.dart';
 import 'package:usatolebanese/base/logic.dart';
 
 import 'package:usatolebanese/pages/drawer/change_currency/logic.dart';
+import 'package:usatolebanese/pages/out/chart/use_of_widget/pagedetails.dart';
 
 class BaseRoot extends StatefulWidget {
   @override

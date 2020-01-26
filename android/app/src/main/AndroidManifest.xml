@@ -1,161 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.usatolebanese">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- io.flutter.app.FlutterApplication is an android.app.Application that
-         calls FlutterMain.startInitialization(this); in its onCreate method.
-         In most cases you can leave this as-is, but you if you want to provide
-         additional functionality it is fine to subclass or reimplement
-         FlutterApplication and put your custom class here. -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".Application"
-        android:label="$ to L.L"
-        android:icon="@mipmap/logo">
+        android:icon="@mipmap/logo"
+        android:label="$ to L.L">
+        <receiver android:name=".NewAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_app_widget_info" />
+        </receiver>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_stat_ic_notification" />
+
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!-- Don't delete the meta-data below.
-             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <!--
+ Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+        -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
         <meta-data
-                android:name="com.google.android.gms.ads.APPLICATION_ID"
-                android:value="ca-app-pub-5221499382551302~9992907849"/>
-
-
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5221499382551302~9992907849" />
     </application>
 
-
 </manifest>
-<!--    import 'package:flutter/material.dart';-->
-<!--    import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';-->
-
-<!--    void main() {-->
-<!--    runApp(test());-->
-<!--    }-->
-
-<!--    class test extends StatefulWidget {-->
-<!--    @override-->
-<!--    _testState createState() => _testState();-->
-<!--    }-->
-
-<!--    class _testState extends State<test> {-->
-<!--@override-->
-<!--Widget build(BuildContext context) {-->
-<!--return MaterialApp(-->
-<!--home: Scaffold(-->
-<!--appBar: AppBar(),-->
-<!--body: StreamBuilder(-->
-<!--stream: Firestore.instance.collection("post").snapshots(),-->
-<!--builder: (context, snapshot) {-->
-<!--if (!snapshot.hasData) {-->
-<!--return Text("loading");-->
-<!--} else {-->
-<!--return ListView.builder(-->
-<!--itemCount: snapshot.data.documents.length,-->
-<!--itemBuilder: (context, index) {-->
-<!--DocumentSnapshot mypost = snapshot.data.documents[index];-->
-<!--return Stack(-->
-<!--children: <Widget>[-->
-<!--    Container(-->
-<!--    width: MediaQuery.of(context).size.width,-->
-<!--    height: 350,-->
-<!--    child: Padding(-->
-<!--    padding: EdgeInsets.only(top: 8.0, bottom: 8.0),-->
-<!--    child: Material(-->
-<!--    color: Colors.white,-->
-<!--    elevation: 14,-->
-<!--    shadowColor: Color(0Xbb219bF3),-->
-<!--    child: Center(-->
-<!--    child: Padding(-->
-<!--    padding: EdgeInsets.all(8.0),-->
-<!--    child: Column(-->
-<!--    children: <Widget>[-->
-<!--        Container(-->
-<!--        width:-->
-<!--        MediaQuery.of(context).size.width,-->
-<!--        height: 200,-->
-<!--        child: Image.network(-->
-<!--        "${mypost["image"]}",-->
-<!--        fit: BoxFit.fill,-->
-<!--        ),-->
-<!--        ),-->
-<!--        SizedBox(-->
-<!--        height: 10,-->
-<!--        ),-->
-<!--        Text(-->
-<!--        "${mypost["title"]}",-->
-<!--        style: TextStyle(-->
-<!--        fontSize: 16,-->
-<!--        fontWeight: FontWeight.bold,-->
-<!--        color: Colors.black),-->
-<!--        ),-->
-<!--        SizedBox(-->
-<!--        height: 10,-->
-<!--        ),-->
-<!--        Text(-->
-<!--        "${mypost["subtitle"]}",-->
-<!--        style: TextStyle(-->
-<!--        fontSize: 16,-->
-<!--        fontWeight: FontWeight.bold,-->
-<!--        color: Colors.blueGrey),-->
-<!--        ),-->
-
-
-
-
-<!--        ],-->
-<!--        ),-->
-<!--        ),-->
-<!--        ),-->
-<!--        ),-->
-<!--        ),-->
-<!--        ),-->
-<!--        //                          Column(-->
-<!--        //                            children: <Widget>[-->
-<!--            //                               FlatButton(-->
-<!--            //                                 onPressed: _rateApp,-->
-<!--            //                                 child: Image.network(-->
-<!--            //                                  "${mypost["image"]}",-->
-<!--            //                                  fit: BoxFit.fill,-->
-<!--            //                              ),-->
-<!--            //                               ),-->
-<!--            //-->
-<!--            //-->
-<!--            //                            ],-->
-<!--            //-->
-<!--            //-->
-<!--            //-->
-<!--            //                          ),-->
-<!--            ],-->
-<!--            );-->
-<!--            });-->
-<!--            }-->
-<!--            }),-->
-<!--            ),-->
-<!--            );-->
-<!--            }-->
-<!--            }-->
-<!--            //Widget _rateApp() {-->
-<!--            //  WebviewScaffold(-->
-<!--            //    url: 'https://www.youtube.com/watch?v=DEgtGLwdOHM&list=PLGCao0XZ7nkaDJX1WYvWawrdHIcjWY7Qh&index=2040',-->
-<!--            //  );-->
-<!--            //}-->

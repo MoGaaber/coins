@@ -77,7 +77,6 @@ class Chart extends StatelessWidget {
                     lineColor: Color(0xffA2A2A2)),
               ],
               config: BezierChartConfig(
-
                 displayDataPointWhenNoValue: false,
                 showVerticalIndicator: true,
                 verticalIndicatorColor: Colors.white,

@@ -63,7 +63,7 @@ class Tabl extends StatelessWidget {
                         : ScaleTransition(
                             scale: logic.scaleAnimation,
                             child: SizedBox(
-                              width: 117,
+                              width: 128,
                               height: 30,
                               child: RaisedButton.icon(
                                   color: Colors.red,
