@@ -14,7 +14,6 @@
         android:layout_height="35dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textSize="20"
         tools:layout_conversion_absoluteHeight="731dp"
         tools:layout_conversion_absoluteWidth="411dp"
         tools:layout_editor_absoluteX="0dp"

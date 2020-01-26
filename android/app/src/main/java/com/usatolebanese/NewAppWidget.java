@@ -11,17 +11,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * Implementation of App Widget functionality.
  */
 public class NewAppWidget extends AppWidgetProvider {
-
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
-        // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
 
-        // Instruct the widget manager to update the widget
+        views.setTextViewText(R.id.textView2, "hello");
+        views.setTextViewText(R.id.textView3, "world");
+        views.setTextViewText(R.id.textView7, "!!!!");
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
+       // FirebaseFirestore.getInstance().collection("").document("").get();
     }
 
     @Override
@@ -41,5 +41,6 @@ public class NewAppWidget extends AppWidgetProvider {
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+
 }
 
