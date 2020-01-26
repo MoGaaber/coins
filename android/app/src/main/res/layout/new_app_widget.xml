@@ -3,7 +3,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="#8E39FF"
     android:gravity="center|top"
     android:orientation="vertical"
     android:padding="@dimen/widget_margin">
@@ -12,6 +12,7 @@
         android:id="@+id/textView2"
         android:layout_width="87dp"
         android:layout_height="35dp"
+        android:gravity="center"
         android:text="TextView"
         android:textAlignment="center"
         tools:layout_conversion_absoluteHeight="731dp"
