@@ -64,9 +64,9 @@ class _CurrencyValueState extends State<CurrencyValue>
     double height = (MediaQuery.of(context).size.height);
     bool bigScreenSize = height >= 792;
     return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top: 25 * aspectRatio),
             child: Row(
@@ -176,57 +176,57 @@ class _CurrencyValueState extends State<CurrencyValue>
                 )
               : Container(),
 
-          Padding(
-            padding:  EdgeInsets.symmetric(vertical: 2*aspectRatio),
-            child: CarouselSlider(
-                scrollPhysics: BouncingScrollPhysics(),
-                enableInfiniteScroll: true,
-                autoPlay: true,
-                autoPlayInterval: Duration(seconds: 3),
-                autoPlayAnimationDuration: Duration(milliseconds: 800),
-                autoPlayCurve: Curves.fastOutSlowIn,
-                pauseAutoPlayOnTouch: Duration(seconds: 10),
-                height: 250.0,
-                enlargeCenterPage: true,
-                scrollDirection: Axis.horizontal,
-                items: [
-                  for (int i = 0; i < data['images'].length; i++)
-                    Builder(
-                      builder: (BuildContext context) {
-                        return InkWell(
-                          onTap: () async {
-//                          final flutterWebviewPlugin = new FlutterWebviewPlugin();
+//          Padding(
+//            padding:  EdgeInsets.symmetric(vertical: 2*aspectRatio),
+//            child: CarouselSlider(
+//                scrollPhysics: BouncingScrollPhysics(),
+//                enableInfiniteScroll: true,
+//                autoPlay: true,
+//                autoPlayInterval: Duration(seconds: 3),
+//                autoPlayAnimationDuration: Duration(milliseconds: 800),
+//                autoPlayCurve: Curves.fastOutSlowIn,
+//                pauseAutoPlayOnTouch: Duration(seconds: 10),
+//                height: 250.0,
+//                enlargeCenterPage: true,
+//                scrollDirection: Axis.horizontal,
+//                items: [
+//                  for (int i = 0; i < data['images'].length; i++)
+//                    Builder(
+//                      builder: (BuildContext context) {
+//                        return InkWell(
+//                          onTap: () async {
+////                          final flutterWebviewPlugin = new FlutterWebviewPlugin();
+////
+////                          flutterWebviewPlugin.launch('https://www.facebook.com/', hidden: true);
+//              await launch(data['images'][i]['webSite']);
 //
-//                          flutterWebviewPlugin.launch('https://www.facebook.com/', hidden: true);
-              await launch(data['images'][i]['webSite']);
-
-
-
-                          },
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: Image.network(
-                              data['images'][i]['image'],
-                              loadingBuilder: (_, Widget child,
-                                  ImageChunkEvent loadingProgress) {
-                                if (loadingProgress == null) return child;
-                                return Center(
-                                    child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes
-                                      : null,
-                                ));
-                              },
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        );
-                      },
-                    )
-                ]),
-          )
+//
+//
+//                          },
+//                          child: SizedBox(
+//                            width: MediaQuery.of(context).size.width,
+//                            child: Image.network(
+//                              data['images'][i]['image'],
+//                              loadingBuilder: (_, Widget child,
+//                                  ImageChunkEvent loadingProgress) {
+//                                if (loadingProgress == null) return child;
+//                                return Center(
+//                                    child: CircularProgressIndicator(
+//                                  value: loadingProgress.expectedTotalBytes !=
+//                                          null
+//                                      ? loadingProgress.cumulativeBytesLoaded /
+//                                          loadingProgress.expectedTotalBytes
+//                                      : null,
+//                                ));
+//                              },
+//                              fit: BoxFit.cover,
+//                            ),
+//                          ),
+//                        );
+//                      },
+//                    )
+//                ]),
+//          )
 
 //          Expanded(
 //            child: FlatButton(
@@ -240,12 +240,11 @@ class _CurrencyValueState extends State<CurrencyValue>
 //
 //              ),
 //            ),
-//            //  child:
-//           //       Ad(AdmobBannerSize.MEDIUM_RECTANGLE, Constants.thirdAdCode),
-//          )
-        ],
-      ),
-    );
+
+          Expanded(
+              child:
+                  Ad(AdmobBannerSize.MEDIUM_RECTANGLE, Constants.firstAdCode)),
+        ]));
   }
 }
 

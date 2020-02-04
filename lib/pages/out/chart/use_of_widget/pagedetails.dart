@@ -108,17 +108,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-*/
 
+*/
 class Pagedetails extends StatefulWidget {
   String collection;
   Pagedetails({this.collection});
+
   @override
   _PagedetailsState createState() => _PagedetailsState();
 }
 
 class _PagedetailsState extends State<Pagedetails> {
  GlobalKey key = GlobalKey();
+
 
 
   @override
@@ -129,40 +131,31 @@ class _PagedetailsState extends State<Pagedetails> {
 
     return SafeArea(
       child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-          ),
+
           backgroundColor: Colors.white,
-          body: Stack(
-            overflow: Overflow.visible,
-            alignment: Alignment.bottomCenter,
-            children: <Widget>[
-              FractionallySizedBox(key: key,
-                // heightFactor: 0.4,
-                widthFactor: 1,
-                child: Material(
-                  color: Colors.blueGrey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      Ad(AdmobBannerSize.FULL_BANNER, Constants.thirdAdCode),
-                      Padding(
-                        key: key,
-                        padding: EdgeInsets.only(right: 3, left: 3, bottom: 40),
-                        child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              'ايه الكلامايه الكلامايه الكلامايه الكلامايه الكلامايه الكلامايه الكلامالكلام',
-                              textDirection: TextDirection.rtl,
-                              style: TextStyle(fontSize: 25),
-                            )),
-                      )
-                    ],
+          body: Card(
+            color: Colors.blueGrey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                textDirection: TextDirection.rtl,
+                children: <Widget>[
+                  Ad(AdmobBannerSize.FULL_BANNER, Constants.thirdAdCode),
+                  Padding(
+                    key: key,
+                    padding: EdgeInsets.only(right: 3, left: 3, bottom: 40),
+                    child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+widget.collection,
+                          textDirection: TextDirection.rtl,
+                          style: TextStyle(fontSize: 25),
+                        )),
                   ),
-                ),
+                ],
+
               ),
-            ],
+            ),
           ),
           appBar: AppBar(
             backgroundColor: Colors.blueGrey,

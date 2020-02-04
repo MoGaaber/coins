@@ -78,7 +78,7 @@ class Draw extends StatelessWidget {
                 ),
                 ListTile(
                     leading: Icon(
-                      FontAwesomeIcons.oilCan,
+                      FontAwesomeIcons.gasPump,
                       color: Colors.white,
                     ),
                     title: Text(

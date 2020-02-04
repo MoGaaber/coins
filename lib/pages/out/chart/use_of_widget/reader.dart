@@ -17,6 +17,7 @@ class _ReaderState extends State<Reader> {
       ),
       body: StreamBuilder(
           stream: Firestore.instance.collection("post").snapshots(),
+
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Text("loading");

@@ -80,6 +80,8 @@ ca-app-pub-5221499382551302/5670519450
       Firestore.instance.collection('Pounds').document('Turkey').get(),
       Firestore.instance.collection('Pounds').document('Euro').get(),
       Firestore.instance.collection('Pounds').document('Egypt').get(),
+
+
     ]).then((x) {
       documents = x;
       currencyTypes = List.generate(6, (index) {
@@ -219,7 +221,7 @@ ca-app-pub-5221499382551302/5670519450
     pages = [CurrencyValue(), CurrencyValue(), Change(context)];
 
     fetchData();
-    //showAd();
+    showAd();
     size = MediaQuery.of(context).size;
     screenHeight = size.height;
     screenWidth = size.width;
