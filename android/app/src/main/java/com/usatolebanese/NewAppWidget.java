@@ -14,14 +14,14 @@ public class NewAppWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
 
         views.setTextViewText(R.id.textView2, "hello");
         views.setTextViewText(R.id.textView3, "world");
         views.setTextViewText(R.id.textView7, "!!!!");
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
-       // FirebaseFirestore.getInstance().collection("").document("").get();
+        FirebaseFirestore.getInstance().collection("").document("").get();
     }
 
     @Override
